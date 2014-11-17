@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cryptome</title>
+
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+
+<script>
+function hex2a(hex) {
+  var str = '';
+  for (var i = 0; i < hex.length; i += 2)
+      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+  return str;
+}
+
+function encryptFileData(fileData, passcode) {
+  var encrypted = CryptoJS.AES.encrypt(fileData, passcode);
+  return encrypted;
+}
+
+function decryptFileData(cipherData, passcode) {
+  var decrypted = CryptoJS.AES.decrypt(cipherData, passcode);
+  return hex2a(decrypted.toString())
+}
+
+function encryptMessage() {
+  var plainText = document.getElementById("inputData").value;
+  var password = document.getElementById("password").value;
+  var cipherText = encryptFileData(plainText, password);
+  console.log(cipherText.toString());
+
+  console.log(decryptFileData(cipherText, password));
+}
+
+</script>
+
+</head>
+<body>
+
+  Message <input name="inputData" type="text" id="inputData" /> <br />
+  Password <input name="password" type="text" id="password" /> <br />
+  <button onclick="encryptMessage();">Encrypt</button>
+
+</body>
+</html>

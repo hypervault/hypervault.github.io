@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cryptome</title>
+
 <script>
 /*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
 var saveAs=saveAs||"undefined"!==typeof navigator&&navigator.msSaveOrOpenBlob&&navigator.msSaveOrOpenBlob.bind(navigator)||function(a){"use strict";if("undefined"===typeof navigator||!/MSIE [1-9]\./.test(navigator.userAgent)){var k=a.document,n=k.createElementNS("http://www.w3.org/1999/xhtml","a"),w="download"in n,x=function(c){var e=k.createEvent("MouseEvents");e.initMouseEvent("click",!0,!1,a,0,0,0,0,0,!1,!1,!1,!1,0,null);c.dispatchEvent(e)},q=a.webkitRequestFileSystem,u=a.requestFileSystem||q||a.mozRequestFileSystem,
@@ -52,11 +58,52 @@ var Base64Binary={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0
 </script>
 
 <script>
+
+var fileDataRaw = "";
+
+function readFileData(fileObj, callback) {
+  var reader = new FileReader();
+
+  reader.onload = (function(theFile) {
+    return function(e) {
+      callback(theFile.name, e.target.result);
+    };
+  })(fileObj);
+
+  // Read in the image file as a data URL.
+  // reader.readAsArrayBuffer
+  reader.readAsDataURL(fileObj);
+}
+
+function getFileData() {
+  var fileList = document.getElementById("uploadInput").files;
+  var file1 = fileList[0];
+  readFileData(file1, function (fileName, fileData) {
+      fileDataRaw = fileData;
+      console.log('File name:' + fileName);
+      console.log(fileData);
+  });
+}
+
+</script>
+
+
+<script>
 function hex2a(hex) {
-    var str = '';
-    for (var i = 0; i < hex.length; i += 2)
-        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    return str;
+  var str = '';
+  for (var i = 0; i < hex.length; i += 2)
+      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+  return str;
+}
+
+function encryptFileData(fileData, passcode) {
+  var encrypted = CryptoJS.AES.encrypt(fileData, passcode);
+  return encrypted;
+}
+
+function decryptFileData(cipherData, passcode) {
+  var decrypted = CryptoJS.AES.decrypt(cipherData, passcode);
+  return hex2a(decrypted.toString())
 }
 
 var data = 'AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAA\nAAAAAABz/wAA4f8AAAAAAAAADf8A/64AAACM/wAA/64A/ysAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAciIiIiIiIickQiIiIiIkQiQREiIiIRFCIhACIiIgASIiEGYiImYBIiIiZSIi\nViIiIiIiMiMiIiIiIiIiIiIiIiIiIiIiIiIiIiIiMiMiIiIiImUiIlYiIiIQZiIiZgEiIhACIiIg\nASIkERIiIiERQiRCIiIiIiRCciIiIiIiIid//gAAn/kAAIfhAADH4wAAw8MAAPPPAAD9vwAA//8A\nAP//AAD9vwAA888AAMPDAADH4wAAh+EAAJ/5AAB//gAA\n'
@@ -68,7 +115,17 @@ var blob = new Blob([Base64Binary.decode(data)], {
 function doDownload() {
   saveAs(blob, "favicon.ico");
 }
+
+
 </script>
+</head>
+<body>
 
-<button onclick="doDownload()">Download image</button>
+  <form name="uploadForm">
+    <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
+  </form>
 
+  <button onclick="doDownload()">Download image</button>
+
+</body>
+</html>
