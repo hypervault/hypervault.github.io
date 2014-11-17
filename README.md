@@ -16,4 +16,9 @@ Crypto:
 * [CryptoJS](https://github.com/gwjjeff/cryptojs)
 * [Forthcoming W3 Web Crypto API](http://www.w3.org/TR/WebCryptoAPI/)
 
+Compression:
+
+We may want to compress the data to make the file size smaller.
+
+* [lz-string](http://pieroxy.net/blog/pages/lz-string/index.html)
 
