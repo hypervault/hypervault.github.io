@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Javascript File Reader</title>
+<script>
+
+function readFileData(fileObj, callback) {
+  var reader = new FileReader();
+
+  reader.onload = (function(theFile) {
+    return function(e) {
+      callback(theFile.name, e.target.result);
+    };
+  })(fileObj);
+
+  // Read in the image file as a data URL.
+  reader.readAsDataURL(fileObj);
+}
+
+function getFileData() {
+  var fileList = document.getElementById("uploadInput").files;
+  var file1 = fileList[0];
+  readFileData(file1, function (fileName, fileData) {
+      console.log('File name:' + fileName);
+      console.log(fileData);
+  });
+}
+
+</script>
+</head>
+
+<body>
+  <form name="uploadForm">
+    <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
+  </form>
+
+  <p>View file data in the JavaScript console.</p>
+</body>
+</html>
+
