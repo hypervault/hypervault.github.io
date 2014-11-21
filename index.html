@@ -10,6 +10,7 @@
 
 <script>
 
+//////////////////////////////////////////////////////////////////////////////////// Read file stuff
 var fileDataRaw = "";
 
 function readFileData(fileObj, callback) {
@@ -36,8 +37,7 @@ function getFileData() {
   });
 }
 
-
-
+/////////////////////////////////////////////////////////////////////////////////// Encryption stuff
 function hex2a(hex) {
   var str = '';
   for (var i = 0; i < hex.length; i += 2)
@@ -55,6 +55,7 @@ function decryptFileData(cipherData, passcode) {
   return hex2a(decrypted.toString())
 }
 
+////////////////////////////////////////////////////////////////////////////////////// Download stuff
 var data = 'AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAA\nAAAAAABz/wAA4f8AAAAAAAAADf8A/64AAACM/wAA/64A/ysAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAciIiIiIiIickQiIiIiIkQiQREiIiIRFCIhACIiIgASIiEGYiImYBIiIiZSIi\nViIiIiIiMiMiIiIiIiIiIiIiIiIiIiIiIiIiIiIiMiMiIiIiImUiIlYiIiIQZiIiZgEiIhACIiIg\nASIkERIiIiERQiRCIiIiIiRCciIiIiIiIid//gAAn/kAAIfhAADH4wAAw8MAAPPPAAD9vwAA//8A\nAP//AAD9vwAA888AAMPDAADH4wAAh+EAAJ/5AAB//gAA\n'
 
 var blob = new Blob([Base64Binary.decode(data)], {
@@ -69,12 +70,12 @@ function doDownload() {
 </head>
 <body>
 
-  Upload example
+  <p>Upload example</p>
   <form name="uploadForm">
     <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
   </form>
 
-  Download example
+  <p>Download example</p>
   <button onclick="doDownload()">Download image</button>
 
 </body>
