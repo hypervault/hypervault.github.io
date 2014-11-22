@@ -11,6 +11,7 @@
 <script>
 
 //////////////////////////////////////////////////////////////////////////////////// Read file stuff
+var globalFileData = {name:"", type:"", data:""};
 var fileDataRaw = "";
 
 function readFileData(fileObj, callback) {
@@ -18,7 +19,7 @@ function readFileData(fileObj, callback) {
 
   reader.onload = (function(theFile) {
     return function(e) {
-      callback(theFile.name, e.target.result);
+      callback(theFile.name, theFile.type, e.target.result);
     };
   })(fileObj);
 
@@ -30,9 +31,13 @@ function readFileData(fileObj, callback) {
 function getFileData() {
   var fileList = document.getElementById("uploadInput").files;
   var file1 = fileList[0];
-  readFileData(file1, function (fileName, fileData) {
+  readFileData(file1, function (fileName, fileType, fileData) {
       fileDataRaw = fileData;
+      globalFileData['name'] = fileName;
+      globalFileData['type'] = fileType;
+      globalFileData['data'] = fileData;
       console.log('File name:' + fileName);
+      console.log('File type:' + fileType);
       console.log(fileData);
   });
 }
@@ -55,28 +60,52 @@ function decryptFileData(cipherData, passcode) {
   return hex2a(decrypted.toString())
 }
 
-////////////////////////////////////////////////////////////////////////////////////// Download stuff
-var data = 'AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAA\nAAAAAABz/wAA4f8AAAAAAAAADf8A/64AAACM/wAA/64A/ysAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAciIiIiIiIickQiIiIiIkQiQREiIiIRFCIhACIiIgASIiEGYiImYBIiIiZSIi\nViIiIiIiMiMiIiIiIiIiIiIiIiIiIiIiIiIiIiIiMiMiIiIiImUiIlYiIiIQZiIiZgEiIhACIiIg\nASIkERIiIiERQiRCIiIiIiRCciIiIiIiIid//gAAn/kAAIfhAADH4wAAw8MAAPPPAAD9vwAA//8A\nAP//AAD9vwAA888AAMPDAADH4wAAh+EAAJ/5AAB//gAA\n'
+//////////////////////////////////////////////////////////////////////////////////// Vault rendering
 
-var blob = new Blob([Base64Binary.decode(data)], {
-    type: "image/ico;",
-});
+function getVaultTemplate(callback) {
+  url = "vault.html"
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      callback(xhr.responseText);
+    }
+  }
+  xhr.send();
+}
 
-function doDownload() {
-  saveAs(blob, "favicon.ico");
+function stripDataPrefix(dataUrl) {
+  var firstCommaIndex = dataUrl.indexOf(',');
+  return dataUrl.slice(firstCommaIndex+1);
+}
+
+function renderVault(fileName, fileType, fileData, callback) {
+  getVaultTemplate(function (vaultTemplate) {
+    // Replace the 3 placeholders with the file name, file type, and file data
+    var vault = vaultTemplate.replace('REPLACE_WITH_FILE_NAME', fileName)
+      .replace('REPLACE_WITH_FILE_TYPE', fileType)
+      .replace('REPLACE_WITH_FILE_DATA', stripDataPrefix(fileData));
+    console.log(vault);
+    var vaultBlob = new Blob([vault], {type: "text/html;charset=utf-8"});
+    saveAs(vaultBlob, "vault1.html");
+  });
+}
+
+function createVault() {
+  renderVault(globalFileData['name'], globalFileData['type'], globalFileData['data']);
 }
 
 </script>
 </head>
 <body>
 
-  <p>Upload example</p>
+  <p>
   <form name="uploadForm">
     <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
   </form>
+  </p>
 
-  <p>Download example</p>
-  <button onclick="doDownload()">Download image</button>
+  <button onclick="createVault()">Create Hypervault</button>
 
 </body>
 </html>
