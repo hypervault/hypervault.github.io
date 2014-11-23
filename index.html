@@ -4,6 +4,26 @@
 <meta charset="UTF-8">
 <title>Hypervault</title>
 
+<link rel="stylesheet" type="text/css" href="css/picnic-v2.min.css">
+<style type="text/css">
+#title {
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 500%;
+}
+
+#container {
+  padding: 50px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+
+  border: 1px solid #FF851B;
+  border-radius: 12px;
+  height: 400px;
+}
+</style>
+
 <script src="cryptojs-aes.min.js"></script>
 <script src="filesaver.js"></script>
 <script src="base64-binary.js"></script>
@@ -99,6 +119,9 @@ function createVault() {
 </head>
 <body>
 
+<div id="container">
+  <p id="title">Hypervault</p>
+
   <p>
   <form name="uploadForm">
     <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
@@ -106,6 +129,7 @@ function createVault() {
   </p>
 
   <button onclick="createVault()">Create Hypervault</button>
+</div>
 
 </body>
 </html>
