@@ -8,11 +8,14 @@
 <style type="text/css">
 #title {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 500%;
+  font-size: 300%;
+  font-weight: lighter;
+  letter-spacing: 4px;
+  color: #FF4136;
 }
 
 #container {
-  padding: 50px;
+  padding: 0px 30px 0px 30px;
   width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -20,7 +23,7 @@
 
   border: 1px solid #FF851B;
   border-radius: 12px;
-  height: 400px;
+  height: 350px;
 }
 </style>
 
@@ -104,15 +107,24 @@ function renderVault(fileName, fileType, fileData, callback) {
     // Replace the 3 placeholders with the file name, file type, and file data
     var vault = vaultTemplate.replace('REPLACE_WITH_FILE_NAME', fileName)
       .replace('REPLACE_WITH_FILE_TYPE', fileType)
-      .replace('REPLACE_WITH_FILE_DATA', stripDataPrefix(fileData));
-    console.log(vault);
-    var vaultBlob = new Blob([vault], {type: "text/html;charset=utf-8"});
-    saveAs(vaultBlob, "vault1.html");
+      .replace('REPLACE_WITH_FILE_DATA', fileData);
+    callback(vault);
   });
 }
 
+function saveVault(vaultData, vaultFileName) {
+  var vaultBlob = new Blob([vaultData], {type: "text/html;charset=utf-8"});
+  saveAs(vaultBlob, vaultFileName);
+}
+
 function createVault() {
-  renderVault(globalFileData['name'], globalFileData['type'], globalFileData['data']);
+  var password = document.getElementById('password_input').value;
+  var base64FileData = stripDataPrefix(globalFileData['data']);
+  var encryptedData = encryptFileData(base64FileData, password);
+
+  renderVault(globalFileData['name'], globalFileData['type'], encryptedData, function (vaultData) {
+    saveVault(vaultData, "vault1.html");
+  });
 }
 
 </script>
@@ -128,7 +140,11 @@ function createVault() {
   </form>
   </p>
 
-  <button onclick="createVault()">Create Hypervault</button>
+  <p>
+    <input type="password" name="password_input" id="password_input" placeholder="Password">
+  </p>
+
+  <button onclick="createVault()">Encrypt</button>
 </div>
 
 </body>

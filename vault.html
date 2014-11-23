@@ -59,7 +59,10 @@ var Base64Binary={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0
 
 <script>
 
-/////////////////////////////////////////////////////////////////////////////////// Encryption stuff
+var fileName = 'REPLACE_WITH_FILE_NAME';
+var fileType = 'REPLACE_WITH_FILE_TYPE;';
+var cipherData = 'REPLACE_WITH_FILE_DATA';
+
 function hex2a(hex) {
   var str = '';
   for (var i = 0; i < hex.length; i += 2)
@@ -72,15 +75,15 @@ function decryptFileData(cipherData, passcode) {
   return hex2a(decrypted.toString())
 }
 
-////////////////////////////////////////////////////////////////////////////////////// Download stuff
-var fileName = 'REPLACE_WITH_FILE_NAME';
-var data = 'REPLACE_WITH_FILE_DATA';
 
-var blob = new Blob([Base64Binary.decode(data)], {
-    type: "REPLACE_WITH_FILE_TYPE;",
-});
+function decryptAndDownload() {
+  var password = document.getElementById('password_input').value;
+  var plainData = decryptFileData(cipherData, password);
 
-function doDownload() {
+  var blob = new Blob([Base64Binary.decode(plainData)], {
+      type: fileType
+  });
+
   saveAs(blob, fileName);
 }
 
@@ -88,7 +91,11 @@ function doDownload() {
 </head>
 <body>
 
-  <button onclick="doDownload()">Download contents of vault</button>
+  <p>
+    <input type="password" name="password_input" id="password_input" placeholder="Password">
+  </p>
+
+  <button onclick="decryptAndDownload()">Decrypt</button>
 
 </body>
 </html>
