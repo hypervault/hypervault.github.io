@@ -19,7 +19,8 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    test: 'test'
   };
 
   // Define the configuration for all the tasks
@@ -118,7 +119,8 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      test: 'test/app'
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -302,6 +304,11 @@ module.exports = function (grunt) {
         cwd: '<%= config.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      test: {
+        expand: true,
+        src: '<%= config.app %>/**',
+        dest: '<%= config.test %>/'
       }
     },
 
@@ -349,6 +356,8 @@ module.exports = function (grunt) {
     if (target !== 'watch') {
       grunt.task.run([
         'clean:server',
+        'clean:test',
+        'copy:test',
         'concurrent:test',
         'autoprefixer'
       ]);
