@@ -31,29 +31,39 @@ body {
 }
 
 .btn {
-  background: #f27c1b;
-  background-image: -webkit-linear-gradient(top, #f27c1b, #f23f35);
-  background-image: -moz-linear-gradient(top, #f27c1b, #f23f35);
-  background-image: -ms-linear-gradient(top, #f27c1b, #f23f35);
-  background-image: -o-linear-gradient(top, #f27c1b, #f23f35);
-  background-image: linear-gradient(to bottom, #f27c1b, #f23f35);
-  -webkit-border-radius: 3;
-  -moz-border-radius: 3;
-  border-radius: 3px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 16px;
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  color: #FF4136;
+  font-size: 15px;
+  background: #ffffff;
   padding: 10px 20px 10px 20px;
+  border: solid #FF4136 1px;
   text-decoration: none;
-  border: 0px;
 }
 
 .btn:hover {
-  background: #FF851B;
-  background-image: -webkit-linear-gradient(top, #FF851B, #FF4136);
-  background-image: -moz-linear-gradient(top, #FF851B, #FF4136);
-  background-image: -ms-linear-gradient(top, #FF851B, #FF4136);
-  background-image: -o-linear-gradient(top, #FF851B, #FF4136);
-  background-image: linear-gradient(to bottom, #FF851B, #FF4136);
+  background: #ffffff;
+  color: #FF851B;
+  border: solid #FF851B 1px;
   text-decoration: none;
 }
+
+input[type=password] {
+  border: 1px solid #FF4136;
+  border-radius: 4px;
+  width: 150px;
+  height:25px;
+  padding: 5px;
+  font-size:20px;
+}
+
+input[type=file] {
+  border: 1px solid #FF4136;
+  border-radius: 4px;
+  width: 350px;
+  height: 25px;
+  padding: 5px;
+  font-size:14px;
+}
+
