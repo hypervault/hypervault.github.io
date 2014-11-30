@@ -16,7 +16,7 @@
 
   describe('Vault code', function () {
     describe('stripDataPrefix should strip the prefix of a data url', function () {
-      it('should be awesome', function () {
+      it('leaving only the data portion of the URL', function () {
         var dataUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA';
         var expectedResult = 'iVBORw0KGgoAAAANSUhEUgAAAAUA';
         var result = stripDataPrefix(dataUrl);
