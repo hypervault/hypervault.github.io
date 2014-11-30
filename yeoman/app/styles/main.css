@@ -1,24 +1,6 @@
 body {
-  background: #fafafa;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
-}
-
-.hero-unit {
-  margin: 50px auto 0 auto;
-  width: 300px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
-}
-
-.hero-unit h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
 }
 
 .browsehappy {
@@ -46,4 +28,32 @@ body {
   border: 1px solid #FF851B;
   border-radius: 12px;
   height: 350px;
+}
+
+.btn {
+  background: #f27c1b;
+  background-image: -webkit-linear-gradient(top, #f27c1b, #f23f35);
+  background-image: -moz-linear-gradient(top, #f27c1b, #f23f35);
+  background-image: -ms-linear-gradient(top, #f27c1b, #f23f35);
+  background-image: -o-linear-gradient(top, #f27c1b, #f23f35);
+  background-image: linear-gradient(to bottom, #f27c1b, #f23f35);
+  -webkit-border-radius: 3;
+  -moz-border-radius: 3;
+  border-radius: 3px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: 0px;
+}
+
+.btn:hover {
+  background: #FF851B;
+  background-image: -webkit-linear-gradient(top, #FF851B, #FF4136);
+  background-image: -moz-linear-gradient(top, #FF851B, #FF4136);
+  background-image: -ms-linear-gradient(top, #FF851B, #FF4136);
+  background-image: -o-linear-gradient(top, #FF851B, #FF4136);
+  background-image: linear-gradient(to bottom, #FF851B, #FF4136);
+  text-decoration: none;
 }
