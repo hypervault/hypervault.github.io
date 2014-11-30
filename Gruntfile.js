@@ -120,7 +120,8 @@ module.exports = function (grunt) {
         }]
       },
       server: '.tmp',
-      test: 'test/app'
+      test: 'test/app',
+      testbower: 'test/app_bower_components'
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -310,6 +311,12 @@ module.exports = function (grunt) {
         expand: true,
         src: '<%= config.app %>/**',
         dest: '<%= config.test %>/'
+      },
+      testbower: {
+        dot: true,
+        expand: false,
+        src: 'bower_components/**',
+        dest: '<%= config.test %>/app_bower_components/'
       }
     },
 
@@ -358,7 +365,9 @@ module.exports = function (grunt) {
       grunt.task.run([
         'clean:server',
         'clean:test',
+        'clean:testbower',
         'copy:test',
+        'copy:testbower',
         'concurrent:test',
         'autoprefixer'
       ]);
