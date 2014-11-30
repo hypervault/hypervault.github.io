@@ -27,3 +27,23 @@ body {
   color: #000;
   padding: 0.2em 0;
 }
+
+#title {
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 300%;
+  font-weight: lighter;
+  letter-spacing: 4px;
+  color: #FF4136;
+}
+
+#container {
+  padding: 0px 30px 0px 30px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+
+  border: 1px solid #FF851B;
+  border-radius: 12px;
+  height: 350px;
+}

@@ -21,20 +21,26 @@
     <![endif]-->
 
 
-    <div class="hero-unit">
-      <h1>'Allo, 'Allo!</h1>
-      <p>You now have</p>
-      <ul>
-      <li>HTML5 Boilerplate</li>
+    <div id="container">
+      <p id="title">Hypervault</p>
 
+      <p>
+      <form name="uploadForm">
+        <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
+      </form>
+      </p>
 
-      </ul>
+      <p>
+        <input type="password" name="password_input" id="password_input" placeholder="Password">
+      </p>
+
+      <button onclick="createVault()">Encrypt</button>
     </div>
 
 
+    <script src="bower_components/crypto.js/components/aes.js"></script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/crypto.js/core.js"></script>
     <script src="bower_components/FileSaver/FileSaver.js"></script>
     <!-- endbower -->
