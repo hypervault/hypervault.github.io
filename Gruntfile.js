@@ -121,7 +121,7 @@ module.exports = function (grunt) {
       },
       server: '.tmp',
       test: 'test/app',
-      testbower: 'test/app_bower_components'
+      testbower: 'test/bower_components_app'
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -313,10 +313,11 @@ module.exports = function (grunt) {
         dest: '<%= config.test %>/'
       },
       testbower: {
+        expand: true,
         dot: true,
-        expand: false,
-        src: 'bower_components/**',
-        dest: '<%= config.test %>/app_bower_components/'
+        cwd: 'bower_components',
+        src: '**',
+        dest: '<%= config.test %>/bower_components_app/'
       }
     },
 

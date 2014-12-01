@@ -14,6 +14,17 @@
     });
   });
 
+  describe('CryptoJS', function () {
+    describe('base64 decoder', function () {
+      it('should decode base64 into a UInt8Array', function () {
+        var encodedString = "SHlwZXJ2YXVsdCBGVFc=";
+        var expectedDecodedString = new Uint8Array([72, 121, 112, 101, 114, 118, 97, 117, 108, 116, 32, 70, 84, 87]);
+        var decodedString = Base64Binary.decode(encodedString);
+        expect(decodedString).to.eql(expectedDecodedString);
+      });
+    });
+  });
+
   describe('Vault code', function () {
     describe('stripDataPrefix should strip the prefix of a data url', function () {
       it('leaving only the data portion of the URL', function () {
