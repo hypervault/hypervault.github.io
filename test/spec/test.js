@@ -9,6 +9,7 @@
   var cryptoParams = { 'iter': 10000, 'mode': 'ocb2', 'ks': 256 };
 
   describe('SJCL', function () {
+
     describe('codec library', function () {
       var correctBase64Msg = "VGhyb3VnaCBnYXppbmcgb24gdGhlIHVucXVpZXQgc2t5";
       it('should convert from a UTF-8 string to Base64', function () {
@@ -23,9 +24,7 @@
         expect(msg).to.eql(plaintext);
       });
     });
-  });
 
-  describe('SJCL', function () {
     describe('encrypt function return value', function () {
       var cipherData = sjcl.encrypt(password, plaintext, cryptoParams);
       var parsedCipherData = JSON.parse(cipherData);
@@ -46,9 +45,7 @@
         expect(parsedCipherData.iter).to.equal(10000);
       });
     });
-  });
 
-  describe('SJCL', function () {
     describe('decrypt function', function () {
       var cipherData = sjcl.encrypt(password, plaintext, cryptoParams);
       var decryptedData = sjcl.decrypt(password, cipherData);
@@ -61,8 +58,8 @@
         expect(function () {sjcl.decrypt("wrong_password", cipherData)}).to.throw(sjcl.exception.corrupt);
       });
     });
-  });
 
+  });
 
   describe('Base64-Binary', function () {
     describe('base64 decoder', function () {
