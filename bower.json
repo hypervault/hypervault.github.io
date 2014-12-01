@@ -3,6 +3,6 @@
   "private": true,
   "dependencies": {
     "FileSaver": "*",
-    "cryptojslib": "~3.1.2"
+    "sjcl": "~1.0.0"
   }
 }
