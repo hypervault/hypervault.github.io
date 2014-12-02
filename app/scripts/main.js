@@ -32,6 +32,8 @@ function getFileData() {
 }
 
 /////////////////////////////////////////////////////////////////////////////////// Encryption stuff
+var cryptoParams = { 'iter': 10000, 'mode': 'ocb2', 'ks': 256 };
+
 function hex2a(hex) {
   var str = '';
   for (var i = 0; i < hex.length; i += 2)
@@ -39,14 +41,17 @@ function hex2a(hex) {
   return str;
 }
 
-function encryptFileData(fileData, passcode) {
-  var encrypted = CryptoJS.AES.encrypt(fileData, passcode);
+function encryptFileData(fileData, password) {
+  var encrypted = sjcl.encrypt(password, fileData, cryptoParams);
+  //var encrypted = CryptoJS.AES.encrypt(fileData, password);
   return encrypted;
 }
 
-function decryptFileData(cipherData, passcode) {
-  var decrypted = CryptoJS.AES.decrypt(cipherData, passcode);
-  return hex2a(decrypted.toString())
+function decryptFileData(cipherData, password) {
+  var decrypted = sjcl.decrypt(password, cipherData, cryptoParams)
+  return decrypted;
+  //var decrypted = CryptoJS.AES.decrypt(cipherData, password);
+  //return hex2a(decrypted.toString())
 }
 
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
