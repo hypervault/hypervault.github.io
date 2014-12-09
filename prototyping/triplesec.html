@@ -2,18 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cryptome</title>
+<title>Triplesec test</title>
 
 <script src="https://keybase.io/triplesec/rel/triplesec-3.0.0-min.js"></script>
 
 <script>
-function hex2a(hex) {
-  var str = '';
-  for (var i = 0; i < hex.length; i += 2)
-      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-  return str;
-}
-
 function encryptFileData(fileData, passcode, callback) {
   var data = new triplesec.Buffer(fileData);
   var key = new triplesec.Buffer(passcode);
@@ -21,8 +14,8 @@ function encryptFileData(fileData, passcode, callback) {
   triplesec.encrypt({key:key, data:data}, callback);
 }
 
-function decryptFileData(cipherData, passcode, callback) {
-  var data = new triplesec.Buffer(cipherData);
+function decryptFileData(cipherDataBase64, passcode, callback) {
+  var data = new triplesec.Buffer(cipherDataBase64, 'base64');
   var key = new triplesec.Buffer(passcode);
 
   triplesec.decrypt({key:key, data:data}, callback);
@@ -36,18 +29,15 @@ function encryptMessage() {
   console.log('Password:', password);
 
   encryptFileData(plainText, password, function (err, cipherText) {
-    console.log('Encrypted:', cipherText);
+    var cipherDataBase64 = cipherText.toString('base64');
+    console.log('Encrypted:', cipherDataBase64);
 
-    decryptFileData(cipherText, password, function (err, decrypted) {
+    decryptFileData(cipherDataBase64, password, function (err, decrypted) {
       console.log('Decrypted:', decrypted.toString());
     });
   
   });
-
-
-  var pageSource = document.documentElement.outerHTML;
 }
-
 </script>
 
 </head>
