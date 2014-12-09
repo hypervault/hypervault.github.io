@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html><head>
+<title>asmcrypto.js test</title>
+<script src="https://github.com/vibornoff/asmcrypto.js"></script>
+<script>
+
+function encryptFileData(fileData, passcode) {
+  var encrypted = AES_CCM.encrypt( fileData, key, nonce, adata, tagsize )
+  return encrypted;
+}
+
+function decryptFileData(cipherData, passcode) {
+  var decrypted = CryptoJS.AES.decrypt(cipherData, passcode);
+  return hex2a(decrypted.toString())
+}
+
+function encryptMessage() {
+  var plainText = document.getElementById("inputData").value;
+  var password = document.getElementById("password").value;
+  var cipherText = encryptFileData(plainText, password);
+  console.log(cipherText.toString());
+
+  console.log(decryptFileData(cipherText, password));
+
+  var pageSource = document.documentElement.outerHTML;
+}
+
+
+</script>
+</head><body>
+
+  Message <input name="inputData" type="text" id="inputData" /> <br />
+  Password <input name="password" type="text" id="password" /> <br />
+  <button onclick="encryptMessage();">Encrypt</button>
+
+</body>
+</html>
