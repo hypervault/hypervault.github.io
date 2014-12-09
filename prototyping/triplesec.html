@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cryptome</title>
+
+<script src="https://keybase.io/triplesec/rel/triplesec-3.0.0-min.js"></script>
+
+<script>
+function hex2a(hex) {
+  var str = '';
+  for (var i = 0; i < hex.length; i += 2)
+      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+  return str;
+}
+
+function encryptFileData(fileData, passcode, callback) {
+  var data = new triplesec.Buffer(fileData);
+  var key = new triplesec.Buffer(passcode);
+
+  triplesec.encrypt({key:key, data:data}, callback);
+}
+
+function decryptFileData(cipherData, passcode, callback) {
+  var data = new triplesec.Buffer(cipherData);
+  var key = new triplesec.Buffer(passcode);
+
+  triplesec.decrypt({key:key, data:data}, callback);
+}
+
+function encryptMessage() {
+  var plainText = document.getElementById("inputData").value;
+  var password = document.getElementById("password").value;
+
+  console.log('Plaintext:', plainText);
+  console.log('Password:', password);
+
+  encryptFileData(plainText, password, function (err, cipherText) {
+    console.log('Encrypted:', cipherText);
+
+    decryptFileData(cipherText, password, function (err, decrypted) {
+      console.log('Decrypted:', decrypted.toString());
+    });
+  
+  });
+
+
+  var pageSource = document.documentElement.outerHTML;
+}
+
+</script>
+
+</head>
+<body>
+
+  Message <input name="inputData" type="text" id="inputData" /> <br />
+  Password <input name="password" type="text" id="password" /> <br />
+  <button onclick="encryptMessage();">Encrypt</button>
+
+</body>
+</html>
