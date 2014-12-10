@@ -41,17 +41,13 @@ function hex2a(hex) {
   return str;
 }
 
-function encryptFileData(fileData, password) {
-  var encrypted = sjcl.encrypt(password, fileData, cryptoParams);
-  //var encrypted = CryptoJS.AES.encrypt(fileData, password);
-  return encrypted;
-}
+function encryptFileData(fileData, password, callback) {
+  var data = new triplesec.Buffer(fileData);
+  var key = new triplesec.Buffer(password);
 
-function decryptFileData(cipherData, password) {
-  var decrypted = sjcl.decrypt(password, cipherData, cryptoParams)
-  return decrypted;
-  //var decrypted = CryptoJS.AES.decrypt(cipherData, password);
-  //return hex2a(decrypted.toString())
+  triplesec.encrypt({key:key, data:data}, function (err, encryptedData) {
+    callback(err, encryptedData.toString('base64'));
+  });
 }
 
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
@@ -91,10 +87,12 @@ function saveVault(vaultData, vaultFileName) {
 function createVault() {
   var password = document.getElementById('password_input').value;
   var base64FileData = stripDataPrefix(globalFileData['data']);
-  var encryptedData = encryptFileData(base64FileData, password);
+  //var encryptedData = encryptFileData(base64FileData, password);
 
-  renderVault(globalFileData['name'], globalFileData['type'], encryptedData, function (vaultData) {
-    saveVault(vaultData, "vault1.html");
+  encryptFileData(base64FileData, password, function (err, encryptedData) {
+    renderVault(globalFileData['name'], globalFileData['type'], encryptedData, function (vaultData) {
+      saveVault(vaultData, "vault1.html");
+    });
   });
 }
 

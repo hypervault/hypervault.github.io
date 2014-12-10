@@ -3,6 +3,6 @@
   "private": true,
   "dependencies": {
     "FileSaver": "*",
-    "sjcl": "~1.0.0"
+    "triplesec": "https://github.com/keybase/triplesec.git#~3.0.19"
   }
 }
