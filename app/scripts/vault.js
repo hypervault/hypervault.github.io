@@ -1,3 +1,4 @@
+var cryptoParams = { 'iter': 10000, 'mode': 'ocb2', 'ks': 256 };
 var fileName = 'REPLACE_WITH_FILE_NAME';
 var fileType = 'REPLACE_WITH_FILE_TYPE;';
 var cipherData = 'REPLACE_WITH_FILE_DATA';
@@ -9,10 +10,17 @@ function hex2a(hex) {
   return str;
 }
 
-function decryptFileData(cipherData, passcode) {
-  var decrypted = CryptoJS.AES.decrypt(cipherData, passcode);
-  return hex2a(decrypted.toString())
+function decryptFileData(cipherData, password) {
+  var decrypted = sjcl.decrypt(password, cipherData, cryptoParams)
+  return decrypted;
+  //var decrypted = CryptoJS.AES.decrypt(cipherData, password);
+  //return hex2a(decrypted.toString())
 }
+
+// function decryptFileData(cipherData, passcode) {
+//   var decrypted = CryptoJS.AES.decrypt(cipherData, passcode);
+//   return hex2a(decrypted.toString())
+// }
 
 function decryptAndDownload() {
   var password = document.getElementById('password_input').value;

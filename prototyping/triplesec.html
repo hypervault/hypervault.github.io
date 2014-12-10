@@ -14,8 +14,8 @@ function encryptFileData(fileData, passcode, callback) {
   triplesec.encrypt({key:key, data:data}, callback);
 }
 
-function decryptFileData(cipherDataBase64, passcode, callback) {
-  var data = new triplesec.Buffer(cipherDataBase64, 'base64');
+function decryptFileData(cipherData, passcode, callback) {
+  var data = new triplesec.Buffer(cipherData);
   var key = new triplesec.Buffer(passcode);
 
   triplesec.decrypt({key:key, data:data}, callback);
@@ -29,15 +29,17 @@ function encryptMessage() {
   console.log('Password:', password);
 
   encryptFileData(plainText, password, function (err, cipherText) {
-    var cipherDataBase64 = cipherText.toString('base64');
-    console.log('Encrypted:', cipherDataBase64);
+    console.log('Encrypted:', cipherText);
 
-    decryptFileData(cipherDataBase64, password, function (err, decrypted) {
+    decryptFileData(cipherText, password, function (err, decrypted) {
       console.log('Decrypted:', decrypted.toString());
     });
   
   });
+
+  var pageSource = document.documentElement.outerHTML;
 }
+
 </script>
 
 </head>
