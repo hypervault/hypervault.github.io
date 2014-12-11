@@ -8,6 +8,14 @@
   // Set mode to OCB2, keysize to 256 bits, and PBKDF2 iterations to 10000
   var cryptoParams = { 'iter': 10000, 'mode': 'ocb2', 'ks': 256 };
 
+  describe('TripleSec', function () {
+    describe('encryption library', function () {
+      it('should encrypt data', function () {
+        
+      });
+    });
+  });
+
   describe('SJCL', function () {
 
     describe('codec library', function () {
