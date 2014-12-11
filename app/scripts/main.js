@@ -32,21 +32,22 @@ function getFileData() {
 }
 
 /////////////////////////////////////////////////////////////////////////////////// Encryption stuff
-var cryptoParams = { 'iter': 10000, 'mode': 'ocb2', 'ks': 256 };
-
-function hex2a(hex) {
-  var str = '';
-  for (var i = 0; i < hex.length; i += 2)
-      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-  return str;
-}
-
 function encryptFileData(fileData, password, callback) {
   var data = new triplesec.Buffer(fileData);
   var key = new triplesec.Buffer(password);
 
   triplesec.encrypt({key:key, data:data}, function (err, encryptedData) {
     callback(err, encryptedData.toString('base64'));
+  });
+}
+
+function decryptFileData(cipherData, password, callback) {
+  var data = new triplesec.Buffer(cipherData, 'base64');
+  var key = new triplesec.Buffer(password);
+
+  triplesec.decrypt({key:key, data:data}, function (err, plainData) {
+    var plainDataBase64 = plainData.toString();     
+    callback(err, plainDataBase64);
   });
 }
 
@@ -87,7 +88,6 @@ function saveVault(vaultData, vaultFileName) {
 function createVault() {
   var password = document.getElementById('password_input').value;
   var base64FileData = stripDataPrefix(globalFileData['data']);
-  //var encryptedData = encryptFileData(base64FileData, password);
 
   encryptFileData(base64FileData, password, function (err, encryptedData) {
     renderVault(globalFileData['name'], globalFileData['type'], encryptedData, function (vaultData) {
