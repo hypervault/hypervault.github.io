@@ -16,6 +16,8 @@ module.exports = function (grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
+  grunt.loadNpmTasks('grunt-text-replace');
+
   // Configurable paths
   var config = {
     app: 'app',
@@ -28,6 +30,19 @@ module.exports = function (grunt) {
 
     // Project settings
     config: config,
+
+    // This is only used to patch a ridiculous PhantomJS bug:
+    // https://github.com/angular/angular.js/issues/7851
+    replace: {
+      phantomjs_patch_array_slice: {
+        src: ['test/app/bower_components/triplesec/browser/triplesec.js'],
+        overwrite: true,
+        replacements: [{
+          from: "Array.apply([], v)",
+          to: "Array.apply([], [].slice.call(v))"
+        }]
+      }
+    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -142,6 +157,9 @@ module.exports = function (grunt) {
       all: {
         options: {
           run: true,
+          timeout: 140000,
+          log: true,
+          logErrors: true,
           reporter: 'Spec', // Nyan
           urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
         }
@@ -359,6 +377,7 @@ module.exports = function (grunt) {
         'clean:server',
         'clean:test',
         'copy:test',
+        'replace:phantomjs_patch_array_slice',
         'concurrent:test',
         'autoprefixer'
       ]);

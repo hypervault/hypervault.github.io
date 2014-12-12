@@ -6,6 +6,16 @@
     <link rel="stylesheet" href="bower_components/mocha/mocha.css">
 </head>
 <body>
+    <script>
+      // Bind shim for PhantomJS to fix this bug: https://github.com/ariya/phantomjs/issues/10522
+      // Code from here: https://github.com/c9/smith/blob/master/tests/public/test.js#L2-L7
+      Function.prototype.bind = Function.prototype.bind || function (thisp) {
+        var fn = this;
+        return function () {
+          return fn.apply(thisp, arguments);
+        };
+      };
+    </script>
     <div id="mocha"></div>
     <script src="bower_components/mocha/mocha.js"></script>
     <script>
@@ -27,9 +37,9 @@
     <script src="spec/test.js"></script>
 
     <script>
-    if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+    //if (navigator.userAgent.indexOf('PhantomJS') < 0) {
       mocha.run()
-    }
+    //}
     </script>
 </body>
 </html>
