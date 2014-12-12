@@ -5,19 +5,40 @@
 
   var plaintext = "Through gazing on the unquiet sky";
   var password = "metempsychosis";
-  // Set mode to OCB2, keysize to 256 bits, and PBKDF2 iterations to 10000
-  var cryptoParams = { 'iter': 10000, 'mode': 'ocb2', 'ks': 256 };
 
-  describe('Hypervault', function () {
+  describe('Triplesec', function (done) {
     describe('encryption function', function () {
-      it('should encrypt data and output a base64 string', function (done) {
-        encryptFileData(plaintext, password, function (err, encryptedData) {
-          expect(encryptedData).to.match(/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/);
-          done();
+      it('should encrypt data and decrypt data', function (done) {
+        this.timeout(5000);
+
+        var data = new triplesec.Buffer(plaintext);
+        var key = new triplesec.Buffer(password);
+
+        triplesec.encrypt({key:key, data:data}, function (err, cipherData) {
+          var data2 = new triplesec.Buffer(cipherData, 'base64');
+          triplesec.decrypt({key:key, data:data2}, function (err, plainData) {
+            var plainDataBase64 = plainData.toString();     
+            expect(plainDataBase64).to.equal(plaintex);
+            done();
+          });
         });
+
       });
     });
   });
+
+  // describe('Hypervault', function () {
+  //   describe('encryption function', function () {
+  //     it('should encrypt data and output a base64 string', function (done) {
+  //       this.timeout(5000);
+  //
+  //       encryptFileData(plaintext, password, function (err, encryptedData) {
+  //         expect(encryptedData).to.match(/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/);
+  //         done();
+  //       });
+  //     });
+  //   });
+  // });
 
   describe('Base64-Binary', function () {
     describe('base64 decoder', function () {
