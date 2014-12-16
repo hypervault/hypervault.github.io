@@ -1,35 +1,23 @@
-var cryptoParams = { 'iter': 10000, 'mode': 'ocb2', 'ks': 256 };
 var fileName = 'REPLACE_WITH_FILE_NAME';
 var fileType = 'REPLACE_WITH_FILE_TYPE;';
 var cipherData = 'REPLACE_WITH_FILE_DATA';
 
-function hex2a(hex) {
-  var str = '';
-  for (var i = 0; i < hex.length; i += 2)
-      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-  return str;
-}
+function decryptFileData(cipherData, password, callback) {
+  var data = new triplesec.Buffer(cipherData, 'base64');
+  var key = new triplesec.Buffer(password);
 
-function decryptFileData(cipherData, password) {
-  var decrypted = sjcl.decrypt(password, cipherData, cryptoParams)
-  return decrypted;
-  //var decrypted = CryptoJS.AES.decrypt(cipherData, password);
-  //return hex2a(decrypted.toString())
+  triplesec.decrypt({key:key, data:data}, function (err, plainData) {
+    var plainDataBase64 = plainData.toString();     
+    callback(err, plainDataBase64);
+  });
 }
-
-// function decryptFileData(cipherData, passcode) {
-//   var decrypted = CryptoJS.AES.decrypt(cipherData, passcode);
-//   return hex2a(decrypted.toString())
-// }
 
 function decryptAndDownload() {
   var password = document.getElementById('password_input').value;
-  var plainData = decryptFileData(cipherData, password);
-
-  var blob = new Blob([Base64Binary.decode(plainData)], {
-      type: fileType
+  decryptFileData(cipherData, password, function (err, plainData) {
+    var blob = new Blob([Base64Binary.decode(plainData)], {
+        type: fileType
+    });
+    saveAs(blob, fileName);
   });
-
-  saveAs(blob, fileName);
 }
-

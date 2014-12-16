@@ -47,7 +47,7 @@ module.exports = function (grunt) {
     // https://github.com/angular/angular.js/issues/7851
     replace: {
       phantomjs_patch_array_slice: {
-        src: ['test/app/bower_components/triplesec/browser/triplesec.js'],
+        src: ['test/bower_components_app/triplesec/browser/triplesec.js'],
         overwrite: true,
         replacements: [{
           from: "Array.apply([], v)",
@@ -147,7 +147,8 @@ module.exports = function (grunt) {
         }]
       },
       server: '.tmp',
-      test: 'test/app'
+      test: 'test/app',
+      testbower: 'test/bower_components_app'
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -340,6 +341,13 @@ module.exports = function (grunt) {
         expand: true,
         src: '<%= config.app %>/**',
         dest: '<%= config.test %>/'
+      },
+      testbower: {
+        expand: true,
+        dot: true,
+        cwd: 'bower_components',
+        src: '**',
+        dest: '<%= config.test %>/bower_components_app/'
       }
     },
 
@@ -388,7 +396,9 @@ module.exports = function (grunt) {
       grunt.task.run([
         'clean:server',
         'clean:test',
+        'clean:testbower',
         'copy:test',
+        'copy:testbower',
         'replace:phantomjs_patch_array_slice',
         'concurrent:test',
         'autoprefixer'
@@ -411,10 +421,10 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'copy:dist',
-    //'rev',
+    'rev',
     'usemin',
     //'htmlmin',
-    //'inline:dist'
+    'inline:dist'
   ]);
 
   grunt.registerTask('default', [
