@@ -16,6 +16,7 @@ module.exports = function (grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
+  grunt.loadNpmTasks('grunt-inline');
   grunt.loadNpmTasks('grunt-text-replace');
 
   // Configurable paths
@@ -30,6 +31,17 @@ module.exports = function (grunt) {
 
     // Project settings
     config: config,
+
+    inline: {
+        dist: {
+            options:{
+                tag: '',
+                uglify: true,
+                cssmin: true
+            },
+            src: ['dist/index.html', 'dist/vault.html']
+        }
+    },
 
     // This is only used to patch a ridiculous PhantomJS bug:
     // https://github.com/angular/angular.js/issues/7851
@@ -399,9 +411,10 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'copy:dist',
-    'rev',
+    //'rev',
     'usemin',
-    'htmlmin'
+    //'htmlmin',
+    //'inline:dist'
   ]);
 
   grunt.registerTask('default', [
