@@ -9,6 +9,11 @@
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
+
+    <!-- build:css(.tmp) styles/maincss-grid.css -->
+    <link rel="stylesheet" href="styles/mincss-grid.css">
+    <!-- endbuild -->
+
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -18,15 +23,27 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div id="container">
+    <div class="container">
+      <div class="row">
+        <div class="col c2">&nbsp;</div>
+        <div class="col c8">
+          <div class="row" id="container">
+            <div class="row">
+              <div class="col c12">
+                <h1 id="title">Hypervault</h1>
+              </div>
+            </div>
 
-      <p id="title">Hypervault</p>
-
-      <p>
-        <input type="password" name="password_input" id="password_input" placeholder="Password">
-      </p>
-
-      <button class="btn" onclick="decryptAndDownload()">Decrypt</button>
+            <div class="row">
+              <input type="password" name="password_input" id="password_input" placeholder="Password">
+            </div>
+            <div class="row">
+              <button class="btn" onclick="decryptAndDownload()">Decrypt</button>
+            </div class="row">
+          </div>
+        </div>
+        <div class="col c2">&nbsp;</div>
+      </div>
     </div>
 
     <!-- build:js(.) scripts/vendor.js -->
