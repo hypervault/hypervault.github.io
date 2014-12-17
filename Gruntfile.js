@@ -33,11 +33,17 @@ module.exports = function (grunt) {
     config: config,
 
     inline: {
-        dist: {
+        js: {
             options:{
-                tag: '',
-                uglify: true,
-                cssmin: true
+                tag: 'js',
+                uglify: false, // Already done by this point
+            },
+            src: ['dist/index.html', 'dist/vault.html']
+        },
+        css: {
+            options:{
+                tag: 'css',
+                cssmin: false  // Already done by this point
             },
             src: ['dist/index.html', 'dist/vault.html']
         }
@@ -148,7 +154,8 @@ module.exports = function (grunt) {
       },
       server: '.tmp',
       test: 'test/app',
-      testbower: 'test/bower_components_app'
+      testbower: 'test/bower_components_app',
+      superfluous: ['dist/scripts', 'dist/styles']
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -421,10 +428,12 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'copy:dist',
-    'rev',
+    //'rev', - Probably not necessary with everything embedded in the HTML
     'usemin',
-    //'htmlmin',
-    'inline:dist'
+    //'htmlmin', - htmlmin breaks grunt-inline, so don't enable
+    'inline:js',
+    'inline:css',
+    //'clean:superfluous'
   ]);
 
   grunt.registerTask('default', [

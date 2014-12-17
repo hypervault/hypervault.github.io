@@ -41,16 +41,6 @@ function encryptFileData(fileData, password, callback) {
   });
 }
 
-function decryptFileData(cipherData, password, callback) {
-  var data = new triplesec.Buffer(cipherData, 'base64');
-  var key = new triplesec.Buffer(password);
-
-  triplesec.decrypt({key:key, data:data}, function (err, plainData) {
-    var plainDataBase64 = plainData.toString();     
-    callback(err, plainDataBase64);
-  });
-}
-
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
 
 function getVaultTemplate(callback) {

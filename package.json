@@ -22,6 +22,7 @@
     "grunt-svgmin": "^0.4.0",
     "grunt-text-replace": "^0.4.0",
     "grunt-usemin": "^2.3.0",
+    "grunt-wait": "^0.1.0",
     "grunt-wiredep": "^1.7.0",
     "jshint-stylish": "^0.4.0",
     "load-grunt-tasks": "^0.4.0",
