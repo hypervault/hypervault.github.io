@@ -13,27 +13,42 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <!-- build:css(.tmp) styles/maincss-grid.css -->
+    <link rel="stylesheet" href="styles/mincss-grid.css">
+    <!-- endbuild -->
   </head>
   <body>
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div id="container">
-      <p id="title">Hypervault</p>
+    <div class="container">
+    <div class="row">
+      <div class="col c2">&nbsp;</div>
+    <div class="col c8">
+    <div class="row" id="container">
+      <div class="row">
+        <div class="col c12">
+          <h1 id="title">Hypervault</h1>
+        </div>
+      </div>
 
-      <p>
-      <form name="uploadForm">
-        <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
-      </form>
-      </p>
+      <div class="row">
+        <form name="uploadForm">
+          <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
+        </form>
+      </div>
 
-      <p>
+      <div class="row">
         <input type="password" name="password_input" id="password_input" placeholder="Password">
-      </p>
-
-      <button class="btn" onclick="createVault()">Encrypt</button>
+      </div>
+      <div class="row">
+        <button class="btn" onclick="createVault()">Encrypt</button>
+      </div class="row">
     </div>
+  </div>
+  <div class="col c2">&nbsp;</div>
+</div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->

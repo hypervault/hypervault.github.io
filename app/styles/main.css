@@ -19,15 +19,26 @@ body {
 }
 
 #container {
-  padding: 0px 30px 0px 30px;
-  width: 600px;
+  padding: 0px 30px 50px 30px;
+  /* width: 600px; */
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
 
   border: 1px solid #FF851B;
   border-radius: 12px;
-  height: 350px;
+  /* height: 350px; */
+}
+
+@media (min-width:1310px) {
+  #container {
+    margin-top: 100px;
+  }
+}
+@media (max-width:870px) {
+  #container {
+    margin-top: 0px;
+  }
 }
 
 .btn {
@@ -35,7 +46,8 @@ body {
   -moz-border-radius: 4;
   border-radius: 4px;
   color: #FF4136;
-  font-size: 15px;
+  /* font-size: 15px; */
+  font-weight: lighter;
   background: #ffffff;
   padding: 10px 20px 10px 20px;
   border: solid #FF4136 1px;
@@ -52,7 +64,7 @@ body {
 input[type=password] {
   border: 1px solid #FF4136;
   border-radius: 4px;
-  width: 150px;
+  /* width: 150px; */
   height:25px;
   padding: 5px;
   font-size:20px;
@@ -61,7 +73,7 @@ input[type=password] {
 input[type=file] {
   border: 1px solid #FF4136;
   border-radius: 4px;
-  width: 350px;
+  /* width: 350px; */
   height: 25px;
   padding: 5px;
   font-size:14px;
