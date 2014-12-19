@@ -1,3 +1,24 @@
+var progress = [];
+var reset_progress = function () {
+  progress = [];
+  $("#progress-summary").html('');
+};
+var progress_hook = function(p) {
+  var h, pr, _i, _len;
+  if (progress.length && (progress[progress.length - 1].what === p.what)) {
+    progress[progress.length - 1] = p;
+  } else {
+    progress.push(p);
+  }
+  h = "";
+  for (_i = 0, _len = progress.length; _i < _len; _i++) {
+    pr = progress[_i];
+    h += "<li>" + pr.what + " " + pr.i + "/" + pr.total + "</li>";
+  }
+  return $("#progress-summary").html(h);
+};
+
+
 //////////////////////////////////////////////////////////////////////////////////// Read file stuff
 var globalFileData = {name:"", type:"", data:""};
 var fileDataRaw = "";
@@ -35,7 +56,8 @@ function encryptFileData(fileData, password, callback) {
   var data = new triplesec.Buffer(fileData);
   var key = new triplesec.Buffer(password);
 
-  triplesec.encrypt({key:key, data:data}, function (err, encryptedData) {
+  reset_progress();
+  triplesec.encrypt({key:key, progress_hook: progress_hook, data:data}, function (err, encryptedData) {
     callback(err, encryptedData.toString('base64'));
   });
 }
