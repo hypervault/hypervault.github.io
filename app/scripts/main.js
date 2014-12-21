@@ -23,7 +23,7 @@ var progress = [];
 
 var reset_progress = function () {
   progress = [];
-  $("#progress-summary").html('');
+  document.getElementById("progress-summary").innerHTML = '';
 };
 
 var progress_hook = function(p) {
@@ -46,7 +46,7 @@ var progress_hook = function(p) {
     }
   }
   updateProgress(Math.floor(progressPercent));
-  return $("#progress-summary").html(h);
+  document.getElementById("progress-summary").innerHTML = h;
 };
 
 //////////////////////////////////////////////////////////////////////////////////// Read file stuff
