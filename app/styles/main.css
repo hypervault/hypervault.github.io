@@ -83,14 +83,12 @@ input[type=file] {
 #dropzone {
   min-height: 100px;
   border: 4px dashed #FF851B;
-  /* border: 6px dashed #FFDC00; */
-  /* border: 1px solid #FF4136; */
   border-radius: 4px;
   padding: 10px;
 }
 
 #dropzone.hover {
-  border: 4px dashed #FF4136;
+  border: 4px dashed #01FF70;
 }
 
 // Progress reporting

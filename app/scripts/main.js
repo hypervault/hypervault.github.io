@@ -81,6 +81,17 @@ function getFileData() {
   });
 }
 
+// Drag and drop
+var dropzone = document.getElementById('dropzone')
+dropzone.ondragover = function () { this.className = 'hover'; return false; };
+dropzone.ondragend = function () { this.className = ''; return false; };
+dropzone.ondragleave = function () { this.className = ''; return false; };
+dropzone.ondrop = function (e) {
+  this.className = '';
+  e.preventDefault();
+  //readfiles(e.dataTransfer.files);
+}
+
 /////////////////////////////////////////////////////////////////////////////////// Encryption stuff
 function encryptFileData(fileData, password, callback) {
   var data = new triplesec.Buffer(fileData);
