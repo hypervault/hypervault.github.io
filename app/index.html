@@ -37,7 +37,11 @@
 
             <div class="row">
               <form name="uploadForm">
-                <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
+                <div id="dropzone">
+                  <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
+                </div>
+                <div id="filelist"></div>
+
               </form>
             </div>
 
