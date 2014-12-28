@@ -3,6 +3,27 @@ Hypervault
 
 Client-side javascript encryption app which outputs a self-decrypting html file (which contains both the javascript decryption and the cipherdata).
 
+## Development stuff
+
+How to build:
+
+	npm install
+	npm install -g grunt-cli
+	bower install
+	grunt build
+
+How to serve production version:
+
+	./serve-dist.sh
+
+How to run development server:
+
+	grunt serve
+
+Note: This mode doesn't correctly build vault.html, so that part doesn't work, but it is still helpful for UI changes to index.html.
+
+## General notes and links
+
 Helpful resources:
 
 * Reading files with HTML5/JS: <http://www.html5rocks.com/en/tutorials/file/dndfiles/>
