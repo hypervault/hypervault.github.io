@@ -1,4 +1,8 @@
 {
+  "repository" : {
+      "type" : "git",
+      "url" : "https://bitbucket.org/northmars/hypervault.git"
+  },
   "name": "hypervault",
   "devDependencies": {
     "apache-server-configs": "^2.7.1",
