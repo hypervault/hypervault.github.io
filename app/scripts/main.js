@@ -168,7 +168,12 @@ function encryptFileData(fileData, password, callback) {
 
   reset_progress();
   triplesec.encrypt({key:key, progress_hook: progress_hook_encrypt, data:data}, function (err, encryptedData) {
-    callback(err, encryptedData.toString('base64'));
+    if (err) {
+      console.log('Encryption error: ' + err.toString());
+    }
+    else {
+      callback(err, encryptedData.toString('base64'));
+    }
   });
 }
 
@@ -179,8 +184,13 @@ function decryptFileData(cipherData, password, callback) {
 
   reset_progress();
   triplesec.decrypt({key:key, progress_hook: progress_hook_decrypt, data:data}, function (err, plainData) {
-    var plainDataBase64 = plainData.toString();     
-    callback(err, plainDataBase64);
+    if (err) {
+      console.log('Decryption error: ' + err.toString());
+    }
+    else {
+      var plainDataBase64 = plainData.toString();     
+      callback(err, plainDataBase64);
+    }
   });
 }
 
