@@ -227,10 +227,6 @@ function validateRequiredField(element, requiredMsgId) {
   }
 };
 
-function setTouched(element) {
-  element.setAttribute('data-touched', true);
-}
-
 function validatePasswordsMatch() {
   if (encryptionFields.password1.value == encryptionFields.password2.value) {
     document.getElementById('pw-mismatch-msg').style.display = 'none';
@@ -248,13 +244,6 @@ function validateEncryptionFields() {
   allValid = validateRequiredField(encryptionFields.password2, 'pw-required-msg2') && allValid;
   allValid = allValid && validatePasswordsMatch();
   return allValid;
-}
-
-function updateEncryptionFieldValidation(element) {
-  if (element) {
-    setTouched(element);
-  }
-  validateEncryptionFields();
 }
 
 function validateDecryption() {
