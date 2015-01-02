@@ -206,24 +206,33 @@ function decryptAndDownload() {
 
 ///////////////////////////////////////////////////////////////////////////////////////// Validation
 
-var encryptionFields = [
-  {'id': 'password_input', 'requiredMsgId': 'pw-required-msg', touched: false},
-  {'id': 'password_input2', 'requiredMsgId': 'pw-required-msg2', touched: false}
-];
+var encryptionFields = {};
+function getEncryptionFields() {
+  encryptionFields.password1 = document.getElementById('password_input');
+  encryptionFields.password2 = document.getElementById('password_input2');
+}
 
-function validateRequiredField(fieldObj) {
-  if (document.getElementById(fieldObj['id']).value === '') {
-    document.getElementById(fieldObj['requiredMsgId']).style.display = 'block';
+// TODO: Only call this if in encryption mode
+getEncryptionFields();
+
+function validateRequiredField(element, requiredMsgId) {
+  console.log('element: ', element);
+  if (element.value === '') {
+    document.getElementById(requiredMsgId).style.display = 'block';
     return false;
   }
   else {
-    document.getElementById(fieldObj['requiredMsgId']).style.display = 'none';
+    document.getElementById(requiredMsgId).style.display = 'none';
     return true;
   }
 };
 
+function setTouched(element) {
+  element.setAttribute('data-touched', true);
+}
+
 function validatePasswordsMatch() {
-  if (document.getElementById('password_input') == document.getElementById('password_input2')) {
+  if (encryptionFields.password1.value == encryptionFields.password2.value) {
     document.getElementById('pw-mismatch-msg').style.display = 'none';
     return true;
   }
@@ -233,22 +242,19 @@ function validatePasswordsMatch() {
   }
 };
 
-function validateEncryption(elementTouched) {
+function validateEncryptionFields() {
   var allValid = true;
-
-  // Validate all required fields are entered
-  encryptionFields.forEach(function (field) {
-    console.log('field: ' + field['id']);
-    // NOTE: The order here is important - if allValid comes first, it will short-circuit
-    // and not run validateRequiredField() if any previous field was invalid.
-    allValid = validateRequiredField(field) && allValid;
-  });
-
-  // Validate passwords match (intentionally having validatePasswordsMatch NOT run if required
-  // fields are not entered.
-  allValid = allValid && validatePasswordsMatch()
-
+  allValid = validateRequiredField(encryptionFields.password1, 'pw-required-msg') && allValid;
+  allValid = validateRequiredField(encryptionFields.password2, 'pw-required-msg2') && allValid;
+  allValid = allValid && validatePasswordsMatch();
   return allValid;
+}
+
+function updateEncryptionFieldValidation(element) {
+  if (element) {
+    setTouched(element);
+  }
+  validateEncryptionFields();
 }
 
 function validateDecryption() {

@@ -44,12 +44,14 @@
     <div class="col c5">
       <div class="row">
         <div class="c12">
-          <input type="password" name="password_input" id="password_input" placeholder="Password" required />
+          <input type="password" name="password_input" id="password_input" placeholder="Password"
+                 onkeyup="updateEncryptionFieldValidation(this)" data-touched="false" />
           <span class="validation-error" id="pw-required-msg">Password required</span>
         </div>
         <div class="row">
           <div class="c12">
-            <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password" required />
+            <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
+                   onkeyup="updateEncryptionFieldValidation(this)" data-touched="false" />
             <span class="validation-error" id="pw-required-msg2">Password confirmation required</span>
             <span class="validation-error" id="pw-mismatch-msg">Passwords don't match</span>
           </div>
@@ -57,7 +59,7 @@
         <div class="row">
           <div class="c12">
 
-            <button type="button" class="btn" onclick="validateEncryption() && createVault();return false;">Encrypt</button>
+            <button type="button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
             <div class="progress">
               <div class="percent" id="percent"></div>
               <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
