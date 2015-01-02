@@ -1,0 +1,47 @@
+<html><head>
+<style>
+.overlay {
+  visibility: hidden;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width:100%;
+  height:100%;
+  text-align:center;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal {
+  border: 1px solid #FF851B;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  width: 300px;
+  min-height: 150px;
+  margin: 0px auto;
+  margin-top: 50px;
+}
+
+</style>
+</head><body>
+
+<div id="overlay" class="overlay">
+  <div class="modal">
+      <p>Content you want the user to see goes here.</p>
+  </div>
+</div>
+
+<button type="button" id="openModal" name="openModal">Open Modal</button>
+
+<script>
+function overlay() {
+  el = document.getElementById("overlay");
+  el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+
+document.getElementById("openModal").onclick = function () {
+  overlay();
+};
+
+</script>
+</body></html>

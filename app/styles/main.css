@@ -130,3 +130,10 @@ input[type=file] {
   stroke-width: 1;
 }
 
+/* Validation */
+
+.validation-error {
+  display: none;
+  color: #FF4136;
+  font-size: .9em;
+}

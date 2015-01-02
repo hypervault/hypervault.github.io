@@ -204,3 +204,56 @@ function decryptAndDownload() {
   });
 }
 
+///////////////////////////////////////////////////////////////////////////////////////// Validation
+
+var encryptionFields = [
+  {'id': 'password_input', 'requiredMsgId': 'pw-required-msg', touched: false},
+  {'id': 'password_input2', 'requiredMsgId': 'pw-required-msg2', touched: false}
+];
+
+function validateRequiredField(fieldObj) {
+  if (document.getElementById(fieldObj['id']).value === '') {
+    document.getElementById(fieldObj['requiredMsgId']).style.display = 'block';
+    return false;
+  }
+  else {
+    document.getElementById(fieldObj['requiredMsgId']).style.display = 'none';
+    return true;
+  }
+};
+
+function validatePasswordsMatch() {
+  if (document.getElementById('password_input') == document.getElementById('password_input2')) {
+    document.getElementById('pw-mismatch-msg').style.display = 'none';
+    return true;
+  }
+  else {
+    document.getElementById('pw-mismatch-msg').style.display = 'block';
+    return false;
+  }
+};
+
+function validateEncryption(elementTouched) {
+  var allValid = true;
+
+  // Validate all required fields are entered
+  encryptionFields.forEach(function (field) {
+    console.log('field: ' + field['id']);
+    // NOTE: The order here is important - if allValid comes first, it will short-circuit
+    // and not run validateRequiredField() if any previous field was invalid.
+    allValid = validateRequiredField(field) && allValid;
+  });
+
+  // Validate passwords match (intentionally having validatePasswordsMatch NOT run if required
+  // fields are not entered.
+  allValid = allValid && validatePasswordsMatch()
+
+  return allValid;
+}
+
+function validateDecryption() {
+  submitted = true;
+  var valid = true;
+  return valid;
+}
+
