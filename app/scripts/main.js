@@ -100,9 +100,6 @@ function getFileData() {
       globalFileData['name'] = fileName;
       globalFileData['type'] = fileType;
       globalFileData['data'] = fileData;
-      console.log('File name:' + fileName);
-      console.log('File type:' + fileType);
-      console.log(fileData);
   });
 }
 
@@ -216,7 +213,6 @@ function getEncryptionFields() {
 getEncryptionFields();
 
 function validateRequiredField(element, requiredMsgId) {
-  console.log('element: ', element);
   if (element.value === '') {
     document.getElementById(requiredMsgId).style.display = 'block';
     return false;
@@ -225,7 +221,7 @@ function validateRequiredField(element, requiredMsgId) {
     document.getElementById(requiredMsgId).style.display = 'none';
     return true;
   }
-};
+}
 
 function validatePasswordsMatch() {
   if (encryptionFields.password1.value == encryptionFields.password2.value) {
@@ -236,7 +232,7 @@ function validatePasswordsMatch() {
     document.getElementById('pw-mismatch-msg').style.display = 'block';
     return false;
   }
-};
+}
 
 function validateEncryptionFields() {
   var allValid = true;
