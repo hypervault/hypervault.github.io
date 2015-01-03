@@ -71,7 +71,7 @@ input[type=password] {
   font-size: 20px;
 }
 
-// File upload
+/* File upload */
 
 input[type=file] {
   border: 1px solid #FF4136;
@@ -95,7 +95,7 @@ input[type=file] {
   border: 4px dashed #01FF70;
 }
 
-// Progress reporting
+/* Progress reporting */
 
 #progress-summary li {
   color: #FF4136;

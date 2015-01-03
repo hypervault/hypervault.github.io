@@ -24,6 +24,8 @@ var updateProgress = function (percent) {
 var progress = [];
 
 var reset_progress = function () {
+  updateProgress(0);
+  document.getElementById("percent").innerHTML = '';
   progress = [];
   document.getElementById("progress-summary").innerHTML = '';
 };
@@ -182,6 +184,10 @@ function decryptFileData(cipherData, password, callback) {
   reset_progress();
   triplesec.decrypt({key:key, progress_hook: progress_hook_decrypt, data:data}, function (err, plainData) {
     if (err) {
+      // Reset progress and display "wrong password" message
+      reset_progress();
+      displayWrongPasswordMsg(true);
+
       console.log('Decryption error: ' + err.toString());
     }
     else {
@@ -192,7 +198,7 @@ function decryptFileData(cipherData, password, callback) {
 }
 
 function decryptAndDownload() {
-  var password = document.getElementById('password_input').value;
+  var password = document.getElementById('decrypt_password_input').value;
   decryptFileData(cipherData, password, function (err, plainData) {
     var blob = new Blob([Base64Binary.decode(plainData)], {
         type: fileType
@@ -203,14 +209,18 @@ function decryptAndDownload() {
 
 ///////////////////////////////////////////////////////////////////////////////////////// Validation
 
-var encryptionFields = {};
-function getEncryptionFields() {
-  encryptionFields.password1 = document.getElementById('password_input');
-  encryptionFields.password2 = document.getElementById('password_input2');
-}
+var encryptPasswordInput1 = null;
+var encryptPasswordInput2 = null;
+var decryptPasswordInput = null;
 
-// TODO: Only call this if in encryption mode
-getEncryptionFields();
+// decryptionMode is set in the header of vault.html
+if (typeof decryptionMode !== 'undefined') {
+  decryptPasswordInput = document.getElementById('decrypt_password_input');
+}
+else {
+  encryptPasswordInput1 = document.getElementById('password_input');
+  encryptPasswordInput2 = document.getElementById('password_input2');
+}
 
 function validateRequiredField(element, requiredMsgId) {
   if (element.value === '') {
@@ -224,7 +234,7 @@ function validateRequiredField(element, requiredMsgId) {
 }
 
 function validatePasswordsMatch() {
-  if (encryptionFields.password1.value == encryptionFields.password2.value) {
+  if (encryptPasswordInput1.value == encryptPasswordInput2.value) {
     document.getElementById('pw-mismatch-msg').style.display = 'none';
     return true;
   }
@@ -234,17 +244,26 @@ function validatePasswordsMatch() {
   }
 }
 
+function displayWrongPasswordMsg(display) {
+  if (display) {
+    document.getElementById('wrong-pw-msg').style.display = 'block';
+  }
+  else {
+    document.getElementById('wrong-pw-msg').style.display = 'none';
+  }
+}
+
 function validateEncryptionFields() {
   var allValid = true;
-  allValid = validateRequiredField(encryptionFields.password1, 'pw-required-msg') && allValid;
-  allValid = validateRequiredField(encryptionFields.password2, 'pw-required-msg2') && allValid;
+  allValid = validateRequiredField(encryptPasswordInput1, 'pw-required-msg') && allValid;
+  allValid = validateRequiredField(encryptPasswordInput2, 'pw-required-msg2') && allValid;
   allValid = allValid && validatePasswordsMatch();
   return allValid;
 }
 
-function validateDecryption() {
-  submitted = true;
-  var valid = true;
-  return valid;
+function validateDecryptionFields() {
+  // Ensure the "wrong password" message is hidden on submit
+  displayWrongPasswordMsg(false);
+  return validateRequiredField(decryptPasswordInput, 'decrypt-pw-required-msg');
 }
 
