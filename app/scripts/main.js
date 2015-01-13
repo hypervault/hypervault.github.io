@@ -106,16 +106,34 @@ function getFileData() {
 }
 
 // Drag and drop
-// var dropzone = document.getElementById('dropzone')
-// dropzone.ondragover = function () { this.className = 'hover'; return false; };
-// dropzone.ondragend = function () { this.className = ''; return false; };
-// dropzone.ondragleave = function () { this.className = ''; return false; };
-// dropzone.ondrop = function (e) {
-//   this.className = '';
-//   e.preventDefault();
-//   //readfiles(e.dataTransfer.files);
-// }
-
+window.onload = function(){
+    var dropzone = document.getElementById('dropzone');
+    dropzone.addEventListener('dragover', function(e){
+        e.preventDefault();
+        return false;
+    })
+    .addEventListener('dragenter', function(e){
+        e.preventDefault();
+        return false;
+    })
+    .addEventListener('drop', function(e){
+        e.preventDefault();
+        var dt = e.dataTransfer;
+        var files = dt.files;
+        for(var i=0; i<files.length; i++){
+            var file = files[i],
+                reader = new FileReader();
+            reader.onload = function(e){
+                globalFileData['name'] = (globalFileData['name'] == '' ? file.name : globalFileData['name']);
+                globalFileData['type'] = (globalFileData['type'] == '' ? file.type : globalFileData['type']);
+                globalFileData['data'] = (globalFileData['data'] == '' ? e.target.result : globalFileData['data'] + ';' + e.target.result);
+            };    
+        }
+        return false;
+    });
+};
+            
+        
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
 function getVaultTemplate(callback) {
   url = "vault.html"
