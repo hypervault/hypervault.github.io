@@ -302,3 +302,25 @@ function validateDecryptionFields() {
   return validateRequiredField(decryptPasswordInput, 'decrypt-pw-required-msg');
 }
 
+
+////////////////////////////////////////////////////////////////////////////////////////// Utilities
+
+function setClassDisplay(className, display) {
+  var selected = document.getElementsByClassName(className);
+  for (var i = 0; i < selected.length; ++i) {
+    var item = selected[i];
+    item.style.display = display;
+  }
+}
+
+// Visibility
+
+if (decryptionMode) {
+  setClassDisplay('decryption-container', 'block');
+  setClassDisplay('encryption-container', 'none');
+}
+else {
+  setClassDisplay('decryption-container', 'none');
+  setClassDisplay('encryption-container', 'block');
+}
+

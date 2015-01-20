@@ -25,74 +25,109 @@
     <![endif]-->
 
 <div class="outer">
-<div class="container">
+  <div class="container encryption-container">
 
-  <div class="row">
-    <div class="col c12">
-      <h1 class="title">Hypervault</h1>
-    </div>
-  </div>
-
-  <form name="uploadForm">
-
-  <div class="row">
-
-    <div class="col c6">
-      <div id="dropzone">
-        <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
+    <div class="row">
+      <div class="col c12">
+        <h1 class="title">Hypervault</h1>
       </div>
-      <div id="filelist"></div>
     </div>
 
-    <div class="col c1">&nbsp;</div>
-
-    <div class="col c5">
+    <form name="uploadForm">
 
       <div class="row">
-        <div class="c12">
-          <input type="password" name="password_input" id="password_input" placeholder="Password"
-          onkeyup="validateEncryptionFields()" />
-          <span class="validation-error" id="pw-required-msg">Password required</span>
-        </div>
 
-        <div class="row">
-          <div class="c12">
-            <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
-            onkeyup="validateEncryptionFields()" />
-            <span class="validation-error" id="pw-required-msg2">Password confirmation required</span>
-            <span class="validation-error" id="pw-mismatch-msg">Passwords don't match</span>
+        <div class="col c6">
+          <div id="dropzone">
+            <input id="uploadInput" type="file" name="myFiles" onchange="getFileData();" multiple>
           </div>
+          <div id="filelist"></div>
         </div>
 
-        <div class="row">
-          <div class="c12">
-            <button type="button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
-            <div class="progress">
-              <div class="percent" id="encrypt-percent"></div>
-              <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
-                <path d="
-                M50,1
-                a49,49 0 0,1 0,98
-                a49,49 0 0,1 0,-98
-                "/>
-              </svg>
+        <div class="col c1">&nbsp;</div>
+
+        <div class="col c5">
+
+          <div class="row">
+            <div class="c12">
+              <input type="password" name="password_input" id="password_input" placeholder="Password"
+              onkeyup="validateEncryptionFields()" />
+              <span class="validation-error" id="pw-required-msg">Password required</span>
             </div>
+
+            <div class="row">
+              <div class="c12">
+                <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
+                onkeyup="validateEncryptionFields()" />
+                <span class="validation-error" id="pw-required-msg2">Password confirmation required</span>
+                <span class="validation-error" id="pw-mismatch-msg">Passwords don't match</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="c12">
+                <button type="button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
+                <div class="progress">
+                  <div class="percent" id="encrypt-percent"></div>
+                  <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
+                    <path d="
+                    M50,1
+                    a49,49 0 0,1 0,98
+                    a49,49 0 0,1 0,-98
+                    "/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
       </div>
+
+    </form>
+
+    <div class="row">
+      <div id="encrypt-progress-summary"></div>
     </div>
 
   </div>
 
-  </form>
+  <div class="container decryption-container">
 
-  <div class="row">
-    <div id="encrypt-progress-summary"></div>
+    <div class="row">
+      <div class="col c12">
+        <h1 class="title">Hypervault</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
+      <span class="validation-error" id="decrypt-pw-required-msg">Password required</span>
+      <span class="validation-error" id="wrong-pw-msg">Wrong password</span>
+    </div>
+
+    <div class="row">
+      <div class="col c12">
+        <button class="btn" onclick="decryptAndDownload();return false;">Decrypt</button>
+        <div class="progress">
+          <div class="percent" id="decrypt-percent"></div>
+          <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
+            <path d="
+            M50,1
+            a49,49 0 0,1 0,98
+            a49,49 0 0,1 0,-98
+            "/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="decrypt-progress-summary"></div>
+    </div>
+
   </div>
-
-</div>
-</div>
 </div>
 
 <!-- build:js(.) scripts/vendor.js -->
