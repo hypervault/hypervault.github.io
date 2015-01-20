@@ -1,3 +1,9 @@
+
+var decryptionMode = false;
+if (typeof _decryptionMode !== 'undefined') {
+  decryptionMode = true;
+}
+
 //////////////////////////////////////////////////////////////////////////// Encrypted embedded data
 var fileName = 'REPLACE_WITH_FILE_NAME_';
 var fileType = 'REPLACE_WITH_FILE_TYPE_';
@@ -17,17 +23,28 @@ progressPath.style.transition = progressPath.style.WebkitTransition =
 var updateProgress = function (percent) {
   var progress = pathLength - pathLength*(percent/100.0);
   progressPath.style.strokeDashoffset = progress;
-  document.getElementById("percent").innerHTML = percent+"%";
+  if (decryptionMode) {
+    document.getElementById("decrypt-percent").innerHTML = percent+"%";
+  }
+  else {
+    document.getElementById("encrypt-percent").innerHTML = percent+"%";
+  }
 }
 
 // Progress hook
 var progress = [];
 
 var reset_progress = function () {
-  updateProgress(0);
-  document.getElementById("percent").innerHTML = '';
   progress = [];
-  document.getElementById("progress-summary").innerHTML = '';
+  updateProgress(0);
+  if (decryptionMode) {
+    document.getElementById("decrypt-percent").innerHTML = '';
+    document.getElementById("decrypt-progress-summary").innerHTML = '';
+  }
+  else {
+    document.getElementById("encrypt-percent").innerHTML = '';
+    document.getElementById("encrypt-progress-summary").innerHTML = '';
+  }
 };
 
 var progress_hook_encrypt = function(p) {
@@ -50,7 +67,7 @@ var progress_hook_encrypt = function(p) {
     }
   }
   updateProgress(Math.floor(progressPercent));
-  document.getElementById("progress-summary").innerHTML = h;
+  document.getElementById("encrypt-progress-summary").innerHTML = h;
 };
 
 var progress_hook_decrypt = function(p) {
@@ -73,7 +90,7 @@ var progress_hook_decrypt = function(p) {
     }
   }
   updateProgress(Math.floor(progressPercent));
-  document.getElementById("progress-summary").innerHTML = h;
+  document.getElementById("decrypt-progress-summary").innerHTML = h;
 };
 
 //////////////////////////////////////////////////////////////////////////////////// Read file stuff
@@ -106,32 +123,32 @@ function getFileData() {
 }
 
 // Drag and drop
-window.onload = function(){
-    var dropzone = document.getElementById('dropzone');
-    dropzone.addEventListener('dragover', function(e){
-        e.preventDefault();
-        return false;
-    })
-    .addEventListener('dragenter', function(e){
-        e.preventDefault();
-        return false;
-    })
-    .addEventListener('drop', function(e){
-        e.preventDefault();
-        var dt = e.dataTransfer;
-        var files = dt.files;
-        for(var i=0; i<files.length; i++){
-            var file = files[i],
-                reader = new FileReader();
-            reader.onload = function(e){
-                globalFileData['name'] = (globalFileData['name'] == '' ? file.name : globalFileData['name']);
-                globalFileData['type'] = (globalFileData['type'] == '' ? file.type : globalFileData['type']);
-                globalFileData['data'] = (globalFileData['data'] == '' ? e.target.result : globalFileData['data'] + ';' + e.target.result);
-            };    
-        }
-        return false;
-    });
-};
+// window.onload = function(){
+//     var dropzone = document.getElementById('dropzone');
+//     dropzone.addEventListener('dragover', function(e){
+//         e.preventDefault();
+//         return false;
+//     })
+//     .addEventListener('dragenter', function(e){
+//         e.preventDefault();
+//         return false;
+//     })
+//     .addEventListener('drop', function(e){
+//         e.preventDefault();
+//         var dt = e.dataTransfer;
+//         var files = dt.files;
+//         for(var i=0; i<files.length; i++){
+//             var file = files[i],
+//                 reader = new FileReader();
+//             reader.onload = function(e){
+//                 globalFileData['name'] = (globalFileData['name'] == '' ? file.name : globalFileData['name']);
+//                 globalFileData['type'] = (globalFileData['type'] == '' ? file.type : globalFileData['type']);
+//                 globalFileData['data'] = (globalFileData['data'] == '' ? e.target.result : globalFileData['data'] + ';' + e.target.result);
+//             };    
+//         }
+//         return false;
+//     });
+// };
             
         
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
@@ -216,7 +233,7 @@ function decryptFileData(cipherData, password, callback) {
 }
 
 function decryptAndDownload() {
-  var password = document.getElementById('decrypt_password_input').value;
+  var password = document.getElementById('decrypt-password-input').value;
   decryptFileData(cipherData, password, function (err, plainData) {
     var blob = new Blob([Base64Binary.decode(plainData)], {
         type: fileType
@@ -232,8 +249,8 @@ var encryptPasswordInput2 = null;
 var decryptPasswordInput = null;
 
 // decryptionMode is set in the header of vault.html
-if (typeof decryptionMode !== 'undefined') {
-  decryptPasswordInput = document.getElementById('decrypt_password_input');
+if (decryptionMode) {
+  decryptPasswordInput = document.getElementById('decrypt-password-input');
 }
 else {
   encryptPasswordInput1 = document.getElementById('password_input');

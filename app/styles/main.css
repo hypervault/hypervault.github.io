@@ -15,7 +15,7 @@ body {
   padding: 0.2em 0;
 }
 
-#title {
+.title {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 300%;
   font-weight: lighter;
@@ -27,7 +27,7 @@ body {
   padding: 80px 80px;
 }
 
-#container {
+.container {
   padding: 0px 30px 50px 30px;
   margin-left: auto;
   margin-right: auto;
@@ -97,7 +97,7 @@ input[type=file] {
 
 /* Progress reporting */
 
-#progress-summary li {
+#encrypt-progress-summary li, #decrypt-progress-summary li {
   color: #FF4136;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight:100;
