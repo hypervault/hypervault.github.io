@@ -3,7 +3,6 @@ var decryptionMode = false;
 if (typeof _decryptionMode !== 'undefined') {
   decryptionMode = true;
 }
-decryptionMode = true;
 
 //////////////////////////////////////////////////////////////////////////// Encrypted embedded data
 var fileName = 'REPLACE_WITH_FILE_NAME_';

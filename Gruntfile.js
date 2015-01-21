@@ -38,14 +38,14 @@ module.exports = function (grunt) {
                 tag: 'js',
                 uglify: false, // Already done by this point
             },
-            src: ['dist/index.html', 'dist/vault.html']
+            src: ['dist/index.html']
         },
         css: {
             options:{
                 tag: 'css',
                 cssmin: false  // Already done by this point
             },
-            src: ['dist/index.html', 'dist/vault.html']
+            src: ['dist/index.html']
         }
     },
 
@@ -205,7 +205,7 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         ignorePath: /^\/|\.\.\//,
-        src: ['<%= config.app %>/index.html', '<%= config.app %>/vault.html']
+        src: ['<%= config.app %>/index.html']
       }
     },
 
@@ -231,7 +231,7 @@ module.exports = function (grunt) {
       options: {
         dest: '<%= config.dist %>'
       },
-      html: ['<%= config.app %>/index.html', '<%= config.app %>/vault.html']
+      html: ['<%= config.app %>/index.html']
     },
 
     // Performs rewrites based on rev and the useminPrepare configuration
