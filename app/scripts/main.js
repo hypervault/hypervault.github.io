@@ -3,6 +3,7 @@ var decryptionMode = false;
 if (typeof _decryptionMode !== 'undefined') {
   decryptionMode = true;
 }
+decryptionMode = true;
 
 //////////////////////////////////////////////////////////////////////////// Encrypted embedded data
 var fileName = 'REPLACE_WITH_FILE_NAME_';
@@ -152,21 +153,6 @@ function getFileData() {
             
         
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
-// function getVaultTemplate(callback) {
-//   url = "vault.html"
-//   var xhr = new XMLHttpRequest();
-//   xhr.open("GET", url, true);
-//   xhr.onreadystatechange = function() {
-//     if (xhr.readyState == 4) {
-//       callback(xhr.responseText);
-//     }
-//   }
-//   xhr.send();
-// }
-
-function getVaultTemplate(callback) {
-  callback(document.documentElement.outerHTML);
-}
 
 function stripDataPrefix(dataUrl) {
   var firstCommaIndex = dataUrl.indexOf(',');
@@ -174,14 +160,13 @@ function stripDataPrefix(dataUrl) {
 }
 
 function renderVault(fileName, fileType, fileData, callback) {
-  getVaultTemplate(function (vaultTemplate) {
-    // Replace the 3 placeholders with the file name, file type, and file data
-    var vault = vaultTemplate.replace('<script>', '<script>var _decryptionMode = true;')
-      .replace('REPLACE_WITH_FILE_NAME' + String.fromCharCode(95), fileName)
-      .replace('REPLACE_WITH_FILE_TYPE' + String.fromCharCode(95), fileType)
-      .replace('REPLACE_WITH_FILE_DATA' + String.fromCharCode(95), fileData);
-    callback(vault);
-  });
+  // Replace the 3 placeholders with the file name, file type, and file data
+  var vaultTemplate = document.documentElement.outerHTML;
+  var vault = vaultTemplate.replace('<script>', '<script>var _decryptionMode = true;')
+    .replace('REPLACE_WITH_FILE_NAME' + String.fromCharCode(95), fileName)
+    .replace('REPLACE_WITH_FILE_TYPE' + String.fromCharCode(95), fileType)
+    .replace('REPLACE_WITH_FILE_DATA' + String.fromCharCode(95), fileData);
+  callback(vault);
 }
 
 function saveVault(vaultData, vaultFileName) {
