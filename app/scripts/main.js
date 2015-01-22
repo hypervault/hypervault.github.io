@@ -10,7 +10,13 @@ var fileType = 'REPLACE_WITH_FILE_TYPE_';
 var cipherData = 'REPLACE_WITH_FILE_DATA_';
 
 ///////////////////////////////////////////////////////////////////////////////// Progress indicator
-var progressPath = document.querySelector('.progress path');
+var progressPath = null;
+if (decryptionMode) {
+  progressPath = document.getElementById('decrypt-progress-path');
+} else {
+  progressPath = document.getElementById('encrypt-progress-path');
+}
+
 var pathLength = progressPath.getTotalLength();
 progressPath.style.transition = progressPath.style.WebkitTransition =
   'none';
