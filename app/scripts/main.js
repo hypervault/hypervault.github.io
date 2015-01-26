@@ -100,7 +100,8 @@ var progress_hook_decrypt = function(p) {
 };
 
 //////////////////////////////////////////////////////////////////////////////////// Read file stuff
-var globalFileData = {name:"", type:"", data:""};
+//var globalFileData = {name:"", type:"", data:""};
+var globalFileData = new Array();
 var fileDataRaw = "";
 
 function readFileData(fileObj, callback) {
@@ -119,13 +120,28 @@ function readFileData(fileObj, callback) {
 
 function getFileData() {
   var fileList = document.getElementById("uploadInput").files;
-  var file1 = fileList[0];
-  readFileData(file1, function (fileName, fileType, fileData) {
-      fileDataRaw = fileData;
-      globalFileData['name'] = fileName;
-      globalFileData['type'] = fileType;
-      globalFileData['data'] = fileData;
-  });
+//  var file1 = fileList[0];
+  for (var i = 0; i<fileList.length; i++){      
+      var thisFile = fileList[i];
+      readFileData(thisFile, function (fileName, fileType, fileData) {
+          fileDataRaw = fileData;
+          var in_global = false;
+          for (j = 0; j<globalFileData.length; j++){
+              if (globalFileData[j]['name'] == fileName){
+                  in_global = true;
+                  break
+              }
+          }
+          if ( in_global == false ) {
+              globalFileData.push({
+                  'name' : fileName,
+                  'type' : fileType,
+                  'data' : stripDataPrefix(fileData)
+              });
+          }
+      });
+  }
+  alert(globalFileData.length);
 }
 
 // Drag and drop
@@ -155,8 +171,7 @@ function getFileData() {
 //         return false;
 //     });
 // };
-            
-        
+
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
 
 function stripDataPrefix(dataUrl) {
@@ -181,10 +196,22 @@ function saveVault(vaultData, vaultFileName) {
 
 function createVault() {
   var password = document.getElementById('password_input').value;
-  var base64FileData = stripDataPrefix(globalFileData['data']);
+
+  var allData = '';
+  for (var i = 0; i<globalFileData.length; i++){
+      to_append = globalFileData[i]['data'];
+      //to_append = globalFileData[i]['name'] + ',' + globalFileData[i]['type'] + ',' + globalFileData[i]['data'];
+      
+      if ( i == 0 ) {
+          allData += to_append;
+      } else {
+          allData += ';' + to_append;
+      }
+  } 
+  var base64FileData = allData;  
 
   encryptFileData(base64FileData, password, function (err, encryptedData) {
-    renderVault(globalFileData['name'], globalFileData['type'], encryptedData, function (vaultData) {
+    renderVault(globalFileData[0]['name'], globalFileData[0]['type'], encryptedData, function (vaultData) {
       saveVault(vaultData, "vault1.html");
     });
   });
