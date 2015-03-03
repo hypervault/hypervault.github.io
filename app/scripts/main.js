@@ -8,7 +8,6 @@ if (typeof _decryptionMode !== 'undefined') {
 var fileName = 'REPLACE_WITH_FILE_NAME_';
 var fileType = 'REPLACE_WITH_FILE_TYPE_';
 var cipherData = 'REPLACE_WITH_FILE_DATA_';
-
 ///////////////////////////////////////////////////////////////////////////////// Progress indicator
 var progressPath = null;
 if (decryptionMode) {
@@ -100,7 +99,6 @@ var progress_hook_decrypt = function(p) {
 };
 
 //////////////////////////////////////////////////////////////////////////////////// Read file stuff
-//var globalFileData = {name:"", type:"", data:""};
 var globalFileData = new Array();
 var fileDataRaw = "";
 
@@ -120,7 +118,6 @@ function readFileData(fileObj, callback) {
 
 function getFileData() {
   var fileList = document.getElementById("uploadInput").files;
-//  var file1 = fileList[0];
   for (var i = 0; i<fileList.length; i++){      
       var thisFile = fileList[i];
       readFileData(thisFile, function (fileName, fileType, fileData) {
@@ -141,7 +138,6 @@ function getFileData() {
           }
       });
   }
-  alert(globalFileData.length);
 }
 
 // Drag and drop
@@ -200,8 +196,6 @@ function createVault() {
   var allData = '';
   for (var i = 0; i<globalFileData.length; i++){
       to_append = globalFileData[i]['data'];
-      //to_append = globalFileData[i]['name'] + ',' + globalFileData[i]['type'] + ',' + globalFileData[i]['data'];
-      
       if ( i == 0 ) {
           allData += to_append;
       } else {
@@ -210,8 +204,10 @@ function createVault() {
   } 
   var base64FileData = allData;  
 
+  var names = joinNames(globalFileData, 'name'),
+      types = joinNames(globalFileData, 'type');
   encryptFileData(base64FileData, password, function (err, encryptedData) {
-    renderVault(globalFileData[0]['name'], globalFileData[0]['type'], encryptedData, function (vaultData) {
+    renderVault(names, types, encryptedData, function (vaultData) {
       saveVault(vaultData, "vault1.html");
     });
   });
@@ -257,10 +253,15 @@ function decryptFileData(cipherData, password, callback) {
 function decryptAndDownload() {
   var password = document.getElementById('decrypt-password-input').value;
   decryptFileData(cipherData, password, function (err, plainData) {
-    var blob = new Blob([Base64Binary.decode(plainData)], {
-        type: fileType
-    });
-    saveAs(blob, fileName);
+    var fileNamesNew = fileName.split(';');
+    var fileTypesNew = fileType.split(';');
+    var plainDatas = plainData.split(';');
+    for (var i=0; i<fileNamesNew.length; i++) {
+        var blob = new Blob([Base64Binary.decode(plainDatas[i])], {
+            type : fileTypesNew[i]
+        });
+        saveAs(blob, fileNamesNew[i]);
+    }
   });
 }
 
@@ -346,3 +347,10 @@ else {
   setClassDisplay('encryption-container', 'block');
 }
 
+function joinNames(data, key) {
+    var str = '';
+    for (var i=0; i<data.length; i++) {
+        str += data[i][key] + ';';
+    }
+    return str;
+}
