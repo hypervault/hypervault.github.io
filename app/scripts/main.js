@@ -173,12 +173,24 @@ function addSelectedFiles() {
 window.onload = function(){
   var dropzone = document.getElementsByTagName('body')[0];
   var container = document.getElementById('dropzone');
-  dropzone.ondragover = function () { container.className = 'hover'; return false; };
-  dropzone.ondragend = function () { container.className = ''; return false; };
-  dropzone.ondragleave = function () { container.className = ''; return false; };
-  dropzone.ondrop = function (e) {
-    container.className = '';
+  dropzone.ondragover = function () {
     e.preventDefault();
+    container.className = 'hover';
+    return false;
+  };
+  dropzone.ondragend = function () {
+    e.preventDefault();
+    container.className = '';
+    return false;
+  };
+  dropzone.ondragleave = function () {
+    e.preventDefault();
+    container.className = '';
+    return false;
+  };
+  dropzone.ondrop = function (e) {
+    e.preventDefault();
+    container.className = '';
     addFiles(e.dataTransfer.files);
   };
 };
