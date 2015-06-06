@@ -34,7 +34,7 @@ var updateProgress = function (percent) {
   else {
     document.getElementById("encrypt-percent").innerHTML = percent+"%";
   }
-}
+};
 
 // Progress hook
 var progress = [];
@@ -98,7 +98,7 @@ var progress_hook_decrypt = function(p) {
   document.getElementById("decrypt-progress-summary").innerHTML = h;
 };
 
-//////////////////////////////////////////////////////////////////////////////////// Read file stuff
+/////////////////////////////////////////////////////////////////////////////////// Read file stuff
 var globalFileData = new Array();
 var fileDataRaw = "";
 
@@ -141,16 +141,19 @@ function getFileData() {
 }
 
 // Drag and drop
-// window.onload = function(){
-//     var dropzone = document.getElementById('dropzone');
-//     dropzone.addEventListener('dragover', function(e){
-//         e.preventDefault();
-//         return false;
-//     })
-//     .addEventListener('dragenter', function(e){
-//         e.preventDefault();
-//         return false;
-//     })
+window.onload = function(){
+  var dropzone = document.getElementsByTagName('body')[0];
+  var container = document.getElementById('dropzone');
+  dropzone.ondragover = function () { container.className = 'hover'; return false; };
+  dropzone.ondragend = function () { container.className = ''; return false; };
+  dropzone.ondragleave = function () { container.className = ''; return false; };
+  dropzone.ondrop = function (e) {
+    container.className = '';
+    e.preventDefault();
+    //readfiles(e.dataTransfer.files);
+  };
+
+
 //     .addEventListener('drop', function(e){
 //         e.preventDefault();
 //         var dt = e.dataTransfer;
@@ -162,11 +165,12 @@ function getFileData() {
 //                 globalFileData['name'] = (globalFileData['name'] == '' ? file.name : globalFileData['name']);
 //                 globalFileData['type'] = (globalFileData['type'] == '' ? file.type : globalFileData['type']);
 //                 globalFileData['data'] = (globalFileData['data'] == '' ? e.target.result : globalFileData['data'] + ';' + e.target.result);
-//             };    
+//             };
 //         }
+//         container.className = '';
 //         return false;
 //     });
-// };
+};
 
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
 
@@ -195,7 +199,7 @@ function createVault() {
 
   var allData = '';
   for (var i = 0; i<globalFileData.length; i++){
-      to_append = globalFileData[i]['data'];
+      var to_append = globalFileData[i]['data'];
       if ( i == 0 ) {
           allData += to_append;
       } else {
@@ -255,9 +259,9 @@ function decryptAndDownload() {
   decryptFileData(cipherData, password, function (err, plainData) {
     var fileNamesNew = fileName.split(';');
     var fileTypesNew = fileType.split(';');
-    var plainDatas = plainData.split(';');
+    var plainData2 = plainData.split(';');
     for (var i=0; i<fileNamesNew.length; i++) {
-        var blob = new Blob([Base64Binary.decode(plainDatas[i])], {
+        var blob = new Blob([Base64Binary.decode(plainData2[i])], {
             type : fileTypesNew[i]
         });
         saveAs(blob, fileNamesNew[i]);

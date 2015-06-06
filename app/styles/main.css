@@ -23,11 +23,17 @@ body {
   color: #FF4136;
 }
 
+.thinRed {
+  color: #FF4136;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+}
+
 .outer {
   padding: 80px 80px;
 }
 
-.container {
+#mainContainer {
   padding: 0px 30px 50px 30px;
   margin-left: auto;
   margin-right: auto;
@@ -43,7 +49,6 @@ body {
 }
 
 .btn {
-  float:left;
   -webkit-border-radius: 4;
   -moz-border-radius: 4;
   border-radius: 4px;
@@ -55,6 +60,11 @@ body {
   border: solid #FF4136 1px;
   text-decoration: none;
 }
+
+.floatLeft {
+  float:left;
+}
+
 
 .btn:hover {
   background: #ffffff;
@@ -74,7 +84,7 @@ input[type=password] {
 /* File upload */
 
 input[type=file] {
-  border: 1px solid #FF4136;
+  /*border: 1px solid #FF4136;*/
   border-radius: 4px;
   height: 25px;
   padding: 5px;
@@ -82,18 +92,29 @@ input[type=file] {
   width: 220px;
 }
 
+
 /* File Drag-and-drop */
 #dropzone {
-  min-height: 100px;
-  /* border: 4px dashed #FF851B; */
-  border: 1px solid #FF4136;
+  min-height: 130px;
+  /*border: 4px dashed #FF851B;*/
+  border: 4px dashed #FF851B;
   border-radius: 4px;
   padding: 10px;
 }
 
 #dropzone.hover {
-  border: 4px dashed #01FF70;
+  border: 4px dashed #39CCCC;
 }
+
+#selectFilesButton {
+  vertical-align: middle;
+}
+
+#dragAndDropHere {
+  font-size: 1.3em;
+  text-align: center;
+}
+
 
 /* Progress reporting */
 
