@@ -48,7 +48,7 @@
                           <br />
                           <label for="uploadInput">
                             <button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Select Files</button>
-                            <input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" multiple accept>
+                            <input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
                           </label>
 
                       </div>

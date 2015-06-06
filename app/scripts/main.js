@@ -99,15 +99,17 @@ var progress_hook_decrypt = function(p) {
 };
 
 /////////////////////////////////////////////////////////////////////////////////// Read file stuff
-var globalFileData = new Array();
+var globalFileData = [];
 var fileDataRaw = "";
 
+// Read the file and call the callback in this format:
+//    callback(fileName, fileType, fileSize, fileData)
 function readFileData(fileObj, callback) {
   var reader = new FileReader();
 
   reader.onload = (function(theFile) {
     return function(e) {
-      callback(theFile.name, theFile.type, e.target.result);
+      callback(theFile.name, theFile.type, theFile.size, e.target.result);
     };
   })(fileObj);
 
@@ -116,11 +118,11 @@ function readFileData(fileObj, callback) {
   reader.readAsDataURL(fileObj);
 }
 
-function getFileData() {
+function getFileDataOld() {
   var fileList = document.getElementById("uploadInput").files;
-  for (var i = 0; i<fileList.length; i++){      
+  for (var i = 0; i<fileList.length; i++) {
       var thisFile = fileList[i];
-      readFileData(thisFile, function (fileName, fileType, fileData) {
+      readFileData(thisFile, function (fileName, fileType, fileSize, fileData) {
           fileDataRaw = fileData;
           var in_global = false;
           for (j = 0; j<globalFileData.length; j++){
@@ -140,6 +142,58 @@ function getFileData() {
   }
 }
 
+function displayFile(fileName, fileType, fileSize) {
+  console.log(fileName + ' - ' + fileType + ' - ' + fileSize);
+}
+
+function removeFile(fileIndex) {
+  console.log('Remove file: ' + fileIndex);
+}
+
+function fileReadCallback(fileName, fileType, fileSize, fileData) {
+  globalFileData.push({
+    'name' : fileName,
+    'type' : fileType,
+    'data' : stripDataPrefix(fileData)
+  });
+  displayFile(fileName, fileType, fileSize);
+}
+
+function alreadyHaveFile(fileObj) {
+  // For now, just don't upload if the file name already exists;
+  globalFileData.forEach(function (uploadedFile) {
+    // TODO: Why are seemingly matching strings not matching...
+    console.log('UPLOADED FILE: [' + uploadedFile.name + '], NEW FILE: [' + fileObj.name + ']: ' + Math.random());
+    if (new String(uploadedFile.name).valueOf() == new String(fileObj.name).valueOf()) {
+      return true;
+    }
+  });
+  return false;
+}
+
+function addFile(fileObj) {
+  // TODO: if file size is different, upload and replace.
+  if (!alreadyHaveFile(fileObj)) {
+    readFileData(fileObj, fileReadCallback);
+    console.log('Got it');
+  }
+  else {
+    console.log('Already have that file bro!');
+  }
+}
+
+function addFiles(fileList) {
+  for (var i = 0; i < fileList.length; i++) {
+    var thisFile = fileList[i];
+    addFile(thisFile);
+  }
+}
+
+function addSelectedFiles() {
+  var fileList = document.getElementById("uploadInput").files;
+  addFiles(fileList);
+}
+
 // Drag and drop
 window.onload = function(){
   var dropzone = document.getElementsByTagName('body')[0];
@@ -150,7 +204,7 @@ window.onload = function(){
   dropzone.ondrop = function (e) {
     container.className = '';
     e.preventDefault();
-    //readfiles(e.dataTransfer.files);
+    addFiles(e.dataTransfer.files);
   };
 
 
