@@ -137,7 +137,7 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
 function alreadyHaveFile(fileObj) {
   // For now, just don't upload if the file name already exists;
   globalFileData.forEach(function (uploadedFile) {
-    // TODO: Why are seemingly matching strings not matching...
+    // TODO: Why are seemingly matching strings not matching... must be due to some encoding diff
     console.log('UPLOADED FILE: [' + uploadedFile.name + '], NEW FILE: [' + fileObj.name + ']: ' + Math.random());
     if (new String(uploadedFile.name).valueOf() == new String(fileObj.name).valueOf()) {
       return true;
