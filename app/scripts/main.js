@@ -100,7 +100,6 @@ var progress_hook_decrypt = function(p) {
 
 /////////////////////////////////////////////////////////////////////////////////// Read file stuff
 var globalFileData = [];
-var fileDataRaw = "";
 
 // Read the file and call the callback in this format:
 //    callback(fileName, fileType, fileSize, fileData)
@@ -116,30 +115,6 @@ function readFileData(fileObj, callback) {
   // Read in the image file as a data URL.
   // reader.readAsArrayBuffer
   reader.readAsDataURL(fileObj);
-}
-
-function getFileDataOld() {
-  var fileList = document.getElementById("uploadInput").files;
-  for (var i = 0; i<fileList.length; i++) {
-      var thisFile = fileList[i];
-      readFileData(thisFile, function (fileName, fileType, fileSize, fileData) {
-          fileDataRaw = fileData;
-          var in_global = false;
-          for (j = 0; j<globalFileData.length; j++){
-              if (globalFileData[j]['name'] == fileName){
-                  in_global = true;
-                  break
-              }
-          }
-          if ( in_global == false ) {
-              globalFileData.push({
-                  'name' : fileName,
-                  'type' : fileType,
-                  'data' : stripDataPrefix(fileData)
-              });
-          }
-      });
-  }
 }
 
 function displayFile(fileName, fileType, fileSize) {
@@ -206,24 +181,6 @@ window.onload = function(){
     e.preventDefault();
     addFiles(e.dataTransfer.files);
   };
-
-
-//     .addEventListener('drop', function(e){
-//         e.preventDefault();
-//         var dt = e.dataTransfer;
-//         var files = dt.files;
-//         for(var i=0; i<files.length; i++){
-//             var file = files[i],
-//                 reader = new FileReader();
-//             reader.onload = function(e){
-//                 globalFileData['name'] = (globalFileData['name'] == '' ? file.name : globalFileData['name']);
-//                 globalFileData['type'] = (globalFileData['type'] == '' ? file.type : globalFileData['type']);
-//                 globalFileData['data'] = (globalFileData['data'] == '' ? e.target.result : globalFileData['data'] + ';' + e.target.result);
-//             };
-//         }
-//         container.className = '';
-//         return false;
-//     });
 };
 
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
@@ -236,6 +193,10 @@ function stripDataPrefix(dataUrl) {
 function renderVault(fileName, fileType, fileData, callback) {
   // Replace the 3 placeholders with the file name, file type, and file data
   var vaultTemplate = document.documentElement.outerHTML;
+  // What is the String.fromCharCode(95) you ask? Well, this whole file is searched
+  // for the replace strings below ('REPLACE_WITH_FILE_NAME_'), and the references
+  // below, if they included the trailing '_' would be matched instead of the correct
+  // location.
   var vault = vaultTemplate.replace('<script>', '<script>var _decryptionMode = true;')
     .replace('REPLACE_WITH_FILE_NAME' + String.fromCharCode(95), fileName)
     .replace('REPLACE_WITH_FILE_TYPE' + String.fromCharCode(95), fileType)
