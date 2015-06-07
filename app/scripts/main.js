@@ -136,13 +136,11 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
 
 function alreadyHaveFile(fileObj) {
   // For now, just don't upload if the file name already exists;
-  globalFileData.forEach(function (uploadedFile) {
-    // TODO: Why are seemingly matching strings not matching... must be due to some encoding diff
-    console.log('UPLOADED FILE: [' + uploadedFile.name + '], NEW FILE: [' + fileObj.name + ']: ' + Math.random());
-    if (new String(uploadedFile.name).valueOf() == new String(fileObj.name).valueOf()) {
+  for (var i = 0; i < globalFileData.length; i++) {
+    if (globalFileData[i].name == fileObj.name) {
       return true;
     }
-  });
+  }
   return false;
 }
 
@@ -174,17 +172,14 @@ window.onload = function(){
   var dropzone = document.getElementsByTagName('body')[0];
   var container = document.getElementById('dropzone');
   dropzone.ondragover = function () {
-    e.preventDefault();
     container.className = 'hover';
     return false;
   };
   dropzone.ondragend = function () {
-    e.preventDefault();
     container.className = '';
     return false;
   };
   dropzone.ondragleave = function () {
-    e.preventDefault();
     container.className = '';
     return false;
   };
