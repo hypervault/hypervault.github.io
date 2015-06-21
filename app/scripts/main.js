@@ -117,8 +117,17 @@ function readFileData(fileObj, callback) {
   reader.readAsDataURL(fileObj);
 }
 
+function humanFileSize(size) {
+  var i = Math.floor( Math.log(size) / Math.log(1024) );
+  return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'KB', 'MB', 'GB', 'TB'][i];
+}
+
 function displayFile(fileName, fileType, fileSize) {
   console.log(fileName + ' - ' + fileType + ' - ' + fileSize);
+  var fileDisplayHtml = '<div class="row fileDisplay"><div class="col c8 thinRed"><span>'
+    + fileName + '</span></div><div class="col c3 thinRed"><span>' + humanFileSize(fileSize)
+    + '</span></div><div class="col c1 thinRed"><span><a href="#">x</a></span></div></div>';
+  insertHtml(fileDisplayHtml, document.getElementById("dropAfterMe"));
 }
 
 function removeFile(fileIndex) {
@@ -144,11 +153,23 @@ function alreadyHaveFile(fileObj) {
   return false;
 }
 
+function insertHtml(htmlStr, beforeNode) {
+  var frag = document.createDocumentFragment(),
+    temp = document.createElement('div');
+  temp.innerHTML = htmlStr;
+  while (temp.firstChild) {
+    frag.appendChild(temp.firstChild);
+  }
+  beforeNode.parentNode.insertBefore(frag, beforeNode);
+//  atNode.parentNode.insertBefore(frag, atNode.nextSibling);
+}
+
 function addFile(fileObj) {
   // TODO: if file size is different, upload and replace.
   if (!alreadyHaveFile(fileObj)) {
     readFileData(fileObj, fileReadCallback);
     console.log('Got it');
+
   }
   else {
     console.log('Already have that file bro!');

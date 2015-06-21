@@ -115,6 +115,18 @@ input[type=file] {
   text-align: center;
 }
 
+.fileDisplay {
+  border: 1px solid #FF4136;
+  border-radius: 4px;
+  padding: 20px 5px;
+}
+
+.fileDisplay span {
+  color: #FF4136;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 200;
+}
+
 
 /* Progress reporting */
 
@@ -139,7 +151,7 @@ input[type=file] {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight:100;
   color: #FF4136;
-  position: absolute; 
+  position: absolute;
   line-height: 50px;
   width: 100%;
 }

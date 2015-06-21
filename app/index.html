@@ -28,7 +28,7 @@
   <div class="container encryption-container">
 
     <div class="row">
-      <div class="col c12">
+      <div class="col c10">
         <h1 class="title">Hypervault</h1>
       </div>
     </div>
@@ -39,28 +39,44 @@
 
         <div class="col c7">
 
+
           <div id="dropzone">
-              <div class="row">
-                  <div class="col c12">
-                      <div style="text-align:center;">
-                          <br />
-                          <label for="uploadInput">
-                            <button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Select Files</button>
-                            <input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
-                          </label>
 
-                      </div>
-                  </div>
+            <div id="dropAfterMe"></div>
 
-              </div>
-              <div class="row">
-                  <div class="">
-                      <p class="thinRed" id="dragAndDropHere">(or drag and drop here)</p>
-                  </div>
-              </div>
+              <!--<div class="row">-->
+                  <!--<div class="">-->
+                      <!--<p class="thinRed" id="dragAndDropHere">(or drag and drop here)</p>-->
+                  <!--</div>-->
+              <!--</div>-->
+
+              <!--<div class="row fileDisplay">-->
+                <!--<div class="col c8 thinRed">-->
+                    <!--<span>File name</span>-->
+                <!--</div>-->
+                <!--<div class="col c3 thinRed">-->
+                    <!--<span>5.2MB</span>-->
+                <!--</div>-->
+                <!--<div class="col c1 thinRed">-->
+                    <!--<span><a href="#">x</a></span>-->
+                <!--</div>-->
+              <!--</div>-->
 
 
           </div>
+            <div class="row">
+                <div class="col c12">
+                    <div style="text-align:center;">
+                        <br />
+                        <label for="uploadInput">
+                            <button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Select Files</button>
+                            <input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
+                        </label>
+
+                    </div>
+                </div>
+
+            </div>
           <div id="filelist"></div>
         </div>
 
