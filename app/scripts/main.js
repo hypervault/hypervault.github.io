@@ -131,10 +131,20 @@ function displayFile(fileName, fileType, fileSize) {
   insertHtml(fileDisplayHtml, document.getElementById("dropAfterMe"));
 }
 
-function removeFile(filename) {
+function removeFileDisplay(filename) {
   var filenameHash = filename.hashCode();
-  console.log('Remove file: ' + filename + 'hash: ' + filenameHash);
   document.getElementById(filenameHash).remove();
+}
+
+function removeFile(filename) {
+  console.log('Remove file: ' + filename);
+  removeFileDisplay(filename);
+  for (var i = 0; i < globalFileData.length; i++) {
+    if (globalFileData[i].name == filename) {
+      globalFileData.splice(i);
+      break;
+    }
+  }
 }
 
 function fileReadCallback(fileName, fileType, fileSize, fileData) {
