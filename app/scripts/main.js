@@ -124,14 +124,17 @@ function humanFileSize(size) {
 
 function displayFile(fileName, fileType, fileSize) {
   console.log(fileName + ' - ' + fileType + ' - ' + fileSize);
-  var fileDisplayHtml = '<div class="row fileDisplay"><div class="col c8 thinRed"><span>'
+  var filenameHash = fileName.hashCode();
+  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col c8 thinRed"><span>'
     + fileName + '</span></div><div class="col c3 thinRed"><span>' + humanFileSize(fileSize)
-    + '</span></div><div class="col c1 thinRed"><span><a href="#">x</a></span></div></div>';
+    + '</span></div><button class="link-button" onclick="removeFile(\'' + fileName + '\')">X</button></div>';
   insertHtml(fileDisplayHtml, document.getElementById("dropAfterMe"));
 }
 
-function removeFile(fileIndex) {
-  console.log('Remove file: ' + fileIndex);
+function removeFile(filename) {
+  var filenameHash = filename.hashCode();
+  console.log('Remove file: ' + filename + 'hash: ' + filenameHash);
+  document.getElementById(filenameHash).remove();
 }
 
 function fileReadCallback(fileName, fileType, fileSize, fileData) {
@@ -374,6 +377,29 @@ function validateDecryptionFields() {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////// Utilities
+
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr, len;
+  if (this.length == 0) return hash;
+  for (i = 0, len = this.length; i < len; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+Element.prototype.remove = function() {
+  this.parentElement.removeChild(this);
+};
+
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+  for(var i = 0, len = this.length; i < len; i++) {
+    if(this[i] && this[i].parentElement) {
+      this[i].parentElement.removeChild(this[i]);
+    }
+  }
+};
 
 function setClassDisplay(className, display) {
   var selected = document.getElementsByClassName(className);

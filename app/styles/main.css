@@ -3,6 +3,21 @@ body {
   color: #333;
 }
 
+.link-button {
+  background:none!important;
+  border:none;
+  padding:0!important;
+  /*font: inherit;*/
+  /*border is optional*/
+  /*border-bottom:1px solid #444;*/
+  cursor: pointer;
+  text-decoration: none;
+  color: #FF4136;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+A{text-decoration:none}
+
 /* .col { */
 /*   margin-left: 10px; */
 /*   margin-right: 10px; */
