@@ -1,28 +1,28 @@
 <!doctype html>
 <html class="no-js">
 <head>
-<meta charset="utf-8">
-<title>Hypervault</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-<link rel="shortcut icon" href="/favicon.ico">
-<!-- build:css(.) styles/vendor.css -->
-<!-- bower:css -->
-<!-- endbower -->
-<!-- endbuild -->
+  <meta charset="utf-8">
+  <title>Hypervault</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
 
-<!-- build:css(.tmp) styles/maincss-grid.css -->
-<link rel="stylesheet" href="styles/mincss-grid.css">
-<!-- endbuild -->
+  <!-- build:css(.tmp) styles/maincss-grid.css -->
+  <link rel="stylesheet" href="styles/mincss-grid.css">
+  <!-- endbuild -->
 
-<!-- build:css(.tmp) styles/main.css -->
-<link rel="stylesheet" href="styles/main.css">
-<!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
 </head>
 <body>
 <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
 <div class="outer">
   <div class="container encryption-container">
@@ -39,45 +39,28 @@
 
         <div class="col c7">
 
+          <div class="row">
+            <div class="col c12">
+              <div id="dropzone">
+                <div id="dropAfterMe"></div>
+              </div>
+            </div>
+          </div>
 
-          <div id="dropzone">
+          <div class="row">
+            <div class="col c12">
+              <div style="text-align:center;">
+                <br />
+                <label for="uploadInput">
+                  <button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Select Files</button>
+                  <input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
+                </label>
 
-            <div id="dropAfterMe"></div>
-
-              <!--<div class="row">-->
-                  <!--<div class="">-->
-                      <!--<p class="thinRed" id="dragAndDropHere">(or drag and drop here)</p>-->
-                  <!--</div>-->
-              <!--</div>-->
-
-              <!--<div class="row fileDisplay">-->
-                <!--<div class="col c8 thinRed">-->
-                    <!--<span>File name</span>-->
-                <!--</div>-->
-                <!--<div class="col c3 thinRed">-->
-                    <!--<span>5.2MB</span>-->
-                <!--</div>-->
-                <!--<div class="col c1 thinRed">-->
-                    <!--<span><a href="#">x</a></span>-->
-                <!--</div>-->
-              <!--</div>-->
-
+              </div>
+            </div>
 
           </div>
-            <div class="row">
-                <div class="col c12">
-                    <div style="text-align:center;">
-                        <br />
-                        <label for="uploadInput">
-                            <button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Select Files</button>
-                            <input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
-                        </label>
 
-                    </div>
-                </div>
-
-            </div>
-          <div id="filelist"></div>
         </div>
 
         <div class="col c1">&nbsp;</div>
@@ -87,49 +70,48 @@
           <div class="row">
             <div class="c12">
               <input type="password" name="password_input" id="password_input" placeholder="Password"
-              onkeyup="validateEncryptionFields()" />
+                     onkeyup="validateEncryptionFields()" />
               <span class="validation-error" id="pw-required-msg">Password required</span>
             </div>
+          </div>
 
-            <div class="row">
-              <div class="c12">
-                <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
-                onkeyup="validateEncryptionFields()" />
-                <span class="validation-error" id="pw-required-msg2">Password confirmation required</span>
-                <span class="validation-error" id="pw-mismatch-msg">Passwords don't match</span>
-              </div>
+          <div class="row">
+            <div class="col c12">
+              <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
+                     onkeyup="validateEncryptionFields()" />
+              <span class="validation-error" id="pw-required-msg2">Password confirmation required</span>
+              <span class="validation-error" id="pw-mismatch-msg">Passwords don't match</span>
             </div>
+          </div>
 
-            <div class="row">
-              <div class="c12">
-                <button type="button" class="btn floatLeft" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
-                <div class="progress">
-                  <div class="percent" id="encrypt-percent"></div>
-                  <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
-                    <path id="encrypt-progress-path" d="
+          <div class="row">
+            <div class="col c12">
+              <button type="button" class="btn floatLeft" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
+              <div class="progress">
+                <div class="percent" id="encrypt-percent"></div>
+                <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
+                  <path id="encrypt-progress-path" d="
                     M50,1
                     a49,49 0 0,1 0,98
                     a49,49 0 0,1 0,-98
                     "/>
-                  </svg>
-                </div>
+                </svg>
               </div>
             </div>
-
           </div>
+
+          <div class="row">
+            <div class="col c12">
+              <br />
+              <div id="encrypt-progress-summary"></div>
+            </div>
+          </div>
+
         </div>
 
       </div>
 
     </form>
-
-    <div class="row">
-      <div class="col c7">&nbsp;</div>
-
-      <div class="col c5">
-        <div id="encrypt-progress-summary"></div>
-      </div>
-    </div>
 
   </div>
 
@@ -142,32 +124,55 @@
     </div>
 
     <div class="row">
-      <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
-      <span class="validation-error" id="decrypt-pw-required-msg">Password required</span>
-      <span class="validation-error" id="wrong-pw-msg">Wrong password</span>
-    </div>
 
-    <div class="row">
-      <div class="col c12">
-        <button class="btn floatLeft" onclick="decryptAndDownload();return false;">Decrypt</button>
-        <div class="progress">
-          <div class="percent" id="decrypt-percent"></div>
-          <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
-            <path id="decrypt-progress-path" d="
+      <div class="col c4">
+
+        <div class="row">
+          <div class="col c12">
+            <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
+            <span class="validation-error" id="decrypt-pw-required-msg">Password required</span>
+            <span class="validation-error" id="wrong-pw-msg">Wrong password</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col c12">
+            <button class="btn floatLeft" onclick="decryptAndDownload();return false;">Decrypt</button>
+            <div class="progress">
+              <div class="percent" id="decrypt-percent"></div>
+              <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
+                <path id="decrypt-progress-path" d="
             M50,1
             a49,49 0 0,1 0,98
             a49,49 0 0,1 0,-98
             "/>
-          </svg>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col c12">
+            <br />
+            <div id="decrypt-progress-summary"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col c1">&nbsp;</div>
+
+      <div class="col c7">
+        <div id="decrypted-files">
+          <div id="add-after-me"></div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div id="decrypt-progress-summary"></div>
     </div>
 
   </div>
+
+</div>
 </div>
 
 <!-- build:js(.) scripts/vendor.js -->

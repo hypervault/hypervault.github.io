@@ -16,6 +16,15 @@ body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+.file-size {
+  padding-top: 10px;
+}
+
+.delete-x {
+  font-size: 1em;
+  margin-top: 12px;
+}
+
 A{text-decoration:none}
 
 /* .col { */
@@ -36,6 +45,16 @@ A{text-decoration:none}
   font-weight: lighter;
   letter-spacing: 4px;
   color: #FF4136;
+}
+
+.redText {
+  color: #FF4136;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.orangeText {
+  color: #FF851B;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .thinRed {
@@ -133,7 +152,7 @@ input[type=file] {
 .fileDisplay {
   border: 1px solid #FF4136;
   border-radius: 4px;
-  padding: 20px 5px;
+  padding: 8px 5px;
 }
 
 .fileDisplay span {
@@ -142,6 +161,15 @@ input[type=file] {
   font-weight: 200;
 }
 
+/* Decrypted file display */
+
+#decrypted-files {
+  min-height: 130px;
+  border: 4px solid #FF851B;
+  border-radius: 4px;
+  padding: 10px;
+  display: none;
+}
 
 /* Progress reporting */
 

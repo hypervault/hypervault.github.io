@@ -4,11 +4,12 @@ if (typeof _decryptionMode !== 'undefined') {
   decryptionMode = true;
 }
 
-//////////////////////////////////////////////////////////////////////////// Encrypted embedded data
+/////////////////////////////////////////////////////////////////////////// Encrypted embedded data
 var fileName = 'REPLACE_WITH_FILE_NAME_';
 var fileType = 'REPLACE_WITH_FILE_TYPE_';
 var cipherData = 'REPLACE_WITH_FILE_DATA_';
-///////////////////////////////////////////////////////////////////////////////// Progress indicator
+
+//////////////////////////////////////////////////////////////////////////////// Progress indicator
 var progressPath = null;
 if (decryptionMode) {
   progressPath = document.getElementById('decrypt-progress-path');
@@ -123,12 +124,19 @@ function humanFileSize(size) {
 }
 
 function displayFile(fileName, fileType, fileSize) {
-  console.log(fileName + ' - ' + fileType + ' - ' + fileSize);
   var filenameHash = fileName.hashCode();
-  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col c8 thinRed"><span>'
-    + fileName + '</span></div><div class="col c3 thinRed"><span>' + humanFileSize(fileSize)
-    + '</span></div><button class="link-button" onclick="removeFile(\'' + fileName + '\')">X</button></div>';
+  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col c11"><div class="redText">'
+    + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
+    + '</div></div><div class="col c1"><button class="link-button delete-x" onclick="removeFile(\'' + fileName + '\')">X</button></div></div>';
   insertHtml(fileDisplayHtml, document.getElementById("dropAfterMe"));
+}
+
+function displayDecryptedFile(fileName, fileType, fileSize) {
+  var filenameHash = fileName.hashCode();
+  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col c9"><div class="redText">'
+    + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
+    + '</span></div><div class="col c3"><button class="link-button" onclick="downloadFile(\'' + fileName + '\')">Download</button></div></div>';
+  insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
 }
 
 function removeFileDisplay(filename) {
@@ -142,6 +150,17 @@ function removeFile(filename) {
   for (var i = 0; i < globalFileData.length; i++) {
     if (globalFileData[i].name == filename) {
       globalFileData.splice(i);
+      break;
+    }
+  }
+}
+
+function downloadFile(filename) {
+  console.log('Download file: ' + filename);
+  for (var i = 0; i < decryptedFileData.length; i++) {
+    if (decryptedFileData[i].name == filename) {
+      var blob = decryptedFileData[i].blob;
+      saveAs(blob, filename);
       break;
     }
   }
@@ -274,6 +293,7 @@ function createVault() {
 }
 
 /////////////////////////////////////////////////////////////////////////////////// Encryption stuff
+
 function encryptFileData(fileData, password, callback) {
   var data = new triplesec.Buffer(fileData);
   var key = new triplesec.Buffer(password);
@@ -290,11 +310,15 @@ function encryptFileData(fileData, password, callback) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////// Decryption stuff
+
+var decryptedFileData = [];
+
 function decryptFileData(cipherData, password, callback) {
   var data = new triplesec.Buffer(cipherData, 'base64');
   var key = new triplesec.Buffer(password);
 
   reset_progress();
+  displayWrongPasswordMsg(false);
   triplesec.decrypt({key:key, progress_hook: progress_hook_decrypt, data:data}, function (err, plainData) {
     if (err) {
       // Reset progress and display "wrong password" message
@@ -316,11 +340,23 @@ function decryptAndDownload() {
     var fileNamesNew = fileName.split(';');
     var fileTypesNew = fileType.split(';');
     var plainData2 = plainData.split(';');
+
+    // Show container for decrypted files
+    document.getElementById('decrypted-files').style.display = 'block';
+
+    // Show each decrypted file
     for (var i=0; i<fileNamesNew.length; i++) {
         var blob = new Blob([Base64Binary.decode(plainData2[i])], {
             type : fileTypesNew[i]
         });
-        saveAs(blob, fileNamesNew[i]);
+
+      decryptedFileData.push({
+        'name' : fileNamesNew[i],
+        'type' : fileTypesNew[i],
+        'blob' : blob
+      });
+
+      displayDecryptedFile(fileNamesNew[i], fileTypesNew[i], 1000);
     }
   });
 }
@@ -378,13 +414,6 @@ function validateEncryptionFields() {
   allValid = allValid && validatePasswordsMatch();
   return allValid;
 }
-
-function validateDecryptionFields() {
-  // Ensure the "wrong password" message is hidden on submit
-  displayWrongPasswordMsg(false);
-  return validateRequiredField(decryptPasswordInput, 'decrypt-pw-required-msg');
-}
-
 
 ////////////////////////////////////////////////////////////////////////////////////////// Utilities
 
