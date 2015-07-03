@@ -25,6 +25,11 @@ body {
   margin-top: 12px;
 }
 
+.download-file {
+  font-size: 1em;
+  margin-top: 12px;
+}
+
 A{text-decoration:none}
 
 /* .col { */

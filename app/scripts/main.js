@@ -135,7 +135,7 @@ function displayDecryptedFile(fileName, fileType, fileSize) {
   var filenameHash = fileName.hashCode();
   var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col c9"><div class="redText">'
     + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
-    + '</span></div><div class="col c3"><button class="link-button" onclick="downloadFile(\'' + fileName + '\')">Download</button></div></div>';
+    + '</div></div><div class="col c3"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">Download</button></div></div>';
   insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
 }
 
@@ -253,6 +253,18 @@ function stripDataPrefix(dataUrl) {
 function renderVault(fileName, fileType, fileData, callback) {
   // Replace the 3 placeholders with the file name, file type, and file data
   var vaultTemplate = document.documentElement.outerHTML;
+
+  // Need to remove DOM elements from drag/drop
+
+  var startRemoveStr = "START-DRAG-DROP-DOM-TO-REMOVE-FROM-VAULT -->";
+  var endRemoveStr = "END-DRAG-DROP-DOM-TO-REMOVE-FROM-VAULT";
+  var startRemoveIndex = vaultTemplate.search(startRemoveStr) + startRemoveStr.length;
+  var endRemoveIndex = vaultTemplate.search(endRemoveStr) - 5; // 5 = length of comment begin
+  var htmlToRemove = vaultTemplate.substring(startRemoveIndex, endRemoveIndex);
+  console.log("HTML TO REMOVE: " + htmlToRemove);
+  vaultTemplate = vaultTemplate.replace(htmlToRemove, "");
+
+
   // What is the String.fromCharCode(95) you ask? Well, this whole file is searched
   // for the replace strings below ('REPLACE_WITH_FILE_NAME_'), and the references
   // below, if they included the trailing '_' would be matched instead of the correct
