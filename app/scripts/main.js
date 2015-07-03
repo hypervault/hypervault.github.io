@@ -478,3 +478,26 @@ function joinNames(data, key) {
     }
     return str;
 }
+
+
+// Make Enter key Encrypt or Decrypt, depending on mode.
+
+function inputKeyUp(e) {
+  e.which = e.which || e.keyCode;
+  if(e.which == 13) {
+    if (decryptionMode) {
+      decryptAndDownload();
+    }
+    else {
+      validateEncryptionFields() && createVault();
+    }
+    event.preventDefault();
+    return false;
+  }
+
+}
+
+var allInputs = document.getElementsByTagName('input');
+for (var index = 0; index < allInputs.length; ++index) {
+  allInputs[index].addEventListener("keydown", inputKeyUp);
+}
