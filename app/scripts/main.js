@@ -6,7 +6,7 @@ if (typeof _decryptionMode !== 'undefined') {
 
 ///////////////////////////////////////////////////////////////////// Global file storage variables
 
-// Storage format for statedFileData and decryptedFileData
+// Storage format for plainTextFileData
 // [
 //   { fileName: 'test.png', fileType: 'image/png', fileSize: 1337, fileData: 'base64 string' },
 //   { fileName, 'test2.jpg', fileType: 'image/jpg', fileSize: 42000, fileData: 'base64 string' },
@@ -14,10 +14,7 @@ if (typeof _decryptionMode !== 'undefined') {
 
 // Holds selected files in the structure shown above. Encryption happens by serializing this
 // structure to a string, encrypting it, and storing it in the encryptedFileData.
-var stagedFileData = [];
-
-// Holds the file data in the same structure as stagedFileData after decryption.
-var decryptedFileData = [];
+var plainTextFileData = [];
 
 // encryptedFileData stores the encrypted stringified version of stagedFileData.
 var encryptedFileData = 'REPLACE_WITH_ENCRYPTED_DATA_';
@@ -160,9 +157,9 @@ function removeFileDisplay(filename) {
 function removeFile(filename) {
   console.log('Remove file: ' + filename);
   removeFileDisplay(filename);
-  for (var i = 0; i < stagedFileData.length; i++) {
-    if (stagedFileData[i].fileName == filename) {
-      stagedFileData.splice(i);
+  for (var i = 0; i < plainTextFileData.length; i++) {
+    if (plainTextFileData[i].fileName == filename) {
+      plainTextFileData.splice(i);
       break;
     }
   }
@@ -170,10 +167,10 @@ function removeFile(filename) {
 
 function downloadFile(filename) {
   console.log('Download file: ' + filename);
-  for (var i = 0; i < decryptedFileData.length; i++) {
-    if (decryptedFileData[i].fileName == filename) {
-      var blob = new Blob([Base64Binary.decode(decryptedFileData[i].fileData)], {
-        type : decryptedFileData[i].fileType
+  for (var i = 0; i < plainTextFileData.length; i++) {
+    if (plainTextFileData[i].fileName == filename) {
+      var blob = new Blob([Base64Binary.decode(plainTextFileData[i].fileData)], {
+        type : plainTextFileData[i].fileType
       });
       saveAs(blob, filename);
       break;
@@ -187,7 +184,7 @@ function stripDataPrefix(dataUrl) {
 }
 
 function fileReadCallback(fileName, fileType, fileSize, fileData) {
-  stagedFileData.push({
+  plainTextFileData.push({
     'fileName' : fileName,
     'fileType' : fileType,
     'fileSize' : fileSize,
@@ -198,8 +195,8 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
 
 function alreadyHaveFile(fileObj) {
   // For now, just don't upload if the file name already exists;
-  for (var i = 0; i < stagedFileData.length; i++) {
-    if (stagedFileData[i].name == fileObj.name) {
+  for (var i = 0; i < plainTextFileData.length; i++) {
+    if (plainTextFileData[i].name == fileObj.name) {
       return true;
     }
   }
@@ -288,7 +285,7 @@ function saveVault(vaultData, vaultFileName) {
 
 function createVault() {
   var password = document.getElementById('password_input').value;
-  var plainText = JSON.stringify(stagedFileData);
+  var plainText = JSON.stringify(plainTextFileData);
 
   encryptFileData(plainText, password, function (err, cipherText) {
     renderVault(cipherText, function (vaultData) {
@@ -341,16 +338,16 @@ function decryptAndDownload() {
   var password = document.getElementById('decrypt-password-input').value;
 
   decryptFileData(encryptedFileData, password, function (err, plainText) {
-    decryptedFileData = JSON.parse(plainText);
+    plainTextFileData = JSON.parse(plainText);
 
     // Show container for decrypted files
     document.getElementById('decrypted-files').style.display = 'block';
 
     // Show each decrypted file
-    for (var i=0; i<decryptedFileData.length; i++) {
-      var fileName = decryptedFileData[i].fileName;
-      var fileType = decryptedFileData[i].fileType;
-      var fileSize = decryptedFileData[i].fileSize;
+    for (var i=0; i<plainTextFileData.length; i++) {
+      var fileName = plainTextFileData[i].fileName;
+      var fileType = plainTextFileData[i].fileType;
+      var fileSize = plainTextFileData[i].fileSize;
       displayDecryptedFile(fileName, fileType, fileSize);
     }
   });
