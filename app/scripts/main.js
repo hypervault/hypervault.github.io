@@ -156,12 +156,18 @@ function removeFileDisplay(filename) {
 
 function removeFile(filename) {
   console.log('Remove file: ' + filename);
-  removeFileDisplay(filename);
+
+  var indexToRemove = -1;
   for (var i = 0; i < plainTextFileData.length; i++) {
     if (plainTextFileData[i].fileName == filename) {
-      plainTextFileData.splice(i);
+      indexToRemove = i;
       break;
     }
+  }
+  
+  if (indexToRemove > 0) {
+    removeFileDisplay(filename);
+    plainTextFileData.splice(i, 1);
   }
 }
 

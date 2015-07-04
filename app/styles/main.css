@@ -170,7 +170,7 @@ input[type=file] {
 
 #decrypted-files {
   min-height: 130px;
-  border: 4px solid #FF851B;
+  border: 2px solid #FF851B;
   border-radius: 4px;
   padding: 10px;
   display: none;
