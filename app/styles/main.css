@@ -218,3 +218,27 @@ input[type=file] {
   color: #FF4136;
   font-size: .9em;
 }
+
+.footer {
+  margin-top: 50px;
+  text-align: center;
+  color: #AAAAAA;
+  font-size: .8em;
+}
+
+.footer-container {
+  width: 160px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer hr {
+  border: 0;
+  border-bottom: 1px dashed #ccc;
+  background: #999;
+  margin: 2px;
+}
+
+.footer a, a:visited, a:hover {
+  color: #FF851B;
+}
