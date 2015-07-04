@@ -164,8 +164,8 @@ function removeFile(filename) {
       break;
     }
   }
-  
-  if (indexToRemove > 0) {
+
+  if (indexToRemove >= 0) {
     removeFileDisplay(filename);
     plainTextFileData.splice(i, 1);
   }
