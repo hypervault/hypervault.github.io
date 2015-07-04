@@ -227,9 +227,10 @@ input[type=file] {
 }
 
 .footer-container {
-  width: 160px;
+  width: 155px;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 200;
 }
 
 .footer hr {
