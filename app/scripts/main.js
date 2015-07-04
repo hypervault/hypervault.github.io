@@ -4,10 +4,24 @@ if (typeof _decryptionMode !== 'undefined') {
   decryptionMode = true;
 }
 
-/////////////////////////////////////////////////////////////////////////// Encrypted embedded data
-var fileName = 'REPLACE_WITH_FILE_NAME_';
-var fileType = 'REPLACE_WITH_FILE_TYPE_';
-var cipherData = 'REPLACE_WITH_FILE_DATA_';
+///////////////////////////////////////////////////////////////////// Global file storage variables
+
+// Storage format for statedFileData and decryptedFileData
+// [
+//   { fileName: 'test.png', fileType: 'image/png', fileSize: 1337, fileData: 'base64 string' },
+//   { fileName, 'test2.jpg', fileType: 'image/jpg', fileSize: 42000, fileData: 'base64 string' },
+// ]
+
+// Holds selected files in the structure shown above. Encryption happens by serializing this
+// structure to a string, encrypting it, and storing it in the encryptedFileData.
+var stagedFileData = [];
+
+// Holds the file data in the same structure as stagedFileData after decryption.
+var decryptedFileData = [];
+
+// encryptedFileData stores the encrypted stringified version of stagedFileData.
+var encryptedFileData = 'REPLACE_WITH_ENCRYPTED_DATA_';
+
 
 //////////////////////////////////////////////////////////////////////////////// Progress indicator
 var progressPath = null;
@@ -100,7 +114,6 @@ var progress_hook_decrypt = function(p) {
 };
 
 /////////////////////////////////////////////////////////////////////////////////// Read file stuff
-var globalFileData = [];
 
 // Read the file and call the callback in this format:
 //    callback(fileName, fileType, fileSize, fileData)
@@ -147,9 +160,9 @@ function removeFileDisplay(filename) {
 function removeFile(filename) {
   console.log('Remove file: ' + filename);
   removeFileDisplay(filename);
-  for (var i = 0; i < globalFileData.length; i++) {
-    if (globalFileData[i].name == filename) {
-      globalFileData.splice(i);
+  for (var i = 0; i < stagedFileData.length; i++) {
+    if (stagedFileData[i].fileName == filename) {
+      stagedFileData.splice(i);
       break;
     }
   }
@@ -158,27 +171,35 @@ function removeFile(filename) {
 function downloadFile(filename) {
   console.log('Download file: ' + filename);
   for (var i = 0; i < decryptedFileData.length; i++) {
-    if (decryptedFileData[i].name == filename) {
-      var blob = decryptedFileData[i].blob;
+    if (decryptedFileData[i].fileName == filename) {
+      var blob = new Blob([Base64Binary.decode(decryptedFileData[i].fileData)], {
+        type : decryptedFileData[i].fileType
+      });
       saveAs(blob, filename);
       break;
     }
   }
 }
 
+function stripDataPrefix(dataUrl) {
+  var firstCommaIndex = dataUrl.indexOf(',');
+  return dataUrl.slice(firstCommaIndex+1);
+}
+
 function fileReadCallback(fileName, fileType, fileSize, fileData) {
-  globalFileData.push({
-    'name' : fileName,
-    'type' : fileType,
-    'data' : stripDataPrefix(fileData)
+  stagedFileData.push({
+    'fileName' : fileName,
+    'fileType' : fileType,
+    'fileSize' : fileSize,
+    'fileData' : stripDataPrefix(fileData)
   });
   displayFile(fileName, fileType, fileSize);
 }
 
 function alreadyHaveFile(fileObj) {
   // For now, just don't upload if the file name already exists;
-  for (var i = 0; i < globalFileData.length; i++) {
-    if (globalFileData[i].name == fileObj.name) {
+  for (var i = 0; i < stagedFileData.length; i++) {
+    if (stagedFileData[i].name == fileObj.name) {
       return true;
     }
   }
@@ -245,34 +266,26 @@ window.onload = function(){
 
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
 
-function stripDataPrefix(dataUrl) {
-  var firstCommaIndex = dataUrl.indexOf(',');
-  return dataUrl.slice(firstCommaIndex+1);
-}
-
-function renderVault(fileName, fileType, fileData, callback) {
+function renderVault(cipherText, callback) {
   // Replace the 3 placeholders with the file name, file type, and file data
   var vaultTemplate = document.documentElement.outerHTML;
 
   // Need to remove DOM elements from drag/drop
-
   var startRemoveStr = "START-DRAG-DROP-DOM-TO-REMOVE-FROM-VAULT -->";
   var endRemoveStr = "END-DRAG-DROP-DOM-TO-REMOVE-FROM-VAULT";
   var startRemoveIndex = vaultTemplate.search(startRemoveStr) + startRemoveStr.length;
   var endRemoveIndex = vaultTemplate.search(endRemoveStr) - 5; // 5 = length of comment begin
   var htmlToRemove = vaultTemplate.substring(startRemoveIndex, endRemoveIndex);
-  console.log("HTML TO REMOVE: " + htmlToRemove);
   vaultTemplate = vaultTemplate.replace(htmlToRemove, "");
 
-
   // What is the String.fromCharCode(95) you ask? Well, this whole file is searched
-  // for the replace strings below ('REPLACE_WITH_FILE_NAME_'), and the references
+  // for the replace strings below ('REPLACE_WITH_ENCRYPTED_DATA_'), and the references
   // below, if they included the trailing '_' would be matched instead of the correct
   // location.
-  var vault = vaultTemplate.replace('<script>', '<script>var _decryptionMode = true;')
-    .replace('REPLACE_WITH_FILE_NAME' + String.fromCharCode(95), fileName)
-    .replace('REPLACE_WITH_FILE_TYPE' + String.fromCharCode(95), fileType)
-    .replace('REPLACE_WITH_FILE_DATA' + String.fromCharCode(95), fileData);
+  var vault = vaultTemplate
+    .replace('<script>', '<script>var _decryptionMode = true;')
+    .replace('REPLACE_WITH_ENCRYPTED_DATA' + String.fromCharCode(95), cipherText);
+
   callback(vault);
 }
 
@@ -283,22 +296,10 @@ function saveVault(vaultData, vaultFileName) {
 
 function createVault() {
   var password = document.getElementById('password_input').value;
+  var plainText = JSON.stringify(stagedFileData);
 
-  var allData = '';
-  for (var i = 0; i<globalFileData.length; i++){
-      var to_append = globalFileData[i]['data'];
-      if ( i == 0 ) {
-          allData += to_append;
-      } else {
-          allData += ';' + to_append;
-      }
-  } 
-  var base64FileData = allData;  
-
-  var names = joinNames(globalFileData, 'name'),
-      types = joinNames(globalFileData, 'type');
-  encryptFileData(base64FileData, password, function (err, encryptedData) {
-    renderVault(names, types, encryptedData, function (vaultData) {
+  encryptFileData(plainText, password, function (err, cipherText) {
+    renderVault(cipherText, function (vaultData) {
       saveVault(vaultData, "vault1.html");
     });
   });
@@ -323,8 +324,6 @@ function encryptFileData(fileData, password, callback) {
 
 /////////////////////////////////////////////////////////////////////////////////// Decryption stuff
 
-var decryptedFileData = [];
-
 function decryptFileData(cipherData, password, callback) {
   var data = new triplesec.Buffer(cipherData, 'base64');
   var key = new triplesec.Buffer(password);
@@ -348,27 +347,19 @@ function decryptFileData(cipherData, password, callback) {
 
 function decryptAndDownload() {
   var password = document.getElementById('decrypt-password-input').value;
-  decryptFileData(cipherData, password, function (err, plainData) {
-    var fileNamesNew = fileName.split(';');
-    var fileTypesNew = fileType.split(';');
-    var plainData2 = plainData.split(';');
+
+  decryptFileData(encryptedFileData, password, function (err, plainText) {
+    decryptedFileData = JSON.parse(plainText);
 
     // Show container for decrypted files
     document.getElementById('decrypted-files').style.display = 'block';
 
     // Show each decrypted file
-    for (var i=0; i<fileNamesNew.length; i++) {
-        var blob = new Blob([Base64Binary.decode(plainData2[i])], {
-            type : fileTypesNew[i]
-        });
-
-      decryptedFileData.push({
-        'name' : fileNamesNew[i],
-        'type' : fileTypesNew[i],
-        'blob' : blob
-      });
-
-      displayDecryptedFile(fileNamesNew[i], fileTypesNew[i], 1000);
+    for (var i=0; i<decryptedFileData.length; i++) {
+      var fileName = decryptedFileData[i].fileName;
+      var fileType = decryptedFileData[i].fileType;
+      var fileSize = decryptedFileData[i].fileSize;
+      displayDecryptedFile(fileName, fileType, fileSize);
     }
   });
 }
@@ -478,7 +469,6 @@ function joinNames(data, key) {
     }
     return str;
 }
-
 
 // Make Enter key Encrypt or Decrypt, depending on mode.
 
