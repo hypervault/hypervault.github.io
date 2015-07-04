@@ -295,7 +295,7 @@ function createVault() {
 
   encryptFileData(plainText, password, function (err, cipherText) {
     renderVault(cipherText, function (vaultData) {
-      saveVault(vaultData, "vault1.html");
+      saveVault(vaultData, "locked_hypervault.html");
     });
   });
 }
