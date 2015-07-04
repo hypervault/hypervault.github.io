@@ -451,14 +451,6 @@ else {
   setClassDisplay('encryption-container', 'block');
 }
 
-function joinNames(data, key) {
-    var str = '';
-    for (var i=0; i<data.length; i++) {
-        str += data[i][key] + ';';
-    }
-    return str;
-}
-
 // Make Enter key Encrypt or Decrypt, depending on mode.
 
 function inputKeyUp(e) {
