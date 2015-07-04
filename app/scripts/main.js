@@ -1,3 +1,4 @@
+var hypervaultFormatVersion = "0.0.1";
 
 var decryptionMode = false;
 if (typeof _decryptionMode !== 'undefined') {
@@ -18,7 +19,6 @@ var plainTextFileData = [];
 
 // encryptedFileData stores the encrypted stringified version of stagedFileData.
 var encryptedFileData = 'REPLACE_WITH_ENCRYPTED_DATA_';
-
 
 //////////////////////////////////////////////////////////////////////////////// Progress indicator
 var progressPath = null;
@@ -110,7 +110,7 @@ var progress_hook_decrypt = function(p) {
   document.getElementById("decrypt-progress-summary").innerHTML = h;
 };
 
-/////////////////////////////////////////////////////////////////////////////////// Read file stuff
+////////////////////////////////////////////////////////////////////////////////////////// File I/O
 
 // Read the file and call the callback in this format:
 //    callback(fileName, fileType, fileSize, fileData)
