@@ -42,11 +42,7 @@
           <div class="row">
             <div class="col c12">
               <div id="dropzone">
-                <!-- START-DRAG-DROP-DOM-TO-REMOVE-FROM-VAULT -->
-
                 <div id="dropAfterMe"></div>
-
-                <!-- END-DRAG-DROP-DOM-TO-REMOVE-FROM-VAULT -->
               </div>
             </div>
           </div>
@@ -186,12 +182,14 @@
 <!-- endbower -->
 <!-- endbuild -->
 
+<!-- build:js({app,.tmp}) scripts/base64-binary.js -->
+<script src="scripts/base64-binary.js"></script>
+<!-- endbuild -->
+
 <!-- build:js({app,.tmp}) scripts/main.js -->
 <script src="scripts/main.js"></script>
 <!-- endbuild -->
 
-<!-- build:js({app,.tmp}) scripts/base64-binary.js -->
-<script src="scripts/base64-binary.js"></script>
-<!-- endbuild -->
+
 </body>
 </html>

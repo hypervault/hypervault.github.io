@@ -266,22 +266,14 @@ window.onload = function(){
 
 //////////////////////////////////////////////////////////////////////////////////// Vault rendering
 
+// Grab the source file of this very file, which is used as the template into which to insert
+// the cipherText.
+var vaultTemplate = document.documentElement.outerHTML;
+
 function renderVault(cipherText, callback) {
-  // Replace the 3 placeholders with the file name, file type, and file data
-  var vaultTemplate = document.documentElement.outerHTML;
-
-  // Need to remove DOM elements from drag/drop
-  var startRemoveStr = "START-DRAG-DROP-DOM-TO-REMOVE-FROM-VAULT -->";
-  var endRemoveStr = "END-DRAG-DROP-DOM-TO-REMOVE-FROM-VAULT";
-  var startRemoveIndex = vaultTemplate.search(startRemoveStr) + startRemoveStr.length;
-  var endRemoveIndex = vaultTemplate.search(endRemoveStr) - 5; // 5 = length of comment begin
-  var htmlToRemove = vaultTemplate.substring(startRemoveIndex, endRemoveIndex);
-  vaultTemplate = vaultTemplate.replace(htmlToRemove, "");
-
-  // What is the String.fromCharCode(95) you ask? Well, this whole file is searched
-  // for the replace strings below ('REPLACE_WITH_ENCRYPTED_DATA_'), and the references
-  // below, if they included the trailing '_' would be matched instead of the correct
-  // location.
+  // Set _decryptionMode variable and insert cipherText by replacing string.
+  // String.fromCharCode(95) is used to represent '_', so that the cipherText isn't accidentally
+  // inserted here.
   var vault = vaultTemplate
     .replace('<script>', '<script>var _decryptionMode = true;')
     .replace('REPLACE_WITH_ENCRYPTED_DATA' + String.fromCharCode(95), cipherText);
