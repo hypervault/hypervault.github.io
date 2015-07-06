@@ -168,6 +168,8 @@ function removeFile(filename) {
   if (indexToRemove >= 0) {
     removeFileDisplay(filename);
     plainTextFileData.splice(i, 1);
+
+    displayDragDropMsg();
   }
 }
 
@@ -197,6 +199,7 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
     'fileData' : stripDataPrefix(fileData)
   });
   displayFile(fileName, fileType, fileSize);
+  displayDragDropMsg();
 }
 
 function alreadyHaveFile(fileObj) {
@@ -411,6 +414,18 @@ function validateEncryptionFields() {
   allValid = validateRequiredField(encryptPasswordInput2, 'pw-required-msg2') && allValid;
   allValid = allValid && validatePasswordsMatch();
   return allValid;
+}
+
+// Misc Display
+
+function displayDragDropMsg() {
+  console.log(plainTextFileData.length);
+  if (plainTextFileData.length == 0) {
+    document.getElementById('drag-files-here-msg').style.display = 'block';
+  }
+  else {
+    document.getElementById('drag-files-here-msg').style.display = 'none';
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////// Utilities

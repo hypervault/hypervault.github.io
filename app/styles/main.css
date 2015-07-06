@@ -243,3 +243,12 @@ input[type=file] {
 .footer a, a:visited, a:hover {
   color: #FF851B;
 }
+
+#drag-files-here-msg {
+  margin-top: 40px;
+  text-align: center;
+  color: #FF4136;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 1.3em;
+}
