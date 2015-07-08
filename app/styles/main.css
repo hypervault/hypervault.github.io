@@ -176,6 +176,14 @@ input[type=file] {
   display: none;
 }
 
+#decrypt-helper-message {
+  min-height: 50px;
+  border: 1px solid #FF851B;
+  border-radius: 4px;
+  padding: 10px;
+  /*display: none;*/
+}
+
 /* Progress reporting */
 
 #encrypt-progress-summary li, #decrypt-progress-summary li {

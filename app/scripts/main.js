@@ -1,4 +1,4 @@
-var hypervaultFormatVersion = "0.0.1";
+var hypervaultFormatVersion = 1;
 
 var decryptionMode = false;
 if (typeof _decryptionMode !== 'undefined') {
@@ -343,10 +343,11 @@ function decryptFileData(cipherData, password, callback) {
   });
 }
 
-function decryptAndDownload() {
+function decryptVault() {
   var password = document.getElementById('decrypt-password-input').value;
 
   decryptFileData(encryptedFileData, password, function (err, plainText) {
+    displayDecryptMessage(false);
     plainTextFileData = JSON.parse(plainText);
 
     // Show container for decrypted files
@@ -428,6 +429,15 @@ function displayDragDropMsg() {
   }
 }
 
+function displayDecryptMessage(display) {
+  if (display) {
+    document.getElementById('decrypt-helper-message').style.display = 'block';
+  }
+  else {
+    document.getElementById('decrypt-helper-message').style.display = 'none';
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////// Utilities
 
 String.prototype.hashCode = function() {
@@ -478,7 +488,7 @@ function inputKeyUp(e) {
   e.which = e.which || e.keyCode;
   if(e.which == 13) {
     if (decryptionMode) {
-      decryptAndDownload();
+      decryptVault();
     }
     else {
       validateEncryptionFields() && createVault();
