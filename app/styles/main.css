@@ -147,6 +147,7 @@ input[type=file] {
 
 #selectFilesButton {
   vertical-align: middle;
+  margin-top: 5px;
 }
 
 #dragAndDropHere {
@@ -252,11 +253,22 @@ input[type=file] {
   color: #FF851B;
 }
 
-#drag-files-here-msg {
-  margin-top: 40px;
+#drag-msg-and-browse-button {
+  margin-top: 5px;
   text-align: center;
-  color: #FF4136;
+}
+
+#drag-files-here-msg {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight: 100;
-  font-size: 1.3em;
+  font-size: 1.7em;
+  color: #FF4136;
+}
+
+#or-browse-msg {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 1.2em;
+  color: #FF4136;
+  margin: 8px 0px;
 }

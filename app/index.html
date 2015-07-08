@@ -42,27 +42,34 @@
           <div class="row">
             <div class="col c12">
               <div id="dropzone">
-                <div id="drag-files-here-msg">
-                  <span>Drag files here <br />(or select with the button below)</span>
-                </div>
                 <div id="dropAfterMe"></div>
+
+                <div id="drag-msg-and-browse-button">
+                  <div id="drag-files-here-msg">Drag files here</div>
+                  <div id="or-browse-msg">or</div>
+
+                  <label for="uploadInput">
+                    <button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Browse</button>
+                    </label>
+                </div>
+
               </div>
             </div>
           </div>
 
-          <div class="row">
-            <div class="col c12">
-              <div style="text-align:center;">
-                <br />
-                <label for="uploadInput">
-                  <button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Select Files</button>
-                  <input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
-                </label>
+          <!--<div class="row">-->
+            <!--<div class="col c12">-->
+              <!--<div style="text-align:center;">-->
+                <!--<br />-->
+                <!--<label for="uploadInput">-->
+                  <!--<button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Select Files</button>-->
+                  <!--<input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>-->
+                <!--</label>-->
 
-              </div>
-            </div>
+              <!--</div>-->
+            <!--</div>-->
 
-          </div>
+          <!--</div>-->
 
         </div>
 
@@ -113,7 +120,8 @@
         </div>
 
       </div>
-
+      
+      <input type="file" id="uploadInput" style="display: none; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
     </form>
 
   </div>

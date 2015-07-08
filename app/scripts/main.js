@@ -169,7 +169,7 @@ function removeFile(filename) {
     removeFileDisplay(filename);
     plainTextFileData.splice(i, 1);
 
-    displayDragDropMsg();
+    showOrHideDragDropMsgAndSelectFiles();
   }
 }
 
@@ -199,7 +199,7 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
     'fileData' : stripDataPrefix(fileData)
   });
   displayFile(fileName, fileType, fileSize);
-  displayDragDropMsg();
+  showOrHideDragDropMsgAndSelectFiles();
 }
 
 function alreadyHaveFile(fileObj) {
@@ -419,13 +419,13 @@ function validateEncryptionFields() {
 
 // Misc Display
 
-function displayDragDropMsg() {
+function showOrHideDragDropMsgAndSelectFiles() {
   console.log(plainTextFileData.length);
   if (plainTextFileData.length == 0) {
-    document.getElementById('drag-files-here-msg').style.display = 'block';
+    document.getElementById('drag-msg-and-browse-button').style.display = 'block';
   }
   else {
-    document.getElementById('drag-files-here-msg').style.display = 'none';
+    document.getElementById('drag-msg-and-browse-button').style.display = 'none';
   }
 }
 
