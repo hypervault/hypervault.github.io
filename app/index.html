@@ -57,46 +57,39 @@
             </div>
           </div>
 
-          <!--<div class="row">-->
-            <!--<div class="col c12">-->
-              <!--<div style="text-align:center;">-->
-                <!--<br />-->
-                <!--<label for="uploadInput">-->
-                  <!--<button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Select Files</button>-->
-                  <!--<input type="file" id="uploadInput" style="visibility:hidden; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>-->
-                <!--</label>-->
-
-              <!--</div>-->
-            <!--</div>-->
-
-          <!--</div>-->
-
         </div>
 
         <div class="col c1">&nbsp;</div>
 
-        <div class="col c4">
 
-          <div class="row">
-            <div class="c12">
+        <div class="col c4 password-control-container">
+
+          <div class="password-control-group">
+
+            <div class="password-control-field">
               <input type="password" name="password_input" id="password_input" placeholder="Password"
                      onkeyup="validateEncryptionFields()" />
               <span class="validation-error" id="pw-required-msg">Password required</span>
             </div>
-          </div>
 
-          <div class="row">
-            <div class="col c12">
+            <div class="password-control-field">
               <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
                      onkeyup="validateEncryptionFields()" />
               <span class="validation-error" id="pw-required-msg2">Password confirmation required</span>
               <span class="validation-error" id="pw-mismatch-msg">Passwords don't match</span>
             </div>
+
+            <div class="password-control-field">
+              <button type="button" id="encrypt-button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
+            </div>
+
+          </div>
+        </div>
+
           </div>
 
           <div class="row">
             <div class="col c12">
-              <button type="button" class="btn floatLeft" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
               <div class="progress">
                 <div class="percent" id="encrypt-percent"></div>
                 <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
@@ -107,20 +100,18 @@
                     "/>
                 </svg>
               </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col c12">
               <br />
+
               <div id="encrypt-progress-summary"></div>
+
             </div>
           </div>
 
         </div>
 
       </div>
-      
+
       <input type="file" id="uploadInput" style="display: none; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
     </form>
 

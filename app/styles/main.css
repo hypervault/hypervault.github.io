@@ -115,9 +115,27 @@ A{text-decoration:none}
 input[type=password] {
   border: 1px solid #FF4136;
   border-radius: 4px;
-  /* height:25px; */
-  padding: 5px;
+  /*height:25px;*/
+  padding: 8px;
   font-size: 20px;
+  width: 202px;
+}
+
+#encrypt-button {
+  width: 100%;
+}
+
+.password-control-container {
+  text-align: center;
+}
+
+.password-control-group {
+  width: 220px;
+  margin: auto;
+}
+
+.password-control-field {
+  margin-top: 4px;
 }
 
 /* File upload */
@@ -229,7 +247,7 @@ input[type=file] {
 }
 
 .footer {
-  margin-top: 50px;
+  margin-top: 0px;
   text-align: center;
   color: #AAAAAA;
   font-size: .8em;
