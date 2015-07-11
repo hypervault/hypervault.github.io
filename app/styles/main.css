@@ -205,6 +205,11 @@ input[type=file] {
 
 /* Progress reporting */
 
+#encrypt-progress-summary {
+  float: left;
+  text-align: left;
+}
+
 #encrypt-progress-summary li, #decrypt-progress-summary li {
   color: #FF4136;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -216,13 +221,14 @@ input[type=file] {
   position: relative;
   float:left;
   margin-left: 10px;
-  height: 40px;
-  width: 40px;
+  height: 100px;
+  width: 100px;
+  display: none;
 }
 .progress .percent {
-  margin-top: -5px;
+  margin-top: 24px;
   text-align: center;
-  font-size: 11px;
+  font-size: 25px;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight:100;
   color: #FF4136;

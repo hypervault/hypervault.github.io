@@ -50,7 +50,7 @@
 
                   <label for="uploadInput">
                     <button type="button" class="btn" id="selectFilesButton" onclick="document.getElementById('uploadInput').click();">Browse</button>
-                    </label>
+                  </label>
                 </div>
 
               </div>
@@ -83,111 +83,117 @@
               <button type="button" id="encrypt-button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
             </div>
 
-          </div>
-        </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col c12">
-              <div class="progress">
-                <div class="percent" id="encrypt-percent"></div>
-                <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
-                  <path id="encrypt-progress-path" d="
-                    M50,1
-                    a49,49 0 0,1 0,98
-                    a49,49 0 0,1 0,-98
-                    "/>
-                </svg>
-              </div>
-
-              <br />
-
+            <div class="password-control-field">
               <div id="encrypt-progress-summary"></div>
-
             </div>
           </div>
-
         </div>
-
       </div>
 
-      <input type="file" id="uploadInput" style="display: none; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
-    </form>
+      <div class="row">
+        <div class="col c12">
+          <!--<div id="encrypt-progress" class="progress">-->
+            <!--<div class="percent" id="encrypt-percent"></div>-->
+            <!--<svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">-->
+              <!--<path id="encrypt-progress-path" d="M21.5,10.5 L178.5,10.5 C185.127,10.5 190.5,15.873 190.5,22.5 L190.5,78.5 C190.5,85.127 185.127,90.5 178.5,90.5 L21.5,90.5 C14.873,90.5 9.5,85.127 9.5,78.5 L9.5,22.5 C9.5,15.873 14.873,10.5 21.5,10.5 z" fill-opacity="0" stroke="#FF4136" stroke-width="1"/>-->
+            <!--</svg>-->
+          <!--</div>-->
 
+          <div id="encrypt-progress" class="progress">
+          <div class="percent" id="encrypt-percent"></div>
+          <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
+          <path id="encrypt-progress-path" d="
+          M50,1
+          a49,49 0 0,1 0,98
+          a49,49 0 0,1 0,-98
+          "/>
+          </svg>
+          </div>
+
+
+
+        </div>
+      </div>
+
+    </form>
   </div>
 
-  <div class="container decryption-container">
+  <input type="file" id="uploadInput" style="display: none; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
+  </form>
 
-    <div class="row">
-      <div class="col c12">
-        <h1 class="title">Hypervault</h1>
-      </div>
+</div>
+
+<div class="container decryption-container">
+
+  <div class="row">
+    <div class="col c12">
+      <h1 class="title">Hypervault</h1>
     </div>
+  </div>
 
-    <div class="row">
+  <div class="row">
 
-      <div class="col c4">
+    <div class="col c4">
 
-        <div class="row">
-          <div class="col c12">
-            <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
-            <span class="validation-error" id="decrypt-pw-required-msg">Password required</span>
-            <span class="validation-error" id="wrong-pw-msg">Wrong password</span>
-          </div>
+      <div class="row">
+        <div class="col c12">
+          <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
+          <span class="validation-error" id="decrypt-pw-required-msg">Password required</span>
+          <span class="validation-error" id="wrong-pw-msg">Wrong password</span>
         </div>
+      </div>
 
-        <div class="row">
-          <div class="col c12">
-            <button class="btn floatLeft" onclick="decryptVault();return false;">Decrypt</button>
-            <div class="progress">
-              <div class="percent" id="decrypt-percent"></div>
-              <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
-                <path id="decrypt-progress-path" d="
+      <div class="row">
+        <div class="col c12">
+          <button class="btn floatLeft" onclick="decryptVault();return false;">Decrypt</button>
+          <div class="progress">
+            <div class="percent" id="decrypt-percent"></div>
+            <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
+              <path id="decrypt-progress-path" d="
                   M50,1
                   a49,49 0 0,1 0,98
                   a49,49 0 0,1 0,-98
                   "/>
-              </svg>
-            </div>
+            </svg>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col c12">
-            <br />
-            <div id="decrypt-progress-summary"></div>
-          </div>
-        </div>
-
       </div>
 
-      <div class="col c1">&nbsp;</div>
-
-      <div class="col c7">
-        <div id="decrypt-helper-message">
-          <span class="thinRed">Enter the password to unlock this hypervault.</span>
-        </div>
-        <div id="decrypted-files">
-          <div id="add-after-me"></div>
+      <div class="row">
+        <div class="col c12">
+          <br />
+          <div id="decrypt-progress-summary"></div>
         </div>
       </div>
 
     </div>
 
+    <div class="col c1">&nbsp;</div>
+
+    <div class="col c7">
+      <div id="decrypt-helper-message">
+        <span class="thinRed">Enter the password to unlock this hypervault.</span>
+      </div>
+      <div id="decrypted-files">
+        <div id="add-after-me"></div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="footer">
-    <div class="footer-container">
+</div>
+
+<div class="footer">
+  <div class="footer-container">
       <span>
         <a href="https://github.com/hypervault">Github</a> |
         <a href="#">About</a> |
         <a href="#">Help</a>
       </span>
-      <hr />
-      <span>Project by <a href="http://calebmadrigal.com">Caleb Madrigal</a></span>
-    </div>
+    <hr />
+    <span>Project by <a href="http://calebmadrigal.com">Caleb Madrigal</a></span>
   </div>
+</div>
 
 </div>
 

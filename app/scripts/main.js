@@ -38,6 +38,7 @@ progressPath.style.transition = progressPath.style.WebkitTransition =
   'stroke-dashoffset 300ms linear';
 
 var updateProgress = function (percent) {
+//  document.getElementById("encrypt-progress").style.display = 'block';
   var progress = pathLength - pathLength*(percent/100.0);
   progressPath.style.strokeDashoffset = progress;
   if (decryptionMode) {
