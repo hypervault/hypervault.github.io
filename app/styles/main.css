@@ -125,6 +125,12 @@ input[type=password] {
   width: 100%;
 }
 
+#download-vault {
+  width: 100%;
+  display: none;
+  margin-top: 10px;
+}
+
 .password-control-container {
   text-align: center;
 }
@@ -206,7 +212,6 @@ input[type=file] {
 /* Progress reporting */
 
 #encrypt-progress-summary {
-  float: left;
   text-align: left;
 }
 
