@@ -114,8 +114,6 @@
           </svg>
           </div>
 
-
-
         </div>
       </div>
 
@@ -140,14 +138,30 @@
     <div class="col c4">
 
       <div class="row">
-        <div class="col c12">
-          <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
-          <span class="validation-error" id="decrypt-pw-required-msg">Password required</span>
-          <span class="validation-error" id="wrong-pw-msg">Wrong password</span>
+        <div class="col c12 password-control-container">
+
+          <div class="password-control-group">
+
+            <div class="password-control-field">
+              <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
+              <span class="validation-error" id="decrypt-pw-required-msg">Password required</span>
+              <span class="validation-error" id="wrong-pw-msg">Wrong password</span>
+            </div>
+
+            <div class="password-control-field">
+              <button id="decrypt-button" class="btn" onclick="decryptVault();return false;">Decrypt</button>
+            </div>
+
+            <div class="password-control-field">
+              <div id="decrypt-progress-summary"></div>
+            </div>
+          </div>
+
         </div>
+
       </div>
 
-      <div class="row">
+      <div class="row" style="display: none">
         <div class="col c12">
           <button class="btn floatLeft" onclick="decryptVault();return false;">Decrypt</button>
           <div class="progress">
@@ -163,12 +177,12 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col c12">
-          <br />
-          <div id="decrypt-progress-summary"></div>
-        </div>
-      </div>
+      <!--<div class="row">-->
+        <!--<div class="col c12">-->
+          <!--<br />-->
+          <!--<div id="decrypt-progress-summary"></div>-->
+        <!--</div>-->
+      <!--</div>-->
 
     </div>
 
@@ -176,7 +190,7 @@
 
     <div class="col c7">
       <div id="decrypt-helper-message">
-        <span class="thinRed">Enter the password to unlock this hypervault.</span>
+        <span class="thinRed">This is a locked hypervault.<br />Enter the password to access the files locked inside.</span>
       </div>
       <div id="decrypted-files">
         <div id="add-after-me"></div>
