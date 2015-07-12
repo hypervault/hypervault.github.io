@@ -1,6 +1,6 @@
 var hypervaultFormatVersion = 1;
 
-var decryptionMode = true;
+var decryptionMode = false;
 if (typeof _decryptionMode !== 'undefined') {
   decryptionMode = true;
 }
