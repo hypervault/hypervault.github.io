@@ -265,7 +265,7 @@ input[type=file] {
 }
 
 .footer {
-  margin-top: 10px;
+  margin-top: 0px;
   text-align: center;
   color: #AAAAAA;
   font-size: .8em;
