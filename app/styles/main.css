@@ -146,6 +146,13 @@ input[type=password] {
   margin-top: 4px;
 }
 
+.choose-password-msg {
+  color: #FF4136;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 1.3em;
+}
+
 /* File upload */
 
 input[type=file] {
