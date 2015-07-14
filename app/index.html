@@ -80,15 +80,11 @@
             </div>
 
             <div class="password-control-field">
-              <button type="button" id="encrypt-button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Encrypt</button>
+              <button type="button" id="encrypt-button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Lock vault</button>
             </div>
 
             <div class="password-control-field">
               <div id="encrypt-progress-summary"></div>
-            </div>
-
-            <div class="password-control-field">
-              <button type="button" id="download-vault" class="btn" onclick="downloadLockedVault();return false;">Download vault</button>
             </div>
           </div>
         </div>
@@ -149,7 +145,7 @@
             </div>
 
             <div class="password-control-field">
-              <button id="decrypt-button" class="btn" onclick="decryptVault();return false;">Decrypt</button>
+              <button id="decrypt-button" class="btn" onclick="decryptVault();return false;">Unlock vault</button>
             </div>
 
             <div class="password-control-field">

@@ -133,12 +133,6 @@ input[type=password] {
   width: 220px;
 }
 
-#download-vault {
-  width: 100%;
-  display: none;
-  margin-top: 10px;
-}
-
 .password-control-container {
   text-align: center;
 }

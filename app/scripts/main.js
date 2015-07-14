@@ -293,21 +293,13 @@ function saveVault(vaultData, vaultFileName) {
   saveAs(vaultBlob, vaultFileName);
 }
 
-var lockedVaultData = "";
-
-function downloadLockedVault() {
-  saveVault(lockedVaultData, "locked_hypervault.html");
-}
-
 function createVault() {
   var password = document.getElementById('password_input').value;
   var plainText = JSON.stringify(plainTextFileData);
 
   encryptFileData(plainText, password, function (err, cipherText) {
     renderVault(cipherText, function (vaultData) {
-      lockedVaultData = vaultData;
-      document.getElementById("download-vault").style.display = "block";
-//      saveVault(vaultData, "locked_hypervault.html");
+      saveVault(vaultData, "locked_hypervault.html");
     });
   });
 }
