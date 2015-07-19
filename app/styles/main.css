@@ -72,6 +72,13 @@ A{text-decoration:none}
   font-weight: 100;
 }
 
+.intro-text {
+  color: #FF4136;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  margin-top: 40px;
+}
+
 .outer {
   padding: 80px 80px;
 }
