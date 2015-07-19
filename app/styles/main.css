@@ -3,6 +3,10 @@ body {
   color: #333;
 }
 
+.encryption-container, decryption-container {
+  display: none;
+}
+
 .link-button {
   background:none!important;
   border:none;
@@ -27,7 +31,7 @@ body {
 
 .download-file {
   font-size: 1em;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 A{text-decoration:none}

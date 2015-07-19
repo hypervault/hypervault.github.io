@@ -5,6 +5,16 @@ if (typeof _decryptionMode !== 'undefined') {
   decryptionMode = true;
 }
 
+// Embedded SVG Images
+var downloadImage = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0' y='0' width='28' height='28' viewBox='0, 0, 100, 100'>" +
+"<g id='Layer_1'>" +
+    "<path d='M50.5,7.5 L50.5,82.5' fill-opacity='0' stroke='#FF4136' stroke-width='4'/>" +
+    "<path d='M49.5,82.5 L80.5,45.5' fill-opacity='0' stroke='#FF4136' stroke-width='4'/>" +
+    "<path d='M51.5,82.5 L20.5,45.5' fill-opacity='0' stroke='#FF4136' stroke-width='4'/>" +
+    "<path d='M20.5,92.5 L80.5,92.5' fill-opacity='0' stroke='#FF4136' stroke-width='4'/>" +
+  "</g>" +
+"</svg>";
+
 ///////////////////////////////////////////////////////////////////// Global file storage variables
 
 // Storage format for plainTextFileData
@@ -144,9 +154,9 @@ function displayFile(fileName, fileType, fileSize) {
 
 function displayDecryptedFile(fileName, fileType, fileSize) {
   var filenameHash = fileName.hashCode();
-  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c9"><div class="redText">'
+  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c11"><div class="redText">'
     + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
-    + '</div></div><div class="col-no-collapse c3"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">Download</button></div></div>';
+    + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
   insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
 }
 
