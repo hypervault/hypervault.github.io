@@ -136,17 +136,17 @@ function humanFileSize(size) {
 
 function displayFile(fileName, fileType, fileSize) {
   var filenameHash = fileName.hashCode();
-  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col c11"><div class="redText">'
+  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c11"><div class="redText">'
     + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
-    + '</div></div><div class="col c1"><button class="link-button delete-x" onclick="removeFile(\'' + fileName + '\')">X</button></div></div>';
+    + '</div></div><div class="col-no-collapse c1"><button class="link-button delete-x" onclick="removeFile(\'' + fileName + '\')">X</button></div></div>';
   insertHtml(fileDisplayHtml, document.getElementById("dropAfterMe"));
 }
 
 function displayDecryptedFile(fileName, fileType, fileSize) {
   var filenameHash = fileName.hashCode();
-  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col c9"><div class="redText">'
+  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c9"><div class="redText">'
     + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
-    + '</div></div><div class="col c3"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">Download</button></div></div>';
+    + '</div></div><div class="col-no-collapse c3"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">Download</button></div></div>';
   insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
 }
 
