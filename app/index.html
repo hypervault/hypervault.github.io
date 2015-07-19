@@ -58,6 +58,12 @@
         <div class="col c7">
 
           <div class="row">
+            <div class="col c12 select-files-msg">
+              Select files to lock in vault
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col c12">
               <div id="dropzone">
                 <div id="dropAfterMe"></div>
@@ -90,14 +96,14 @@
             <div class="password-control-field">
               <input type="password" name="password_input" id="password_input" placeholder="Password"
                      onkeyup="validateEncryptionFields()" />
-              <span class="validation-error" id="pw-required-msg">Password required</span>
+              <div class="validation-error" id="pw-required-msg">Password required</div>
             </div>
 
             <div class="password-control-field">
               <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
                      onkeyup="validateEncryptionFields()" />
-              <span class="validation-error" id="pw-required-msg2">Password confirmation required</span>
-              <span class="validation-error" id="pw-mismatch-msg">Passwords don't match</span>
+              <div class="validation-error" id="pw-required-msg2">Password confirmation required</div>
+              <div class="validation-error" id="pw-mismatch-msg">Passwords don't match</div>
             </div>
 
             <div class="password-control-field">
@@ -161,8 +167,8 @@
 
             <div class="password-control-field">
               <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
-              <span class="validation-error" id="decrypt-pw-required-msg">Password required</span>
-              <span class="validation-error" id="wrong-pw-msg">Wrong password</span>
+              <div class="validation-error" id="decrypt-pw-required-msg">Password required</div>
+              <div class="validation-error" id="wrong-pw-msg">Wrong password</div>
             </div>
 
             <div class="password-control-field">
