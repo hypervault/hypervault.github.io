@@ -303,6 +303,7 @@ input[type=file] {
   margin-left: auto;
   margin-right: auto;
   font-weight: 200;
+  margin-bottom: 40px;
 }
 
 .footer hr {
@@ -348,4 +349,9 @@ input[type=file] {
 }
 
 #download-hypervault-svg {
+}
+
+/* about.html */
+.help-text {
+  color: #888888;
 }
