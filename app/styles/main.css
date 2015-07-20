@@ -3,7 +3,7 @@ body {
   color: #333;
 }
 
-.encryption-container, decryption-container {
+.encryption-container, .decryption-container {
   display: none;
 }
 
@@ -11,9 +11,6 @@ body {
   background:none!important;
   border:none;
   padding:0!important;
-  /*font: inherit;*/
-  /*border is optional*/
-  /*border-bottom:1px solid #444;*/
   cursor: pointer;
   text-decoration: none;
   color: #FF4136;
@@ -36,11 +33,6 @@ body {
 
 A{text-decoration:none}
 
-/* .col { */
-/*   margin-left: 10px; */
-/*   margin-right: 10px; */
-/* } */
-
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -61,19 +53,23 @@ A{text-decoration:none}
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-.orangeText {
-  color: #FF851B;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-}
-
 .thinRed {
   color: #FF4136;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight: 100;
 }
 
+.orangeText {
+  color: #FF851B;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.title a {
+  color: #FF4136;
+}
+
 .intro-text {
-  color: #888888;
+  color: #FF851B;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight: 100;
   margin-top: 40px;
@@ -130,7 +126,6 @@ A{text-decoration:none}
   float:left;
 }
 
-
 .btn:hover {
   background: #ffffff;
   color: #FF851B;
@@ -183,7 +178,6 @@ input[type=file] {
   width: 220px;
 }
 
-/* File Drag-and-drop */
 #dropzone {
   min-height: 130px;
   /*border: 4px dashed #FF851B;*/
@@ -204,6 +198,26 @@ input[type=file] {
 #dragAndDropHere {
   font-size: 1.3em;
   text-align: center;
+}
+
+#drag-msg-and-browse-button {
+  margin-top: 5px;
+  text-align: center;
+}
+
+#drag-files-here-msg {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 1.7em;
+  color: #FF4136;
+}
+
+#or-browse-msg {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 1.2em;
+  color: #FF4136;
+  margin: 8px 0px;
 }
 
 .fileDisplay {
@@ -229,12 +243,8 @@ input[type=file] {
 }
 
 #decrypt-helper-message {
-  /*min-height: 50px;*/
-  /*border: 1px solid #FF851B;*/
-  /*border-radius: 4px;*/
   padding: 4px;
   font-size: 1.2em;
-  /*display: none;*/
 }
 
 /* Progress reporting */
@@ -262,6 +272,8 @@ input[type=file] {
   text-align: left;
 }
 
+/* Footer */
+
 .footer {
   margin-top: 0px;
   text-align: center;
@@ -284,42 +296,8 @@ input[type=file] {
   margin: 2px;
 }
 
-.footer a, a:visited, a:hover {
+.footer a, .footer a:visited, .footer a:hover {
   color: #FF851B;
-}
-
-#drag-msg-and-browse-button {
-  margin-top: 5px;
-  text-align: center;
-}
-
-#drag-files-here-msg {
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 1.7em;
-  color: #FF4136;
-}
-
-#or-browse-msg {
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 1.2em;
-  color: #FF4136;
-  margin: 8px 0px;
-}
-
-#download-hypervault-link {
-  color: #FF4136;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  margin-top: 10px;
-  position: fixed
-  right: 0;
-  top: 0;
-  width: 150px;
-}
-
-#download-hypervault-svg {
 }
 
 /* about.html */
