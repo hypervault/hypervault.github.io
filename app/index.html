@@ -36,21 +36,6 @@
         <p class="intro-text">Hypervault is a file encryption app. It outputs a password-locked vault with your encrypted files locked inside.</p>
       </div>
 
-
-      <!--<div class="col c1" style="text-align: center;">-->
-        <!--<a id="download-hypervault-link" href="#">-->
-          <!--<svg id="download-hypervault-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="30" height="30" viewBox="0, 0, 100, 100">-->
-            <!--<g id="Layer_1">-->
-              <!--<path d="M50.5,7.5 L50.5,82.5" fill-opacity="0" stroke="#FF4136" stroke-width="4"/>-->
-              <!--<path d="M49.5,82.5 L80.5,45.5" fill-opacity="0" stroke="#FF4136" stroke-width="4"/>-->
-              <!--<path d="M51.5,82.5 L20.5,45.5" fill-opacity="0" stroke="#FF4136" stroke-width="4"/>-->
-              <!--<path d="M20.5,92.5 L80.5,92.5" fill-opacity="0" stroke="#FF4136" stroke-width="4"/>-->
-            <!--</g>-->
-          <!--</svg>-->
-
-        <!--</a>-->
-      <!--</div>-->
-
     </div>
 
     <form name="uploadForm">
@@ -119,112 +104,70 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col c12">
-          <!--<div id="encrypt-progress" class="progress">-->
-            <!--<div class="percent" id="encrypt-percent"></div>-->
-            <!--<svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">-->
-              <!--<path id="encrypt-progress-path" d="M21.5,10.5 L178.5,10.5 C185.127,10.5 190.5,15.873 190.5,22.5 L190.5,78.5 C190.5,85.127 185.127,90.5 178.5,90.5 L21.5,90.5 C14.873,90.5 9.5,85.127 9.5,78.5 L9.5,22.5 C9.5,15.873 14.873,10.5 21.5,10.5 z" fill-opacity="0" stroke="#FF4136" stroke-width="1"/>-->
-            <!--</svg>-->
-          <!--</div>-->
-
-          <div id="encrypt-progress" class="progress">
-          <div class="percent" id="encrypt-percent"></div>
-          <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
-          <path id="encrypt-progress-path" d="
-          M50,1
-          a49,49 0 0,1 0,98
-          a49,49 0 0,1 0,-98
-          "/>
-          </svg>
-          </div>
-
-        </div>
-      </div>
-
     </form>
   </div>
 
   <input type="file" id="uploadInput" style="display: none; width:0px; height: 0px;" onchange="addSelectedFiles();" multiple accept>
   </form>
 
+  <div class="container decryption-container">
 
-
-<div class="container decryption-container">
-
-  <div class="row">
-    <div class="col c12">
-      <h1 class="title">Hypervault</h1>
+    <div class="row">
+      <div class="col c12">
+        <h1 class="title">Hypervault</h1>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
+    <div class="row">
 
-    <div class="col c4">
+      <div class="col c4">
 
-      <div class="row">
-        <div class="col c12 password-control-container">
+        <div class="row">
+          <div class="col c12 password-control-container">
 
-          <div class="password-control-group">
+            <div class="password-control-group">
 
-            <div class="password-control-field">
-              <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
-              <div class="validation-error" id="decrypt-pw-required-msg">Password required</div>
-              <div class="validation-error" id="wrong-pw-msg">Wrong password</div>
+              <div class="password-control-field">
+                <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
+                <div class="validation-error" id="decrypt-pw-required-msg">Password required</div>
+                <div class="validation-error" id="wrong-pw-msg">Wrong password</div>
+              </div>
+
+              <div class="password-control-field">
+                <button id="decrypt-button" class="btn" onclick="decryptVault();return false;">Unlock vault</button>
+              </div>
+
+              <div class="password-control-field">
+                <div id="decrypt-progress-summary"></div>
+              </div>
             </div>
 
-            <div class="password-control-field">
-              <button id="decrypt-button" class="btn" onclick="decryptVault();return false;">Unlock vault</button>
-            </div>
-
-            <div class="password-control-field">
-              <div id="decrypt-progress-summary"></div>
-            </div>
           </div>
 
         </div>
 
+        <div class="row" style="display: none">
+          <div class="col c12">
+            <button class="btn floatLeft" onclick="decryptVault();return false;">Decrypt</button>
+          </div>
+        </div>
+
       </div>
 
-      <div class="row" style="display: none">
-        <div class="col c12">
-          <button class="btn floatLeft" onclick="decryptVault();return false;">Decrypt</button>
-          <div class="progress">
-            <div class="percent" id="decrypt-percent"></div>
-            <svg class="progress-circle" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet" class="svg-content">
-              <path id="decrypt-progress-path" d="
-                  M50,1
-                  a49,49 0 0,1 0,98
-                  a49,49 0 0,1 0,-98
-                  "/>
-            </svg>
-          </div>
+      <div class="col c1">&nbsp;</div>
+
+      <div class="col c7">
+        <div id="decrypt-helper-message">
+          <span class="thinRed">This is a locked hypervault.<br />Enter the password to access the files locked inside.</span>
+        </div>
+        <div id="decrypted-files">
+          <div id="add-after-me"></div>
         </div>
       </div>
 
-      <!--<div class="row">-->
-        <!--<div class="col c12">-->
-          <!--<br />-->
-          <!--<div id="decrypt-progress-summary"></div>-->
-        <!--</div>-->
-      <!--</div>-->
-
-    </div>
-
-    <div class="col c1">&nbsp;</div>
-
-    <div class="col c7">
-      <div id="decrypt-helper-message">
-        <span class="thinRed">This is a locked hypervault.<br />Enter the password to access the files locked inside.</span>
-      </div>
-      <div id="decrypted-files">
-        <div id="add-after-me"></div>
-      </div>
     </div>
 
   </div>
-
-</div>
 
 </div>
 

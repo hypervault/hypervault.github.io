@@ -31,46 +31,16 @@ var plainTextFileData = [];
 var encryptedFileData = 'REPLACE_WITH_ENCRYPTED_DATA_';
 
 //////////////////////////////////////////////////////////////////////////////// Progress indicator
-var progressPath = null;
-if (decryptionMode) {
-  progressPath = document.getElementById('decrypt-progress-path');
-} else {
-  progressPath = document.getElementById('encrypt-progress-path');
-}
-
-var pathLength = progressPath.getTotalLength();
-progressPath.style.transition = progressPath.style.WebkitTransition =
-  'none';
-progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
-progressPath.style.strokeDashoffset = pathLength;
-progressPath.getBoundingClientRect();
-progressPath.style.transition = progressPath.style.WebkitTransition =
-  'stroke-dashoffset 300ms linear';
-
-var updateProgress = function (percent) {
-//  document.getElementById("encrypt-progress").style.display = 'block';
-  var progress = pathLength - pathLength*(percent/100.0);
-  progressPath.style.strokeDashoffset = progress;
-  if (decryptionMode) {
-    document.getElementById("decrypt-percent").innerHTML = percent+"%";
-  }
-  else {
-    document.getElementById("encrypt-percent").innerHTML = percent+"%";
-  }
-};
 
 // Progress hook
 var progress = [];
 
 var reset_progress = function () {
   progress = [];
-  updateProgress(0);
   if (decryptionMode) {
-    document.getElementById("decrypt-percent").innerHTML = '';
     document.getElementById("decrypt-progress-summary").innerHTML = '';
   }
   else {
-    document.getElementById("encrypt-percent").innerHTML = '';
     document.getElementById("encrypt-progress-summary").innerHTML = '';
   }
 };
@@ -94,7 +64,6 @@ var progress_hook_encrypt = function(p) {
       progressPercent += (15.0 * (pr.i / pr.total));
     }
   }
-  updateProgress(Math.floor(progressPercent));
   document.getElementById("encrypt-progress-summary").innerHTML = h;
 };
 
@@ -117,7 +86,6 @@ var progress_hook_decrypt = function(p) {
       progressPercent += (18.0 * (pr.i / pr.total));
     }
   }
-  updateProgress(Math.floor(progressPercent));
   document.getElementById("decrypt-progress-summary").innerHTML = h;
 };
 
@@ -135,7 +103,6 @@ function readFileData(fileObj, callback) {
   })(fileObj);
 
   // Read in the image file as a data URL.
-  // reader.readAsArrayBuffer
   reader.readAsDataURL(fileObj);
 }
 
