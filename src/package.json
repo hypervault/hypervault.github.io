@@ -1,9 +1,10 @@
 {
   "repository" : {
       "type" : "git",
-      "url" : "https://bitbucket.org/northmars/hypervault.git"
+      "url" : "https://github.com/hypervault/hypervault.github.io.git"
   },
   "name": "hypervault",
+  "description": "Hypervault is client-side file encryption web app.",
   "devDependencies": {
     "apache-server-configs": "^2.7.1",
     "grunt": "^0.4.5",
