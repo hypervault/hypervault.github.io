@@ -11,6 +11,12 @@ The source is in the `src` directory, and the deployment artifacts are in the ro
     - Hypervault has no server-side components.
 * Hypervault outputs another single `.html` file which contains both the encrypted file data, and a copy of itself.
 
+## Supported browsers
+
+* It seems to work in most modern desktop browsers
+* iOS support is coming soon
+* Android is not yet tested
+
 ## Development stuff
 
 ### How to build:
