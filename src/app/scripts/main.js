@@ -304,6 +304,9 @@ function decryptFileData(cipherData, password, callback) {
   var data = new triplesec.Buffer(cipherData, 'base64');
   var key = new triplesec.Buffer(password);
 
+  // If they have previously decrypted, remove the displayed files before adding them back
+  removeAllElementsByClass('fileDisplay');
+  
   reset_progress();
   displayWrongPasswordMsg(false);
   triplesec.decrypt({key:key, progress_hook: progress_hook_decrypt, data:data}, function (err, plainData) {
@@ -428,6 +431,12 @@ String.prototype.hashCode = function() {
   }
   return hash;
 };
+
+function removeAllElementsByClass(className) {
+  [].forEach.call(document.querySelectorAll('.'+className),function(e){
+    e.parentNode.removeChild(e);
+  });
+}
 
 Element.prototype.remove = function() {
   this.parentElement.removeChild(this);
