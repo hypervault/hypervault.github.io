@@ -16,20 +16,20 @@ The source is in the `src` directory, and the deployment artifacts are in the ro
 ### How to build:
 
     cd src
-	npm install
-	npm install -g grunt-cli
-	bower install
-	grunt build
+    npm install
+    npm install -g grunt-cli
+    bower install
+    grunt build
 
 ### How to serve production version:
 
-	./serve-dist.sh
+    ./serve-dist.sh
 
 Then `localhost:8000` in browser.
 
 ### How to run development server:
 
-	grunt serve
+    grunt serve
 
 ## How it works
 
@@ -56,8 +56,9 @@ Then `localhost:8000` in browser.
 
 ## Roadmap
 
+* Mobile support.
 * Allow in-browser viewing of files (without downloading them).
-* Testing more on mobile platforms (and browser support matrix).
+* Browser support matrix.
 * Add more help to app (to make it more self-explanatory).
 * Add "inline" texts, so users can create a hypervault with text without ever having to put that text in a file.
 * Add "Download Hypervault Offline" button.
