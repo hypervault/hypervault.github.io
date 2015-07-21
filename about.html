@@ -1,0 +1,107 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Hypervault</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" href="/favicon.png">
+
+
+  <style>
+body,input,select,textarea{background:0;border-radius:0;font:16px sans-serif;margin:0}.addon,.btn-sm,.nav,input,select,textarea{outline:0;font-size:14px}.smooth{-webkit-transition:all .2s;transition:all .2s}.btn,.nav a{text-decoration:none}.container{margin:0 20px;width:auto}@media(min-width:1310px){.container{margin:auto;width:1270px}}.btn,h2{font-size:2em}.row{margin:1% 0;overflow:auto}.col,.col-no-collapse{float:left}.c12,.table{width:100%}.c11{width:91.66%}.c10{width:83.33%}.c9{width:75%}.c8{width:66.66%}.c7{width:58.33%}.c6{width:50%}.c5{width:41.66%}.c4{width:33.33%}.c3{width:25%}.c2{width:16.66%}.c1{width:8.33%}@media(max-width:870px){.row .col{width:100%}}
+</style>
+
+  <style>
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#333}.decryption-container,.encryption-container{display:none}.link-button{background:none!important;border:none;padding:0!important;cursor:pointer;text-decoration:none;color:#FF4136;font-family:Helvetica Neue,Helvetica,Arial,sans-serif}.file-size{padding-top:10px}.delete-x{font-size:1em;margin-top:12px}.download-file{font-size:1em;margin-top:10px}A{text-decoration:none}.browsehappy{margin:.2em 0;background:#ccc;color:#000;padding:.2em 0}.title{font-family:Raleway,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:300%;font-weight:lighter;letter-spacing:4px;color:#FF4136}.redText{color:#FF4136;font-family:Helvetica Neue,Helvetica,Arial,sans-serif}.thinRed{color:#FF4136;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:100}.orangeText{color:#FF851B;font-family:Helvetica Neue,Helvetica,Arial,sans-serif}.title a{color:#FF4136}.intro-text{color:#FF851B;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:100;margin-top:40px}.choose-password-msg{color:#FF4136;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:100;font-size:1.3em}.select-files-msg{color:#FF4136;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:100;font-size:1.3em;text-align:center}.outer{padding:80px}.container{padding:0 30px 50px;margin-left:auto;margin-right:auto;max-width:750px;border:1px solid #FF851B;border-radius:12px}@media (max-width:870px){.outer{padding:25px}}.btn{border-radius:4px;color:#FF4136;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:100;background:#fff;font-size:1.8em;border:1px solid #FF4136;text-decoration:none}.floatLeft{float:left}.btn:hover{background:#fff;color:#FF851B;border:1px solid #FF851B;text-decoration:none}input[type=password]{border:1px solid #FF4136;border-radius:4px;padding:8px;font-size:20px;width:202px}#decrypt-button,#encrypt-button{width:100%}#decrypt-password-input{width:220px}.password-control-container{text-align:center}.password-control-group{width:220px;margin:auto}.password-control-field{margin-top:4px}input[type=file]{border-radius:4px;height:25px;padding:5px;font-size:14px;width:220px}#dropzone{min-height:130px;border:4px dashed #FF851B;border-radius:4px;padding:10px}#dropzone.hover{border:4px dashed #39CCCC}#selectFilesButton{vertical-align:middle;margin-top:5px}#dragAndDropHere{font-size:1.3em;text-align:center}#drag-msg-and-browse-button{margin-top:5px;text-align:center}#drag-files-here-msg{font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:100;font-size:1.7em;color:#FF4136}#or-browse-msg{font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:100;font-size:1.2em;color:#FF4136;margin:8px 0}.fileDisplay{border:1px solid #FF4136;border-radius:4px;padding:8px 5px}.fileDisplay span{color:#FF4136;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:200}#decrypted-files{min-height:130px;border:1px solid #FF851B;border-radius:4px;padding:10px;display:none}#decrypt-helper-message{padding:4px;font-size:1.2em}#decrypt-progress-summary,#encrypt-progress-summary{text-align:left}#decrypt-progress-summary li,#encrypt-progress-summary li{color:#FF4136;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;font-weight:100}.validation-error{display:none;color:#FF4136;font-size:.9em;text-align:left}.footer{margin-top:0;text-align:center;color:#AAA;font-size:.8em}.footer-container{width:155px;margin-left:auto;margin-right:auto;font-weight:200;margin-bottom:40px}.footer hr{border:0;border-bottom:1px dashed #ccc;background:#999;margin:2px}.footer a,.footer a:hover,.footer a:visited{color:#FF851B}.help-text{color:#888}
+</style>
+</head>
+<body>
+<!--[if lt IE 10]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="outer">
+  <div class="container">
+
+    <div class="row">
+      <div class="col c5">
+        <h1 class="title">Hypervault</h1>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col c12 help-text">
+        <h1>What is Hypervault?</h1>
+        <ul>
+          <li>Hypervault is a file encryption app.</li>
+          <li>Hypervault is entirely contained in a single .html file. As such, you can save the Hypervault page, and you will have a complete working copy of Hypervault which you can run offline.</li>
+          <li>Hypervault outputs another single .html file which contains both the encrypted file data, and a copy of itself.</li>
+        </ul>
+
+        <h1>How do I use Hypervault?</h1>
+        <ol>
+          <li>Drag files you want to encrypt into it</li>
+          <li>Choose a password with which to lock the hypervault (encrypt the files).</li>
+          <li>Click "Lock vault"</li>
+        </ol>
+
+        <h1>What is a locked vault?</h1>
+        <ul>
+          <li>A locked vault is a self-contained HTML file which contains both a copy of the Hypervault software and your encrypted file data.</li>
+          <li>You can simply open a locked vault in a browser and enter your password to decrypt and recover your files.</li>
+        </ul>
+
+        <h1>What's awesome about Hypervault?</h1>
+        <ul>
+          <li>Secure
+            <ul>
+              <li>Hypervault uses the Triplesec library, which uses 3 strong encryption algorithms (AES, Salsa20, and Blowfish), so you can rest assured that your data is safe, even if a couple of the ciphers are compromised.</li>
+              <li>Since Hypervault runs in a browser (which is sandboxed), you never have to worry that it doing anything nefarious on your computer.</li>
+              <li>Zero-knowledge: Hypervault encryption is all client-side, so even if Hypervault's servers are compromised, your data is still safe.</li>
+            </ul>
+          </li>
+          <li>Easy
+            <ul>
+              <li>No installations necessary, just run in the browser.</li>
+            </ul>
+          </li>
+          <li>Offline
+            <ul>
+              <li>Since Hypervault is a self-contained HTML file, you save it to your desktop and run it offline.</li>
+            </ul>
+          </li>
+          <li>Always usable
+            <ul>
+              <li>Since Hypervault packages itself with your encrypted data (in the form of a "locked_vault.html" file, you can always decrypt your data, even if Hypervault goes away.</li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  </form>
+
+</div>
+
+<div class="footer">
+  <div class="footer-container">
+      <span>
+        <a href="index.html">Home</a> |
+        <a href="https://github.com/hypervault">Github</a> |
+        <a href="about.html">FAQ</a>
+      </span>
+    <hr />
+    <span>Project by <a href="http://calebmadrigal.com">Caleb Madrigal</a></span>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>

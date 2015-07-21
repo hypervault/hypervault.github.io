@@ -1,6 +1,8 @@
 Hypervault
 ==========
 
+The source is in the `src` directory, and the deployment artifacts are in the root directory (as required by Github Pages).
+
 ## What is Hypervault?
 
 * Hypervault is client-side file encryption web app.
@@ -13,6 +15,7 @@ Hypervault
 
 ### How to build:
 
+    cd src
 	npm install
 	npm install -g grunt-cli
 	bower install
