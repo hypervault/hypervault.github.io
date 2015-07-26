@@ -164,7 +164,8 @@ function downloadFile(filename) {
   console.log('Download file: ' + filename);
   for (var i = 0; i < plainTextFileData.length; i++) {
     if (plainTextFileData[i].fileName == filename) {
-      var blob = new Blob([Base64Binary.decode(plainTextFileData[i].fileData)], {
+      var fileDataWithoutHeader = stripDataPrefix(plainTextFileData[i].fileData)
+      var blob = new Blob([Base64Binary.decode(fileDataWithoutHeader)], {
         type : plainTextFileData[i].fileType
       });
       saveAs(blob, filename);
