@@ -304,3 +304,11 @@ input[type=file] {
 .help-text {
   color: #888888;
 }
+
+
+/* Decrypted file image thumbnails */
+
+.image-thumbnail {
+  max-width:100px;
+  height: 46px;
+}

@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "FileSaver": "*",
-    "triplesec": "https://github.com/keybase/triplesec.git#~3.0.19"
+    "triplesec": "https://github.com/keybase/triplesec.git#~3.0.19",
+    "jsonlylightbox": "~0.5.1"
   }
 }
