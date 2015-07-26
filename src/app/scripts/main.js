@@ -119,13 +119,11 @@ function displayFile(fileName, fileType, fileSize) {
   insertHtml(fileDisplayHtml, document.getElementById("dropAfterMe"));
 }
 
-function displayDecryptedFile(fileName, fileType, fileSize) {
+function displayDecryptedFile(fileName, fileType, fileSize, fileData) {
   var filenameHash = fileName.hashCode();
 
-  if (fileType == 'image/png' || fileType == 'image/jpg') { // TODO: Add other image types
-
-    var imageData = "data:image/png;base64,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";
-    var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c3"><img class="image-thumbnail" src="' + imageData + '" data-jslghtbx></div><div class="col-no-collapse c8"><div class="redText">'
+  if (fileType == 'image/png' || fileType == 'image/jpeg' || fileType == 'image/gif') { // TODO: Add other image types
+    var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c3"><img class="image-thumbnail" src="' + fileData + '" data-jslghtbx-group="decrypted-file-thumbnails" data-jslghtbx></div><div class="col-no-collapse c8"><div class="redText">'
       + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
       + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
     insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
@@ -136,9 +134,6 @@ function displayDecryptedFile(fileName, fileType, fileSize) {
       + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
     insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
   }
-
-  var lightbox = new Lightbox();
-  lightbox.load();
 }
 
 function removeFileDisplay(filename) {
@@ -188,7 +183,7 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
     'fileName' : fileName,
     'fileType' : fileType,
     'fileSize' : fileSize,
-    'fileData' : stripDataPrefix(fileData)
+    'fileData' : fileData //stripDataPrefix(fileData)
   });
   console.log('File data for ' + fileName + ': ' + fileData);
   displayFile(fileName, fileType, fileSize);
@@ -352,8 +347,12 @@ function decryptVault() {
       var fileName = plainTextFileData[i].fileName;
       var fileType = plainTextFileData[i].fileType;
       var fileSize = plainTextFileData[i].fileSize;
-      displayDecryptedFile(fileName, fileType, fileSize);
+      var fileData = plainTextFileData[i].fileData;
+      displayDecryptedFile(fileName, fileType, fileSize, fileData);
     }
+
+    var lightbox = new Lightbox();
+    lightbox.load();
   });
 }
 

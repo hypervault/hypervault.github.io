@@ -309,6 +309,6 @@ input[type=file] {
 /* Decrypted file image thumbnails */
 
 .image-thumbnail {
-  max-width:100px;
+  max-width:60px;
   height: 46px;
 }
