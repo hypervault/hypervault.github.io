@@ -305,10 +305,11 @@ input[type=file] {
   color: #888888;
 }
 
-
 /* Decrypted file image thumbnails */
-
 .image-thumbnail {
   max-width:60px;
   height: 46px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
