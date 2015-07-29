@@ -209,7 +209,7 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
 function alreadyHaveFile(fileObj) {
   // For now, just don't upload if the file name already exists;
   for (var i = 0; i < plainTextFileData.length; i++) {
-    if (plainTextFileData[i].name == fileObj.name) {
+    if (plainTextFileData[i].fileName == fileObj.name) {
       return true;
     }
   }
@@ -224,7 +224,6 @@ function insertHtml(htmlStr, beforeNode) {
     frag.appendChild(temp.firstChild);
   }
   beforeNode.parentNode.insertBefore(frag, beforeNode);
-//  atNode.parentNode.insertBefore(frag, atNode.nextSibling);
 }
 
 function addFile(fileObj) {
