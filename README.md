@@ -1,6 +1,8 @@
 Hypervault
 ==========
 
+Live App: <https://hypervault.github.io/>
+
 The source is in the `src` directory, and the deployment artifacts are in the root directory (as required by Github Pages).
 
 ## What is Hypervault?
@@ -62,17 +64,18 @@ Then `localhost:8000` in browser.
 
 ## Roadmap
 
-* Mobile support.
-* Allow in-browser viewing of files (without downloading them).
-* Browser support matrix.
-* Add more help to app (to make it more self-explanatory).
-* Add "inline" texts, so users can create a hypervault with text without ever having to put that text in a file.
-* Add "Download Hypervault Offline" button.
-* Add some animations to clarify a few things.
-* Miscellaneous improvements to the UI.
-* More unit tests.
-* Clean up redundant CSS.
-* Improve code style.
-* Remove `FileSaver.js` dependency?
-* Add compression (lzma?) to encrypted data?
+- [x] Image file previews
+- [x] Multiple file support
+- [ ] Add more help to app (to make it more self-explanatory).
+- [ ] Add "Download Hypervault Offline" button.
+- [ ] iOS Support
+- [ ] Android Support
+- [ ] Text file preview
+- [ ] Add "inline" texts, so users can create a hypervault with text without ever having to put that text in a file.
+- [ ] Add some animations to clarify a few things.
+- [ ] More unit tests.
+- [ ] Clean up redundant CSS.
+- [ ] Improve code style.
+- [ ] Remove `FileSaver.js` dependency?
+- [ ] Add compression (lzma?) to encrypted data?
 
