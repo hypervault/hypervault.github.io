@@ -198,7 +198,6 @@ function insertHtml(htmlStr, beforeNode) {
     frag.appendChild(temp.firstChild);
   }
   beforeNode.parentNode.insertBefore(frag, beforeNode);
-//  atNode.parentNode.insertBefore(frag, atNode.nextSibling);
 }
 
 function addFile(fileObj) {

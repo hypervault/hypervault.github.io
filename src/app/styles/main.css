@@ -142,6 +142,10 @@ input[type=password] {
   width: 202px;
 }
 
+.full-width {
+  width: 100%;
+}
+
 #encrypt-button {
   width: 100%;
 }
@@ -154,17 +158,36 @@ input[type=password] {
   width: 220px;
 }
 
-.password-control-container {
+.control-container {
   text-align: center;
 }
 
-.password-control-group {
+.control-group {
   width: 220px;
   margin: auto;
 }
 
-.password-control-field {
+@media (max-width:870px) {
+  .control-group {
+    width: 100%;
+  }
+
+  .control-field {
+    width: 100%;
+  }
+
+  input[type=password] {
+    width: 99%;
+    padding: 8px 2px;
+  }
+}
+
+.control-field {
   margin-top: 4px;
+}
+
+.horizontal-space {
+  margin-top: 16px;
 }
 
 /* File upload */
