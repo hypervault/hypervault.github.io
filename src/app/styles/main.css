@@ -182,6 +182,13 @@ input[type=password] {
   }
 }
 
+@media (max-width:650px) {
+  input[type=password] {
+    width: 98%;
+    padding: 8px 2px;
+  }
+}
+
 .control-field {
   margin-top: 4px;
 }
