@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="control-field">
-                  <button type="button" id="insert-text-button" class="btn full-width" onclick="alert('Insert text!');">Insert text</button>
+                  <button type="button" id="insert-text-button" class="btn full-width" onclick="showModalEditor();">Insert text</button>
                 </div>
 
               </div>
@@ -208,7 +208,31 @@
   </div>
 </div>
 
+<!-- The Modal -->
+<div id="modal-text-editor" class="modal-bg">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="modal-close-button">×</span>
+
+    <div class="control-field">
+      <input type="text" name="modal-editor-filename" id="modal-editor-filename" placeholder="Filename">
+    </div>
+
+    <div class="control-field">
+      <textarea id="modal-editor-text"></textarea>
+    </div>
+
+    <div class="modal-button-panel">
+      <button id="modal-editor-cancel" class="btn" onclick="alert('cancel');return false;">Cancel</button>
+      <button id="modal-editor-save" class="btn" onclick="alert('hit');return false;">Insert text</button>
+    </div>
+
+    <div style="clear: both;"></div>
+
+  </div>
 </div>
+
 
 
 <!-- build:js(.) scripts/vendor.js -->

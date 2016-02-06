@@ -418,6 +418,34 @@ function displayDecryptMessage(display) {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////// Modal text editor
+
+// Get the modal
+var modal_editor = document.getElementById('modal-text-editor');
+
+// Get the <span> element that closes the modal
+var modal_close_button = document.getElementsByClassName("modal-close-button")[0];
+
+function showModalEditor() {
+  modal_editor.style.display = "block";
+}
+
+function hideModalEditor() {
+  modal_editor.style.display = "none";
+}
+
+// When the user clicks on <span> (x), close the modal
+modal_close_button.onclick = function() {
+  hideModalEditor();
+};
+
+// When the user clicks anywhere outside of the modal, close it
+//window.onclick = function(event) {
+//  if (event.target == modal) {
+//    modal.style.display = "none";
+//  }
+//};
+
 ////////////////////////////////////////////////////////////////////////////////////////// Utilities
 
 String.prototype.hashCode = function() {
