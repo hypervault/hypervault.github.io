@@ -194,7 +194,8 @@ function stripDataPrefix(dataUrl) {
   return dataUrl.slice(firstCommaIndex+1);
 }
 
-function fileReadCallback(fileName, fileType, fileSize, fileData) {
+function stageFileData(fileName, fileType, fileSize, fileData) {
+  console.log('stageFileData: ' + fileData);
   plainTextFileData.push({
     'fileName' : fileName,
     'fileType' : fileType,
@@ -204,6 +205,10 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
   console.log('File data for ' + fileName + ': ' + fileData);
   displayFile(fileName, fileType, fileSize);
   showOrHideDragDropMsgAndSelectFiles();
+}
+
+function fileReadCallback(fileName, fileType, fileSize, fileData) {
+  stageFileData(fileName, fileType, fileSize, stripDataPrefix(fileData));
 }
 
 function alreadyHaveFile(fileObj) {
@@ -232,8 +237,35 @@ function addFile(fileObj) {
     readFileData(fileObj, fileReadCallback);
   }
   else {
-    console.log('Already have that file bro!');
+    alert('That file is already in the vault');
   }
+}
+
+function ensureGoodTextFilename(originalFilename) {
+  var goodFilename = originalFilename;
+  if (originalFilename == '') {
+    goodFilename = 'message_' + Math.floor(10000000*Math.random()).toString() + '.txt'
+  }
+  else if (!originalFilename.endsWith('.txt')) {
+    goodFilename = originalFilename + '.txt';
+  }
+  return goodFilename;
+}
+
+function addInsertedText() {
+  var fileName = ensureGoodTextFilename(document.getElementById('modal-editor-filename').value);
+  var fileData = document.getElementById('modal-editor-text').value;
+  var fileSize = fileData.length;
+
+  if (fileData.length == 0) {
+    alert("Body is empty");
+    return;
+  }
+
+  var fileDataBase64 = window.btoa(fileData);
+
+  stageFileData(fileName, 'text/plain', fileSize, fileDataBase64);
+  hideModalEditor();
 }
 
 function addFiles(fileList) {
@@ -445,6 +477,36 @@ function displayDecryptMessage(display) {
     document.getElementById('decrypt-helper-message').style.display = 'none';
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////// Modal text editor
+
+// Get the modal
+var modal_editor = document.getElementById('modal-text-editor');
+
+// Get the <span> element that closes the modal
+var modal_close_button = document.getElementsByClassName("modal-close-button")[0];
+
+function showModalEditor() {
+  modal_editor.style.display = "block";
+}
+
+function hideModalEditor() {
+  document.getElementById('modal-editor-filename').value = '';
+  document.getElementById('modal-editor-text').value = '';
+  modal_editor.style.display = "none";
+}
+
+// When the user clicks on <span> (x), close the modal
+modal_close_button.onclick = function() {
+  hideModalEditor();
+};
+
+// When the user clicks anywhere outside of the modal, close it
+//window.onclick = function(event) {
+//  if (event.target == modal) {
+//    modal.style.display = "none";
+//  }
+//};
 
 ////////////////////////////////////////////////////////////////////////////////////////// Utilities
 

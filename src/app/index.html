@@ -71,38 +71,63 @@
 
         </div>
 
-        <div class="col c1">&nbsp;</div>
+        <div class="col c1"></div>
 
+        <div class="col c5">
 
-        <div class="col c4 password-control-container">
+          <div class="row">
 
-          <div class="password-control-group">
-            <div class="password-control-field choose-password-msg">
-              Choose a vault password
+            <div class="col c12 control-container">
+
+              <div class="control-group">
+                <div class="control-field choose-password-msg">
+                  Add files to vault
+                </div>
+
+                <div class="control-field">
+                  <button type="button" id="select-files-button" class="btn full-width" onclick="document.getElementById('uploadInput').click();">Select files</button>
+                </div>
+
+                <div class="control-field">
+                  <button type="button" id="insert-text-button" class="btn full-width" onclick="showModalEditor();">Insert text</button>
+                </div>
+
+              </div>
             </div>
 
-            <div class="password-control-field">
-              <input type="password" name="password_input" id="password_input" placeholder="Password"
-                     onkeyup="validateEncryptionFields()" />
-              <div class="validation-error" id="pw-required-msg">Password required</div>
-            </div>
+            <div class="col c12 control-container">
 
-            <div class="password-control-field">
-              <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
-                     onkeyup="validateEncryptionFields()" />
-              <div class="validation-error" id="pw-required-msg2">Password confirmation required</div>
-              <div class="validation-error" id="pw-mismatch-msg">Passwords don't match</div>
-            </div>
+              <div class="control-group horizontal-space">
+                <div class="control-field choose-password-msg">
+                  Choose a vault password
+                </div>
 
-            <div class="password-control-field">
-              <button type="button" id="encrypt-button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Lock vault</button>
-            </div>
+                <div class="control-field">
+                  <input type="password" name="password_input" id="password_input" placeholder="Password"
+                         onkeyup="validateEncryptionFields()" />
+                  <div class="validation-error" id="pw-required-msg">Password required</div>
+                </div>
 
-            <div class="password-control-field">
-              <div id="encrypt-progress-summary"></div>
-            </div>
-          </div>
-        </div>
+                <div class="control-field">
+                  <input type="password" name="password_input2" id="password_input2" placeholder="Retype Password"
+                         onkeyup="validateEncryptionFields()" />
+                  <div class="validation-error" id="pw-required-msg2">Password confirmation required</div>
+                  <div class="validation-error" id="pw-mismatch-msg">Passwords don't match</div>
+                </div>
+
+                <div class="control-field">
+                  <button type="button" id="encrypt-button" class="btn" onclick="validateEncryptionFields() && createVault();return false;">Lock vault</button>
+                </div>
+
+                <div class="control-field">
+                  <div id="encrypt-progress-summary"></div>
+                </div>
+              </div>
+
+            </div> <!-- c12 -->
+          </div> <!-- row -->
+        </div> <!-- c5 -->
+
       </div>
 
     </form>
@@ -124,21 +149,21 @@
       <div class="col c4">
 
         <div class="row">
-          <div class="col c12 password-control-container">
+          <div class="col c12 control-container">
 
-            <div class="password-control-group">
+            <div class="control-group">
 
-              <div class="password-control-field">
+              <div class="control-field">
                 <input type="password" name="decrypt-password-input" id="decrypt-password-input" placeholder="Password">
                 <div class="validation-error" id="decrypt-pw-required-msg">Password required</div>
                 <div class="validation-error" id="wrong-pw-msg">Wrong password</div>
               </div>
 
-              <div class="password-control-field">
+              <div class="control-field">
                 <button id="decrypt-button" class="btn" onclick="decryptVault();return false;">Unlock vault</button>
               </div>
 
-              <div class="password-control-field">
+              <div class="control-field">
                 <div id="decrypt-progress-summary"></div>
               </div>
             </div>
@@ -184,7 +209,31 @@
   </div>
 </div>
 
+<!-- The Modal -->
+<div id="modal-text-editor" class="modal-bg">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="modal-close-button">×</span>
+
+    <div class="control-field">
+      <input type="text" name="modal-editor-filename" id="modal-editor-filename" placeholder="Filename">
+    </div>
+
+    <div class="control-field">
+      <textarea id="modal-editor-text"></textarea>
+    </div>
+
+    <div class="modal-button-panel">
+      <button id="modal-editor-cancel" class="btn" onclick="hideModalEditor();return false;">Cancel</button>
+      <button id="modal-editor-save" class="btn" onclick="addInsertedText(); return false;">Insert text</button>
+    </div>
+
+    <div style="clear: both;"></div>
+
+  </div>
 </div>
+
 
 
 <!-- build:js(.) scripts/vendor.js -->
