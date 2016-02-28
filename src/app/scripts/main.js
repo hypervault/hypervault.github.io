@@ -5,8 +5,9 @@ if (typeof _decryptionMode !== 'undefined') {
   decryptionMode = true;
 }
 
-// Embedded SVG Images
-var downloadImage = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0' y='0' width='28' height='28' viewBox='0, 0, 100, 100'>" +
+/////////////////////////////////////////////////////////////////////////////// Embedded SVG Images
+var downloadImage = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' " +
+"xmlns:xlink='http://www.w3.org/1999/xlink' x='0' y='0' width='28' height='28' viewBox='0, 0, 100, 100'>" +
 "<g id='Layer_1'>" +
     "<path d='M50.5,7.5 L50.5,82.5' fill-opacity='0' stroke='#FF4136' stroke-width='4'/>" +
     "<path d='M49.5,82.5 L80.5,45.5' fill-opacity='0' stroke='#FF4136' stroke-width='4'/>" +
@@ -14,6 +15,16 @@ var downloadImage = "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns
     "<path d='M20.5,92.5 L80.5,92.5' fill-opacity='0' stroke='#FF4136' stroke-width='4'/>" +
   "</g>" +
 "</svg>";
+
+var genericFileIcon = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="image-thumbnail" ' +
+'xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="46" height="46" viewBox="0, 0, 100, 100">' +
+  '<g id="Layer_1"><g>' +
+      '<path d="M19.666,3.921 L19.411,97.079 L82.534,97.079 L82.534,29.211 L57.591,3.921 L19.666,3.921 z" ' +
+      'fill-opacity="0" stroke="#AAAAAA" stroke-width="7"/>' +
+      '<path d="M57.591,3.921 L57.591,31.275 L82.534,31.275" fill-opacity="0" stroke="#AAAAAA" stroke-width="7"/>' +
+  '</g></g>' +
+'</svg>';
+
 
 ///////////////////////////////////////////////////////////////////// Global file storage variables
 
@@ -119,12 +130,25 @@ function displayFile(fileName, fileType, fileSize) {
   insertHtml(fileDisplayHtml, document.getElementById("dropAfterMe"));
 }
 
-function displayDecryptedFile(fileName, fileType, fileSize) {
+function displayDecryptedFile(fileName, fileType, fileSize, fileData) {
   var filenameHash = fileName.hashCode();
-  var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c11"><div class="redText">'
-    + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
-    + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
-  insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
+
+  if (fileType == 'image/png' || fileType == 'image/jpeg' || fileType == 'image/gif') { // TODO: Add other image types
+    var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c3"><img class="image-thumbnail" src="' + fileData + '" data-jslghtbx-group="decrypted-file-thumbnails" data-jslghtbx></div><div class="col-no-collapse c8"><div class="redText">'
+      + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
+      + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
+    insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
+  }
+  else {
+    var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c3"> ' + genericFileIcon + '</div><div class="col-no-collapse c8"><div class="redText">'
+      + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
+      + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
+    insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
+//    var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c11"><div class="redText">'
+//      + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
+//      + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
+//    insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
+  }
 }
 
 function removeFileDisplay(filename) {
@@ -155,7 +179,8 @@ function downloadFile(filename) {
   console.log('Download file: ' + filename);
   for (var i = 0; i < plainTextFileData.length; i++) {
     if (plainTextFileData[i].fileName == filename) {
-      var blob = new Blob([Base64Binary.decode(plainTextFileData[i].fileData)], {
+      var fileDataWithoutHeader = stripDataPrefix(plainTextFileData[i].fileData)
+      var blob = new Blob([Base64Binary.decode(fileDataWithoutHeader)], {
         type : plainTextFileData[i].fileType
       });
       saveAs(blob, filename);
@@ -174,8 +199,9 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
     'fileName' : fileName,
     'fileType' : fileType,
     'fileSize' : fileSize,
-    'fileData' : stripDataPrefix(fileData)
+    'fileData' : fileData
   });
+  console.log('File data for ' + fileName + ': ' + fileData);
   displayFile(fileName, fileType, fileSize);
   showOrHideDragDropMsgAndSelectFiles();
 }
@@ -183,7 +209,7 @@ function fileReadCallback(fileName, fileType, fileSize, fileData) {
 function alreadyHaveFile(fileObj) {
   // For now, just don't upload if the file name already exists;
   for (var i = 0; i < plainTextFileData.length; i++) {
-    if (plainTextFileData[i].name == fileObj.name) {
+    if (plainTextFileData[i].fileName == fileObj.name) {
       return true;
     }
   }
@@ -198,15 +224,12 @@ function insertHtml(htmlStr, beforeNode) {
     frag.appendChild(temp.firstChild);
   }
   beforeNode.parentNode.insertBefore(frag, beforeNode);
-//  atNode.parentNode.insertBefore(frag, atNode.nextSibling);
 }
 
 function addFile(fileObj) {
   // TODO: if file size is different, upload and replace.
   if (!alreadyHaveFile(fileObj)) {
     readFileData(fileObj, fileReadCallback);
-    console.log('Got it');
-
   }
   else {
     console.log('Already have that file bro!');
@@ -339,8 +362,12 @@ function decryptVault() {
       var fileName = plainTextFileData[i].fileName;
       var fileType = plainTextFileData[i].fileType;
       var fileSize = plainTextFileData[i].fileSize;
-      displayDecryptedFile(fileName, fileType, fileSize);
+      var fileData = plainTextFileData[i].fileData;
+      displayDecryptedFile(fileName, fileType, fileSize, fileData);
     }
+
+    var lightbox = new Lightbox();
+    lightbox.load();
   });
 }
 
