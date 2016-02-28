@@ -209,11 +209,9 @@ function addFile(fileObj) {
   // TODO: if file size is different, upload and replace.
   if (!alreadyHaveFile(fileObj)) {
     readFileData(fileObj, fileReadCallback);
-    console.log('Got it');
-
   }
   else {
-    console.log('Already have that file bro!');
+    alert('That file is already in the vault');
   }
 }
 
