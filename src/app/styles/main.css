@@ -142,6 +142,19 @@ input[type=password] {
   width: 202px;
 }
 
+input[type=text] {
+  border: 1px solid #FF4136;
+  border-radius: 4px;
+  /*height:25px;*/
+  padding: 8px;
+  font-size: 20px;
+  width: 202px;
+}
+
+.full-width {
+  width: 100%;
+}
+
 #encrypt-button {
   width: 100%;
 }
@@ -154,17 +167,43 @@ input[type=password] {
   width: 220px;
 }
 
-.password-control-container {
+.control-container {
   text-align: center;
 }
 
-.password-control-group {
+.control-group {
   width: 220px;
   margin: auto;
 }
 
-.password-control-field {
+@media (max-width:870px) {
+  .control-group {
+    width: 100%;
+  }
+
+  .control-field {
+    width: 100%;
+  }
+
+  input[type=password] {
+    width: 99%;
+    padding: 8px 2px;
+  }
+}
+
+@media (max-width:650px) {
+  input[type=password] {
+    width: 98%;
+    padding: 8px 2px;
+  }
+}
+
+.control-field {
   margin-top: 4px;
+}
+
+.horizontal-space {
+  margin-top: 16px;
 }
 
 /* File upload */
@@ -312,4 +351,72 @@ input[type=file] {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Modal text editor */
+
+/* The Modal (background) */
+.modal-bg {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  /*border: 1px solid #888;*/
+  border: 1px solid #FF851B;
+  border-radius: 12px;
+  width: 90%;
+}
+
+/*.container {*/
+  /*padding: 0px 30px 50px 30px;*/
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  /*max-width: 750px;*/
+  /*border: 1px solid #FF851B;*/
+  /*border-radius: 12px;*/
+/*}*/
+
+/* The Close Button */
+.modal-close-button {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.modal-button-panel {
+  float: right;
+}
+
+.modal-close-button:hover,
+.modal-close-button:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modal-editor-text {
+  border: 1px solid #FF4136;
+  border-radius: 4px;
+  width: 99%;
+  min-height: 100px;
+  padding: 8px;
+  margin-right: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
