@@ -208,7 +208,8 @@ function stageFileData(fileName, fileType, fileSize, fileData) {
 }
 
 function fileReadCallback(fileName, fileType, fileSize, fileData) {
-  stageFileData(fileName, fileType, fileSize, stripDataPrefix(fileData));
+  //stageFileData(fileName, fileType, fileSize, stripDataPrefix(fileData));
+  stageFileData(fileName, fileType, fileSize, fileData);
 }
 
 function alreadyHaveFile(fileObj) {
