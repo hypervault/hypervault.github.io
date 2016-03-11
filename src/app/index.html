@@ -209,7 +209,7 @@
   </div>
 </div>
 
-<!-- The Modal -->
+<!-- Modal text editor -->
 <div id="modal-text-editor" class="modal-bg">
 
   <!-- Modal content -->
@@ -227,6 +227,26 @@
     <div class="modal-button-panel">
       <button id="modal-editor-cancel" class="btn" onclick="hideModalEditor();return false;">Cancel</button>
       <button id="modal-editor-save" class="btn" onclick="addInsertedText(); return false;">Insert text</button>
+    </div>
+
+    <div style="clear: both;"></div>
+
+  </div>
+</div>
+
+<!-- Modal text viewer -->
+<div id="modal-text-viewer" class="modal-bg">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="modal-viewer-close-button">×</span>
+
+    <div class="control-field">
+      <input type="text" name="modal-viewer-filename" id="modal-viewer-filename" readonly>
+    </div>
+
+    <div class="control-field">
+      <textarea id="modal-viewer-text" readonly></textarea>
     </div>
 
     <div style="clear: both;"></div>

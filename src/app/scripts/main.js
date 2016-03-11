@@ -139,15 +139,17 @@ function displayDecryptedFile(fileName, fileType, fileSize, fileData) {
       + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
     insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
   }
+  else if (fileType == 'text/plain') {
+    var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c3" onclick="showModalViewer(\'' + fileName + '\',\'' + fileData + '\');">' + genericFileIcon + '</div><div class="col-no-collapse c8"><div class="redText">'
+      + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
+      + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
+    insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
+  }
   else {
     var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c3"> ' + genericFileIcon + '</div><div class="col-no-collapse c8"><div class="redText">'
       + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
       + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
     insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
-//    var fileDisplayHtml = '<div id="' + filenameHash + '" class="row fileDisplay"><div class="col-no-collapse c11"><div class="redText">'
-//      + fileName + '</div><div class="file-size orangeText">' + humanFileSize(fileSize)
-//      + '</div></div><div class="col-no-collapse c1"><button class="link-button download-file" onclick="downloadFile(\'' + fileName + '\')">' + downloadImage + '</button></div></div>';
-//    insertHtml(fileDisplayHtml, document.getElementById("add-after-me"));
   }
 }
 
@@ -508,6 +510,33 @@ modal_close_button.onclick = function() {
 //    modal.style.display = "none";
 //  }
 //};
+
+////////////////////////////////////////////////////////////////////////////////// Modal text editor
+
+// Get the modal
+var modal_viewer = document.getElementById('modal-text-viewer');
+
+// Get the <span> element that closes the modal
+var modal_viewer_close_button = document.getElementsByClassName("modal-viewer-close-button")[0];
+
+function showModalViewer(fileName, fileData) {
+  var decodedFileData = window.atob(fileData);
+  document.getElementById('modal-viewer-filename').value = fileName;
+  document.getElementById('modal-viewer-text').value = decodedFileData;
+  modal_viewer.style.display = "block";
+}
+
+function hideModalViewer() {
+  document.getElementById('modal-viewer-filename').value = '';
+  document.getElementById('modal-viewer-text').value = '';
+  modal_viewer.style.display = "none";
+}
+
+// When the user clicks on <span> (x), close the modal
+modal_viewer_close_button.onclick = function() {
+  hideModalViewer();
+};
+
 
 ////////////////////////////////////////////////////////////////////////////////////////// Utilities
 
