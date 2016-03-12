@@ -391,7 +391,8 @@ input[type=file] {
 /*}*/
 
 /* The Close Button */
-.modal-close-button {
+.modal-close-button,
+.modal-viewer-close-button {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
@@ -404,13 +405,15 @@ input[type=file] {
 }
 
 .modal-close-button:hover,
-.modal-close-button:focus {
+.modal-close-button:focus,
+.modal-viewer-close-button:hover,
+.modal-viewer-close-button:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
 
-#modal-editor-text {
+#modal-editor-text, #modal-viewer-text {
   border: 1px solid #FF4136;
   border-radius: 4px;
   width: 99%;
